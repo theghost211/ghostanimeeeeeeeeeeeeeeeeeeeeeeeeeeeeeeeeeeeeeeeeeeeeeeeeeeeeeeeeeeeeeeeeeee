@@ -1,371 +1,313 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ghost Anime - موقع الانمي الأول</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ghost Anime</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background-color: #121212;
+      color: white;
+    }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-            color: #fff;
-            min-height: 100vh;
-        }
+    header {
+      padding: 20px;
+      background-color: #1c1c1c;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      position: relative;
+    }
 
-        .header {
-            background: rgba(0, 0, 0, 0.8);
-            padding: 1rem 0;
-            text-align: center;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-        }
+    .search-share {
+      display: flex;
+      gap: 10px;
+      padding: 10px;
+      justify-content: center;
+    }
 
-        .logo {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: #ff6b6b;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
+    .search-share input {
+      flex: 1;
+      padding: 10px;
+      border-radius: 20px;
+      border: none;
+      outline: none;
+    }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
+    .search-share button {
+      background-color: #1e90ff;
+      border: none;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 20px;
+      cursor: pointer;
+    }
 
-        .anime-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
+    .categories {
+      display: flex;
+      overflow-x: auto;
+      gap: 10px;
+      padding: 10px;
+    }
 
-        .anime-card {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
+    .categories button {
+      background-color: #2a2a2a;
+      border: 1px solid #444;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 25px;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      flex-shrink: 0;
+    }
 
-        .anime-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        }
+    .categories button.active,
+    .categories button:hover {
+      background-color: #1e90ff;
+      border-color: #1e90ff;
+    }
 
-        .anime-image {
-            width: 100%;
-            height: 300px;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-        }
+    .section-title {
+      padding: 10px 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
 
-        .anime-card:hover .anime-image {
-            transform: scale(1.05);
-        }
+    .anime-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 10px;
+      padding: 0 10px 60px;
+    }
 
-        .anime-info {
-            padding: 1.5rem;
-        }
+    .anime-card {
+      background-color: #1f1f1f;
+      border-radius: 10px;
+      overflow: hidden;
+      text-align: center;
+      font-size: 14px;
+      cursor: pointer;
+    }
 
-        .anime-title {
-            font-size: 1.3rem;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-            color: #fff;
-        }
+    .anime-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
 
-        .anime-rating {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
+    .anime-card .title {
+      padding: 5px 5px 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
 
-        .stars {
-            color: #ffd700;
-            font-size: 1.2rem;
-        }
+    .anime-card .ep {
+      color: #aaa;
+      font-size: 12px;
+      margin-bottom: 8px;
+    }
 
-        .rating-number {
-            background: #ff6b6b;
-            padding: 0.2rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: bold;
-        }
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: #1c1c1c;
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 0;
+      border-top: 1px solid #333;
+      font-size: 14px;
+      z-index: 1000;
+    }
 
-        .anime-detail {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 1000;
-            overflow-y: auto;
-        }
+    .bottom-nav a {
+      color: white;
+      text-align: center;
+      font-size: 12px;
+      text-decoration: none;
+      user-select: none;
+    }
 
-        .detail-content {
-            max-width: 800px;
-            margin: 2rem auto;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            border-radius: 20px;
-            overflow: hidden;
-            position: relative;
-        }
+    .bottom-nav a:hover {
+      color: #1e90ff;
+    }
 
-        .close-btn {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: #ff6b6b;
-            border: none;
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 1.5rem;
-            z-index: 1001;
-        }
+    .anime-details {
+      display: none;
+      padding: 20px;
+      text-align: center;
+    }
 
-        .detail-image {
-            width: 100%;
-            height: 400px;
-            object-fit: cover;
-        }
+    .anime-details img {
+      width: 200px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
 
-        .detail-info {
-            padding: 2rem;
-        }
+    .anime-details h2 {
+      margin-top: 10px;
+    }
 
-        .detail-title {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            color: #ff6b6b;
-        }
+    .anime-details p {
+      color: #ccc;
+      padding: 0 20px;
+    }
 
-        .episodes-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-top: 2rem;
-        }
+    .episodes {
+      padding: 10px 20px 60px;
+    }
 
-        .episode-card {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 1rem;
-            border-radius: 10px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
+    .episodes button {
+      margin: 5px 3px;
+      padding: 6px 10px;
+      border-radius: 15px;
+      border: none;
+      background-color: #333;
+      color: white;
+      cursor: pointer;
+    }
 
-        .episode-card:hover {
-            background: rgba(255, 107, 107, 0.2);
-            border-color: #ff6b6b;
-            transform: scale(1.05);
-        }
+    .episodes button.active {
+      background-color: #1e90ff;
+    }
 
-        .episode-card.active {
-            background: rgba(255, 107, 107, 0.3);
-            border-color: #ff6b6b;
-        }
+    .episodes video {
+      width: 100%;
+      margin-top: 15px;
+      border-radius: 10px;
+      background-color: black;
+    }
 
-        .video-container {
-            margin-top: 1rem;
-            border-radius: 10px;
-            overflow: hidden;
-            background: #000;
-            display: none;
-            min-height: 300px;
-        }
-
-        .video-container iframe {
-            width: 100%;
-            height: 400px;
-            border: none;
-            background: #fff;
-        }
-
-        .video-loading {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 400px;
-            background: #1a1a2e;
-            color: #fff;
-            font-size: 1.2rem;
-        }
-
-        .episode-title {
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-        }
-
-        .search-container {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .search-box {
-            padding: 1rem;
-            font-size: 1.1rem;
-            border: none;
-            border-radius: 50px;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-            backdrop-filter: blur(10px);
-        }
-
-        .search-box::placeholder {
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-            @media (max-width: 768px) {
-            .container {
-                padding: 1rem;
-            }
-            
-            .anime-grid {
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-                gap: 1rem;
-            }
-            
-            .logo {
-                font-size: 2rem;
-            }
-            
-            .detail-content {
-                margin: 1rem;
-            }
-            
-            .episodes-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .anime-image {
-                height: 250px;
-            }
-            
-            .detail-image {
-                height: 300px;
-            }
-            
-            .video-container iframe {
-                height: 250px;
-                background: #fff;
-            }
-            
-            .video-loading {
-                height: 250px;
-            }
-        }
-
-        .loading {
-            text-align: center;
-            padding: 2rem;
-        }
-
-        .spinner {
-            border: 4px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top: 4px solid #ff6b6b;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-    </style>
+    .back-button {
+      background-color: #1e90ff;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      margin: 20px;
+    }
+  </style>
 </head>
 <body>
-    <div class="header">
-        <div class="logo">👻 Ghost Anime</div>
-    </div>
 
-    <div class="container">
-        <div class="search-container">
-            <input type="text" class="search-box" placeholder="Search for your favorite anime..." id="searchBox">
-        </div>
+<header>Ghost Anime</header>
 
-        <div class="anime-grid" id="animeGrid">
-        </div>
-    </div>
+<div class="search-share">
+  <input type="text" id="search" placeholder="ابحث عن أنمي..." oninput="searchAnime()">
+  <button onclick="shareSite()">📤 شارك</button>
+</div>
 
-    <div class="anime-detail" id="animeDetail">
-        <div class="detail-content">
-            <button class="close-btn" onclick="closeDetail()">&times;</button>
-            <img class="detail-image" id="detailImage" src="" alt="">
-            <div class="detail-info">
-                <h2 class="detail-title" id="detailTitle"></h2>
-                <div class="anime-rating" id="detailRating"></div>
-                <p id="detailDescription"></p>
-                <h3 style="margin: 2rem 0 1rem 0; color: #ff6b6b;">Episodes:</h3>
-                <div class="episodes-grid" id="episodesGrid"></div>
-            </div>
-        </div>
-    </div>
+<div class="categories">
+  <button class="active" onclick="filterCategory('الكل')">الكل</button>
+  <button onclick="filterCategory('انميات جديده')">انميات جديده</button>
+  <button onclick="filterCategory('أكشن')">أكشن</button>
+  <button onclick="filterCategory('مغامرات')">مغامرات</button>
+  <button onclick="filterCategory('سيارات')">سيارات</button>
+  <button onclick="filterCategory('كوميدي')">كوميدي</button>
+  <button onclick="filterCategory('عته')">عته</button>
+  <button onclick="filterCategory('شياطين')">شياطين</button>
+  <button onclick="filterCategory('دراما')">دراما</button>
+  <button onclick="filterCategory('خيال')">خيال</button>
+  <button onclick="filterCategory('لعبة')">لعبة</button>
+  <button onclick="filterCategory('تاريخي')">تاريخي</button>
+  <button onclick="filterCategory('رعب')">رعب</button>
+  <button onclick="filterCategory('سحر')">سحر</button>
+  <button onclick="filterCategory('فنون قتال')">فنون قتال</button>
+  <button onclick="filterCategory('آلي')">آلي</button>
+  <button onclick="filterCategory('عسكري')">عسكري</button>
+  <button onclick="filterCategory('موسيقى')">موسيقى</button>
+  <button onclick="filterCategory('الغموض')">الغموض</button>
+  <button onclick="filterCategory('شرطة')">شرطة</button>
+  <button onclick="filterCategory('نفسي')">نفسي</button>
+  <button onclick="filterCategory('رومانسي')">رومانسي</button>
+  <button onclick="filterCategory('الساموراي')">الساموراي</button>
+  <button onclick="filterCategory('مدرسي')">مدرسي</button>
+  <button onclick="filterCategory('مصاص دماء')">مصاص دماء</button>
+</div>
 
-    <script>
-        const animeData = [
-            {
-                id: 1,
-                title: "Wistoria: Wand and Sword",
-                image: "https://cdn.discordapp.com/attachments/1375584914803523587/1376312829375676436/Screenshot_------_com.png?ex=6836d8f5&is=68358775&hm=d7c5d964e80588517572e88ea141b2a4bf590ca06bea7238069d88f47f04f776&",
-                rating: 8.5,
-                description: "قصة الانمي : سعيًا للوفاء بوعده الذي قطعه لصديقة الطفولة، يلتحق ويل سيرفورت بأكاديمية ريغاردن السحرية بهدف الوصول إلى قمة العالم السحري هناك مشكلة واحدة فقط لا يمكنه استخدام السحر! هل ستكون مهارات سيفه هي المفتاح لفتح إمكاناته الحقيقية؟ ",
-                episodes: [
-                    { number: 1, title: " 1 حلقة", url: "https://server.sanime.net/Video/11537/1.mp4" },
-                    { number: 2, title: " 2 حلقة", url: "https://server.sanime.net/Video/11537/2.mp4" },
-                    { number: 3, title: " 3 حلقة", url: "https://server.sanime.net/Video/11537/3.mp4" },
-                    { number: 4, title: " 4 حلقة", url: "https://server.sanime.net/Video/11537/4.mp4" },
-                    { number: 5, title: " 5 حلقة", url: "https://server.sanime.net/Video/11537/5.mp4" },
-                    { number: 6, title: " 6(معطلة)", url: "" },
-                    { number: 7, title: " 7 حلقة", url: "https://server.sanime.net/Video/11537/7SD.mp4" },
-                    { number: 8, title: " 8 حلقة", url: "https://server.sanime.net/Video/11537/8.mp4" },
-                    { number: 9, title: " 9 حلقة", url: "https://server.sanime.net/Video/11537/9.mp4" },
-                    { number: 10, title: " 10 حلقة", url: "https://server.sanime.net/Video/11537/10.mp4" },
-                    { number: 11, title: " 11 حلقة", url: "https://server.sanime.net/Video/11537/11.mp4" },
-                ]
-            },
-            {
-                id: 2,
-                title: "Attack on Titan",
-                image: "https://cdn.discordapp.com/attachments/1375584914803523587/1376312829648310403/IMG_4391.jpg?ex=6836d8f5&is=68358775&hm=80762d3dc705764faff13ff36f19fdbda39958ace6059ed8befc168b3699fa51&",
-                rating: 9.0,
-                description: "قصة الانمي :",
-                episodes: [
-                    { number: 1, title: "حلقة 1", url: "https://example.com/aot1" },
-                    { number: 2, title: "حلقة 2", url: "https://example.com/aot2" },
-                    { number: 3, title: "حلقة 3 ", url: "https://example.com/aot3" }
-                ]
-            },
-            {
-                id: 3,
-                title: "Demon Slayer",
-                image: "https://cdn.discordapp.com/attachments/1375584914803523587/1376312830005088376/IMG_4390.jpg?ex=6836d8f5&is=68358775&hm=ec339f6743638cb4b5650001f7904e7da8dc9caefc5537104a7c6e2a5d756335&",
-                rating: 8.7,
-                description: " قصة الانمي : تتحدث القصة عن تانجيرو و هو الابنُ الأكبرُ لعائلته التي فقدت مُعيلها. وفي أحد الأيام يُخاصرُ تانجيرو بالذهاب إلى قريةٍ أخرى لبيع الفحم. ولكن نظرًا لحلولِ الليل وانتشارٍ إشاعاتٍ بوجودٍ شياطينَ تجولُ قريبًا في الجبال، ينتهي بهِ الحالُ بأن يبيتَ ليلتهُ في منزلِ شخص آخرَ بدلاً من العودةِ إلى منزله. وحيلَ يصلُ إلى منزلوِ في الصباحِ التالي، يجدُ مأساةً مريعةً في انتظّاره",
-                episodes: [
-                    
+<div class="section-title">الأنميات</div>
+<div class="anime-grid" id="anime-list"></div>
+
+<div class="anime-details" id="anime-details">
+  <button class="back-button" onclick="showMain()">← رجوع</button>
+  <img id="anime-img" src="" alt="صورة الأنمي" />
+  <h2 id="anime-title">عنوان</h2>
+  <p id="anime-description">وصف الأنمي</p>
+  <div class="section-title">الحلقات</div>
+  <div class="episodes" id="episodes-list"></div>
+</div>
+
+<div class="bottom-nav">
+  <a href="#">🏠<br>الرئيسية</a>
+</div>
+
+<script>
+  const animeData = [
+  {
+    id: 1,
+    title: "Wistoria: Wand and Sword",
+    categories: [" أكشن", "مغامرات", "كوميدي"],
+   description: "قصة الانمي : سعيًا للوفاء بوعده الذي قطعه لصديقة الطفولة، يلتحق ويل سيرفورت بأكاديمية ريغاردن السحرية بهدف الوصول إلى قمة العالم السحري هناك مشكلة واحدة فقط لا يمكنه استخدام السحر! هل ستكون مهارات سيفه هي المفتاح لفتح إمكاناته الحقيقية؟ ",
+    image: "https://cdn.discordapp.com/attachments/1375584914803523587/1376312829375676436/Screenshot_------_com.png?ex=68420db5&is=6840bc35&hm=3cb512eb216fa1275ee268da8a9aaca06208b5265f10a42886e2ebd25dbc741d&",
+    episodes: [
+      { number: 1, title: " 1 حلقة", url: "https://server.sanime.net/Video/11537/1.mp4" },
+      { number: 2, title: " 2 حلقة", url: "https://server.sanime.net/Video/11537/2.mp4" },       { number: 3, title: " 3 حلقة", url: "https://server.sanime.net/Video/11537/3.mp4" },
+      { number: 4, title: " 4 حلقة", url: "https://server.sanime.net/Video/11537/4.mp4" },
+      { number: 5, title: " 5 حلقة", url: "https://server.sanime.net/Video/11537/5.mp4" },              { number: 6, title: " 6(معطلة)", url: "" },
+      { number: 7, title: " 7 حلقة", url: "https://server.sanime.net/Video/11537/7SD.mp4" },
+      { number: 8, title: " 8 حلقة", url: "https://server.sanime.net/Video/11537/8.mp4" },
+      { number: 9, title: " 9 حلقة", url: "https://server.sanime.net/Video/11537/9.mp4" },
+      { number: 10, title: " 10 حلقة", url: "https://server.sanime.net/Video/11537/10.mp4" },
+      { number: 11, title: " 11 حلقة", url: "https://server.sanime.net/Video/11537/11.mp4" },
+    ]
+  },
+  {
+    id: 2,
+    title: "Attack on Titan",
+    categories: [" أكشن", "مغامرات", "كوميدي"],
+    description: "  قصة الانمي : منذ مائة عام تقريباً ظهر عدو جديد للبشرية العمالقة وكان عدوه الخارق الذي استطاع جر الجتس البشري إلى حافة الإنقؤاض ومن أجل الهرب منهم تمكن البشر من الإحتماء زراء ثلاثة جدران جدار ماريا جدار روز جدار سينا ولكن بعد مرور مائة سنة يتعرض البشر للهجوم من عملاقين خاصين عملاق ضخم و عملاق مدرّع ويدمران الجدار ويدخلان إلى مدينة حدودية بجانب عدد ضخم من العمالقة إيرين ميكاسا ارمين أبطال هذه القصة كانو يعيشون في هذه المدينة ويتمكنون من الهرب منها ويهرب من تبقى من البشر ويتركون جدار ماريا وكل مايحميه وراؤهم متخلين بذلك عن ثلث أراضيهم وما يقارب خمس تعدادهم السكاني ومن هنا تبدأ معركتنا ضد هؤلاء العمالقة",
+    image: "https://cdn.discordapp.com/attachments/1375584914803523587/1376312829648310403/IMG_4391.jpg?ex=68420db5&is=6840bc35&hm=d1cff2789fa55c27ff2131d7108396e12969a7a0b1812130ce667e78eacb3be3&",
+    episodes: [
+     { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video3/679/1.mp4" },            { number: 2, title: "حلقة 2", url: "https://server.sanime.net/Video3/679/2.mp4" },
+     { number: 3, title: "حلقة 3", url: "https://server.sanime.net/Video3/679/3.mp4" },
+     { number: 4, title: "حلقة 4", url: "https://server.sanime.net/Video3/679/4.mp4" },
+     { number: 5, title: "حلقة 5", url: "https://server.sanime.net/Video3/679/5.mp4" },
+     { number: 6, title: "6 حلقة ", url: "https://server.sanime.net/Video3/679/6.mp4" },
+     { number: 7, title: "حلقة 7", url: "https://server.sanime.net/Video3/679/7.mp4" },
+     { number: 8, title: "حلقة 8", url: "https://server.sanime.net/Video3/679/8.mp4" },
+     { number: 9, title: "حلقة 9", url: "https://server.sanime.net/Video3/679/9.mp4" },
+     { number: 10, title: "حلقة 10", url: "https://server.sanime.net/Video3/679/10.mp4" },
+     { number: 11, title: "حلقة 11", url: "https://server.sanime.net/Video3/679/11.mp4" },
+     { number: 12, title: "حلقة 12", url: "https://server.sanime.net/Video3/679/12.mp4" },
+     { number: 13, title: "حلقة 13", url: "https://server.sanime.net/Video3/679/13.mp4" },
+     { number: 14, title: "حلقة 14", url: "https://server.sanime.net/Video3/679/14.mp4" },
+     { number: 15, title: "حلقة 15", url: "https://server.sanime.net/Video3/679/15.mp4" },
+     { number: 16, title: "حلقة 16", url: "https://server.sanime.net/Video3/679/16.mp4" },
+     { number: 17, title: "حلقة 17", url: "https://server.sanime.net/Video3/679/17.mp4" },
+     { number: 18, title: "حلقة 18", url: "https://server.sanime.net/Video3/679/18.mp4" },
+     { number: 19, title: "حلقة 19", url: "https://server.sanime.net/Video3/679/19.mp4" },
+     { number: 20, title: "حلقة 20", url: "https://server.sanime.net/Video3/679/20.mp4" },
+     { number: 21, title: "حلقة 21", url: "https://server.sanime.net/Video3/679/21.mp4" },
+     { number: 22, title: "حلقة 22", url: "https://server.sanime.net/Video3/679/22.mp4" },
+     { number: 23, title: "حلقة 23", url: "https://server.sanime.net/Video3/679/23.mp4" },
+     { number: 24, title: "حلقة 24", url: "https://server.sanime.net/Video3/679/24.mp4" },
+     { number: 25, title: "حلقة 25", url: "https://server.sanime.net/Video3/679/25.mp4" },
+     { number: 26, title: "حلقة 26", url: "https://server.sanime.net/Video3/679/26.mp4" },
+    ]
+      },
+     {
+       id: 3,
+       title: "Demon Slayer",
+       image: "https://cdn.discordapp.com/attachments/1375584914803523587/1376312830005088376/IMG_4390.jpg?ex=68420db5&is=6840bc35&hm=76603b32cdb6fa4a24c0275dfc660cb1435eb13bfb6c1fcacb294221b68e0c83&",
+       categories: [" أكشن", "مغامرات", "كوميدي", "رومانسي", "شياطين"],
+       description: " قصة الانمي : تتحدث القصة عن تانجيرو و هو الابنُ الأكبرُ لعائلته التي فقدت مُعيلها. وفي أحد الأيام يُخاصرُ تانجيرو بالذهاب إلى قريةٍ أخرى لبيع الفحم. ولكن نظرًا لحلولِ الليل وانتشارٍ إشاعاتٍ بوجودٍ شياطينَ تجولُ قريبًا في الجبال، ينتهي بهِ الحالُ بأن يبيتَ ليلتهُ في منزلِ شخص آخرَ بدلاً من العودةِ إلى منزله. وحيلَ يصلُ إلى منزلوِ في الصباحِ التالي، يجدُ مأساةً مريعةً في انتظّاره",
+       episodes: [
   { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video3/529/1.mp4" },
   { number: 2, title: "حلقة 2", url: "https://server.sanime.net/Video3/529/2.mp4" },
   { number: 3, title: "حلقة 3", url: "https://server.sanime.net/Video3/529/3.mp4" },
@@ -392,27 +334,26 @@
   { number: 24, title: "حلقة 24", url: "https://server.sanime.net/Video3/529/24.mp4" },
   { number: 25, title: "حلقة 25", url: "https://server.sanime.net/Video3/529/25.mp4" },
   { number: 26, title: "حلقة 26", url: "https://server.sanime.net/Video3/529/26.mp4" },
-                ]
-            },
-            {
-                id: 4,
-                title: "One Piece",
-                image: "https://cdn.discordapp.com/attachments/1375584914803523587/1376422024066633758/IMG_4426.jpg?ex=683695e7&is=68354467&hm=c510a874760f572b47a7447a9c9298f715c61ff18f3105fad6c97f60979cb6d5&",
-                rating: 9.1,
-                description: "قصة الانمي :",
-                episodes: [
-                    { number: 1, title: "حلقة 1 ", url: "https://example.com/op1" },
-                    { number: 2, title: "حلقة 2", url: "https://example.com/op2" }
-                ]
-            },
-            {
-                id: 5,
-                title: "Naruto",
-                image: "https://cdn.discordapp.com/attachments/1375584914803523587/1376312830281908274/IMG_4389.jpg?ex=6836d8f5&is=68358775&hm=a4987bc17ae5e8a0feff26751b7fb793b15a3d6045afd53f8d007195ddff5875&",
-                rating: 8.4,
-                description: "قصة الانمي :",
-                episodes: [
-  { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video3/529/1.mp4" },
+        ]
+      },
+     {
+       id: 4,
+        title: "One Piece",
+        categories: ["اكشن", ""],
+        image: "https://cdn.discordapp.com/attachments/1375584914803523587/1376422024066633758/IMG_4426.jpg?ex=6841caa7&is=68407927&hm=6b1ac0bb850a169026eac39f795da8eaaf0256c2cafce16103dab6077e1b0416&",
+        description: "قصة الانمي : ",
+        episodes: [
+         { number: 1, title: "غير موجود", url: "https://www.youtube.com/watch?v=3AujKfZIaUk" },
+       ]
+      },
+     {
+       id: 5,
+        title: "Naruto",
+        categories: ["اكشن", "مغامرات", "كوميدي"],
+        image: "https://cdn.discordapp.com/attachments/1375584914803523587/1376312830281908274/IMG_4389.jpg?ex=68420db5&is=6840bc35&hm=5de6cb3dcdcc7f14b81b52f1a7966efef0e8762a30c07ef62c48cbe9c80366e1&",
+        description: "قصة الانمي : الموسم الرابع لسلسلة Jojo no Limyou na Bouken ",
+        episodes: [
+        { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video3/529/1.mp4" },
   { number: 2, title: "حلقة 2", url: "https://server.sanime.net/Video3/529/2.mp4" },
   { number: 3, title: "حلقة 3", url: "https://server.sanime.net/Video3/529/3.mp4" },
   { number: 4, title: "حلقة 4", url: "https://server.sanime.net/Video3/529/4.mp4" },
@@ -632,17 +573,16 @@
   { number: 218, title: "حلقة 218", url: "https://server.sanime.net/Video3/529/218.mp4" },
   { number: 219, title: "حلقة 219", url: "https://server.sanime.net/Video3/529/219.mp4" },
   { number: 220, title: "حلقة 220", url: "https://server.sanime.net/Video3/529/220.mp4" },
-                ]
-            },
-            {
-                id: 5,
-                title: "Dragon Ball Z",
-                image: "https://cdn.discordapp.com/attachments/1375584914803523587/1376313621356875846/IMG_4400.jpg?ex=6836d9b2&is=68358832&hm=b0dc4ee457379e8137c1488f7253b5fc549c8b5c5ef7a29fd8b68f776eafa32a&",
-                rating: 8.8,
-                description: "  قصة انمي : يعود جوكو مجدداً لكن هذه المرة لديه ابن ويدعى جوهان، ولكن لن تظل الأمور بخير للأبد حيث يكمل مغامراته ويواجه العديد من الأعداء، كما يصنع العديد من الأصدقاء، ويحاول ابقاء وقت لعائلته الجديدة، فهل سينجح في ذلك ؟..",
-                episodes: [
-                    
-  { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video3/659/1.mp4" },
+       ]
+      },
+     {
+       id: 6,
+        title: "Dragon Ball Z",
+        categories: ["كوميدي", "خيال", "أكشن"],
+        description: "  قصة انمي : يعود جوكو مجدداً لكن هذه المرة لديه ابن ويدعى جوهان، ولكن لن تظل الأمور بخير للأبد حيث يكمل مغامراته ويواجه العديد من الأعداء، كما يصنع العديد من الأصدقاء، ويحاول ابقاء وقت لعائلته الجديدة، فهل سينجح في ذلك ؟..",
+        image: "https://cdn.discordapp.com/attachments/1375584914803523587/1376313621356875846/IMG_4400.jpg?ex=68420e72&is=6840bcf2&hm=148f8822acea774bd633106e8bbec2132574eb84909dd37d177e741b3d0d7597&",
+        episodes: [
+          { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video3/659/1.mp4" },
   { number: 2, title: "حلقة 2", url: "https://server.sanime.net/Video3/659/2.mp4" },
   { number: 3, title: "حلقة 3", url: "https://server.sanime.net/Video3/659/3.mp4" },
   { number: 4, title: "حلقة 4", url: "https://server.sanime.net/Video3/659/4.mp4" },
@@ -933,14 +873,14 @@
   { number: 289, title: "حلقة 289", url: "https://server.sanime.net/Video3/659/289.mp4" },
   { number: 290, title: "حلقة 290", url: "https://server.sanime.net/Video3/659/290.mp4" },
   { number: 291, title: "حلقة 291", url: "https://server.sanime.net/Video3/659/291.mp4" },
-         ]
+       ]
       },
      {
-       id: 6,
+       id: 7,
         title: " Your Forma",
-        image: "https://cdn.discordapp.com/attachments/1375584914803523587/1376412461866946643/IMG_4345.png?ex=683735bf&is=6835e43f&hm=13913ef26fc5754a20daa6827d204b79815c664c96fff3498e5ef6c557d1713a&",
-        rating: 6.73,
+        categories: ["كوميدي", " أكشن", " آلي"],
         description: " قصة الانمي : القصة تتحدث عن المحققة إيشيكاهيدا و شريكها الآلي هارولد لوكرافت أثناء كشفهما لجرائم مقعدة باستخدام تقنية ية=ور فورما التي تسجل كل تجربة للمستخديمن تستكشف الرواية قضايا الذكاء الاصطناعي الأخلاق و العلاقات بين البشر و الآلات ",
+        image: "https://cdn.discordapp.com/attachments/1375584914803523587/1376412461866946643/IMG_4345.png?ex=6841c1bf&is=6840703f&hm=382164e6a59729646408aab0f8b69897a40f772baa169c4af79ea19d33ce0d17&",
         episodes: [
           { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video/11677/1.mp4" },
           { number: 2, title: "حلقة 2", url: "https://server.sanime.net/Video/11677/2.mp4" },
@@ -950,17 +890,18 @@
           { number: 6, title: " 6 حلقة", url: "https://server.sanime.net/Video/11677/6.mp4" },
           { number: 7, title: " حلقة 7", url: "https://server.sanime.net/Video/11677/7.mp4"},
           { number: 8, title: "8 حلقة", url: "https://server.sanime.net/Video/11677/8.mp4" },
+          { number: 9, title: "9 حلقة", url: "https://server.sanime.net/Video/11677/9.mp4" },
+          { number: 10, title: "10 حلقة", url: "https://server.sanime.net/Video/11677/10.mp4" },
         ]
       },
      {
-       id: 7,
-         title: "Dragon Ball ",
-         image: "https://cdn.discordapp.com/attachments/1375584914803523587/1375940102156718191/IMG_4402.jpg?ex=6836cf54&is=68357dd4&hm=925693b647d8eb40d0b19a7a1ae3d90d078d43f89568c321c87809cda616ac67&",
-         rating: 8.8,
-         description: " قصة الانمي : يوجد سبع كرات تنين وليس واحدة تختلف بعدد النجوم في باطنها فهناك نت فيع واحدة و اخرى فيه اربعة عندما يجمع أحد هذه الكرات السبع يخرج تنين ابدي يدعى شينزون و يحثث له امنيته ولقد ابتكر هذه الكرات سكان كوكب ناميط القدامى لحماية كوكبهم ثم عندما اتى كامي وهو أحد هؤلاء السكان إلىالارض صنع كراة مماثلة لكنها اصغر حجما ",
-         episodes: [
-          
-  { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video3/658/1.mp4" },
+       id: 8,
+        title: "Dragon Ball ",
+        categories: ["كوميدي", "أكشن", "خيال"],
+       description: " قصة الانمي : يوجد سبع كرات تنين وليس واحدة تختلف بعدد النجوم في باطنها فهناك نت فيع واحدة و اخرى فيه اربعة عندما يجمع أحد هذه الكرات السبع يخرج تنين ابدي يدعى شينزون و يحثث له امنيته ولقد ابتكر هذه الكرات سكان كوكب ناميط القدامى لحماية كوكبهم ثم عندما اتى كامي وهو أحد هؤلاء السكان إلىالارض صنع كراة مماثلة لكنها اصغر حجما ",
+        image: "https://cdn.discordapp.com/attachments/1375584914803523587/1375940102156718191/IMG_4402.jpg?ex=68420414&is=6840b294&hm=c4bda107432105d05c72fa2381bc5a43f1ac7771ba98466a60e9ec6b8ab9e9ca&",
+        episodes: [
+          { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video3/658/1.mp4" },
   { number: 2, title: "حلقة 2", url: "https://server.sanime.net/Video3/658/2.mp4" },
   { number: 3, title: "حلقة 3", url: "https://server.sanime.net/Video3/658/3.mp4" },
   { number: 4, title: "حلقة 4", url: "https://server.sanime.net/Video3/658/4.mp4" },
@@ -1113,18 +1054,16 @@
   { number: 151, title: "حلقة 151", url: "https://server.sanime.net/Video3/658/151.mp4" },
   { number: 152, title: "حلقة 152", url: "https://server.sanime.net/Video3/658/152.mp4" },
   { number: 153, title: "حلقة 153", url: "https://server.sanime.net/Video3/658/153.mp4" },
-     
-    ]
+     ]
       },
      {
        id: 9,
-        title: " The Super Cube (Chao Neng Lifang: Chaofan Pian) ",
-        image: "https://cdn.discordapp.com/attachments/1375584914803523587/1376218796892753961/IMG_4406.png?ex=68372a22&is=6835d8a2&hm=811c235e0be53396af08d707498c2a1fde4784d7eff2c4f95bb066cff78e5258&",
-        rating: 9.0,
+        title: " The Super Cube (Chao Neng Lifang: Chaofan Pian)",
+        categories: ["رومانسي", "أكشن"],
         description: "قصة الانمي : القصة تتحدث عن صبي يكتسب قوة من مكعب غامض فتتغير حياته بعدها",
+        image: "https://cdn.discordapp.com/attachments/1375584914803523587/1376218796892753961/IMG_4406.png?ex=6841b622&is=684064a2&hm=ad3105a11e77c1d301596b67e4069413c87ffb1a389d90a6e1de5cc21a8b5de0&",
         episodes: [
-           
-  { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video/11669/1.mp4" },
+          { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video/11669/1.mp4" },
   { number: 2, title: "حلقة 2", url: "https://server.sanime.net/Video/11669/2.mp4" },
   { number: 3, title: "حلقة 3", url: "https://server.sanime.net/Video/11669/3.mp4" },
   { number: 4, title: "حلقة 4", url: "https://server.sanime.net/Video/11669/4.mp4" },
@@ -1136,14 +1075,14 @@
   { number: 10, title: "حلقة 10", url: "https://server.sanime.net/Video/11669/10.mp4" },
   { number: 11, title: "حلقة 11", url: "https://server.sanime.net/Video/11669/11.mp4" },
   { number: 12, title: "{الأخيرة} حلقة 12", url: "https://server.sanime.net/Video/11669/12.mp4" },
-    ]
+        ]
       },
      {
-       id: 8,
-        title: "Jujutsu Kaisen ",
-        image: "https://cdn.discordapp.com/attachments/1375584914803523587/1376218797295271966/IMG_4388.jpg?ex=68372a22&is=6835d8a2&hm=7ef4ec79d28dba4151b8cc5dc4c56ec47455d28a445fb5a67469f09ad91571d0&",
-        rating: 8.55,
+       id: 10,
+        title: "Jujutsu Kaisen",
+        categories: ["كوميدي", "أكشن", "خيال"],
         description: "  قصة الانمي : يوجي و هو فتى عبقري ذو بنية جسدية قوية ويتسكعمع نادي الظواهر الخارقة في المدرسة ذات يوم تتغير حياة يوجي بعد وفاة جده ة نقابلته لميغومي فوشيغورو الذي أخبره بأنه يملتك غرضًا ملعونًا عندها تتوالى المصائب على يوجي ",
+        image: "https://cdn.discordapp.com/attachments/1375584914803523587/1376218797295271966/IMG_4388.jpg?ex=6841b622&is=684064a2&hm=c65d8939c52aee9e07f1254b47f7df981d3029bfa41c4ed223436bb917088b65&",
         episodes: [
           { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video3/3888/1.mp4" },
           { number: 2, title: "حلقة 2", url: "https://server.sanime.net/Video3/3888/2.mp4" },
@@ -1169,14 +1108,14 @@
           { number: 22, title: "22 حلقة", url: "https://server.sanime.net/Video3/3888/22.mp4" },
           { number: 23, title: "23 حلقة", url: "https://server.sanime.net/Video3/3888/23.mp4" },
           { number: 24, title: "24 حلقة", url: "https://server.sanime.net/Video3/3888/24.mp4" },
-    ]
+       ]
       },
      {
-       id: 9,
+       id: 11,
         title: "Kijin Gentoushou",
-        image: "https://cdn.discordapp.com/attachments/1355948052149567639/1376651194306531428/Kijin-Gentoushou-413x559.png?ex=6836c295&is=68357115&hm=cf672f86133a73b3d2ceeb25e76bb0834a060f4b004edf7058dc4600ade84604&",
-        rating: 7.59,
+        categories: ["خيال", " أكشن"],
         description: "قصة الانمي : في عصر إيدو كانت هناك ضريح تُدعى إيتسوكيهيمي في قرية كادنو الجلبية جينتا ",
+        image: "https://cdn.discordapp.com/attachments/1375584914803523587/1377809665622282290/Kijin-Gentoushou-413x559.png?ex=684239be&is=6840e83e&hm=adeeab99160e3c83856e26fefe4a84cc598a46f5fc632989cbfb17acc9b3e68c&",
         episodes: [
           { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video/11673/1.mp4" },
           { number: 2, title: "حلقة 2", url: "https://server.sanime.net/Video/11673/2.mp4" },
@@ -1187,14 +1126,15 @@
           { number: 7, title: "حلقة 7", url: "https://server.sanime.net/Video/11673/7.mp4" },
           { number: 8, title: "حلقة 8", url: "https://server.sanime.net/Video/11673/8.mp4" },
           { number: 9, title: "حلقة 9", url: "https://server.sanime.net/Video/11673/9.mp4" },
-    ]
+          { number: 10, title: "حلقة 10", url: "https://server.sanime.net/Video/11673/10.mp4" },
+       ]
       },
      {
-       id: 10,
+       id: 12,
         title: "Lazarus",
-        image: "https://cdn.discordapp.com/attachments/1355948052149567639/1376728182350282822/1742320995858.jpg?ex=68370a49&is=6835b8c9&hm=f072b1d9e5efb076c77e82e623e1975246451da9c6cd2f95a9397883a4922517&",
-        rating: 7.72,
-    description: "  قصة الانمي : تدور في العام 2052 حقبة من السلام والازدهار غير المسبوقين تسود في جميع انحاء العالم السبب في ذلك لقد تحرر الجنس البشري من المرض و الألم طور عالم الأعصاب الدكتور سكينر الحائز على جائزة نوبل دواءً معجزة هابونا هاوبنا سرعان ما يصبح في كل مكان هابونا رسمياً يختفي الدكتور سكينر بعد ثلاث سنوات كان قج بدأ نسيان أصل هابونا والاعتياد على العالم الجديد عندها غفط يعود الدكتور سكينر عن شيء خطير للغاية أن كل من اخذ هابونا سيموت بعد حوالي ثلاث سنوات من ذلك الان الموت قادم من أجل هذا العالم وهو يقترب مسرعأ استجابة  لهذا التهديد تم جمع فرقة عمل خاصة من 5 عملاء من جميع انحاء العالم لإنقاذ البشؤية هذه الجموعه تسمى لازاروس فهل يمكهم العثور على سكينر و تطوير علاج قبل نفاد الوقت ؟ ",
+        categories: ["كوميدي", "أكشن", "فنون قتال"],
+         description: "  قصة الانمي : تدور في العام 2052 حقبة من السلام والازدهار غير المسبوقين تسود في جميع انحاء العالم السبب في ذلك لقد تحرر الجنس البشري من المرض و الألم طور عالم الأعصاب الدكتور سكينر الحائز على جائزة نوبل دواءً معجزة هابونا هاوبنا سرعان ما يصبح في كل مكان هابونا رسمياً يختفي الدكتور سكينر بعد ثلاث سنوات كان قج بدأ نسيان أصل هابونا والاعتياد على العالم الجديد عندها غفط يعود الدكتور سكينر عن شيء خطير للغاية أن كل من اخذ هابونا سيموت بعد حوالي ثلاث سنوات من ذلك الان الموت قادم من أجل هذا العالم وهو يقترب مسرعأ استجابة  لهذا التهديد تم جمع فرقة عمل خاصة من 5 عملاء من جميع انحاء العالم لإنقاذ البشؤية هذه الجموعه تسمى لازاروس فهل يمكهم العثور على سكينر و تطوير علاج قبل نفاد الوقت ؟ ",
+        image: "https://cdn.discordapp.com/attachments/1375584914803523587/1377807852277862490/1742320995858.jpg?ex=6842380e&is=6840e68e&hm=fa12761cc06ae1dc21e5e652f4af0533e144a401b4b4f2022d1545b899defe65&",
         episodes: [
           { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video/11705/1.mp4" },
           { number: 2, title: "حلقة 2", url: "https://server.sanime.net/Video/11705/2.mp4" },
@@ -1204,14 +1144,14 @@
           { number: 6, title: "6 حلقة", url: "https://server.sanime.net/Video/11705/6.mp4" },
           { number: 7, title: "7 حلقة", url: "https://server.sanime.net/Video/11705/7.mp4" },
           { number: 8, title: "8 حلقة", url: "https://server.sanime.net/Video/11705/8.mp4" },
-    ]
+        ]
       },
      {
-       id: 11,
+       id: 13,
         title: "(Compass 2.0: Sentou Setsuri Kaiseki System)",
-        image: "https://cdn.discordapp.com/attachments/1355948052149567639/1376599064904339487/6b6dbcd7cb834cdfa250392b49ce967a.png?ex=68373ac9&is=6835e949&hm=04d7424815be25ce5335d586f41588c4bf7b2cba45922fe5ef3640f045403d03&",
-        rating: 7.2,
+        categories: ["كوميدي", "لعبة" ,"خيال"],
         description: "  قصة الانمي : حول بطل المتمرد 13 يرفض ان يكون معه سيستم شريك حتى ينضم إليه جين فهل سينجحان في وجلب السلام الحفاظ على اتسمرارية للعالم؟ ",
+        image: "https://cdn.discordapp.com/attachments/1375584914803523587/1377807733813809212/6b6dbcd7cb834cdfa250392b49ce967a.png?ex=684237f2&is=6840e672&hm=bee032ce504c12cdb26350e21acc214d544a9d727015d240ba1b8dab6551a19b&",
         episodes: [
           { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video/11704/1.mp4" },
           { number: 2, title: "حلقة 2", url: "https://server.sanime.net/Video/11704/2.mp4" },
@@ -1221,14 +1161,15 @@
           { number: 6, title: "6 حلقة", url: "https://server.sanime.net/Video/11704/6.mp4" },
           { number: 7, title: "7 حلقة", url: "https://server.sanime.net/Video/11704/7.mp4" },
           { number: 8, title: "8 حلقة", url: "https://server.sanime.net/Video/11704/8.mp4" },
-    ]
+          { number: 9, title: "9 حلقة", url: "https://server.sanime.net/Video/11704/9.mp4" },
+       ]
       },
      {
-       id: 12,
+       id: 14,
         title: "(Vigilante: Boku no Hero Academia Illegals)",
-        image: "https://cdn.discordapp.com/attachments/1355948052149567639/1376587772571291809/43dff78316d292040a8c8e2c3e208281.png?ex=68373044&is=6835dec4&hm=ada8f244f05a063c3cf9fe9a5e08b785cd5b436dd070d365b1305809b5c91972&",
-        rating: 7.2,
+        categories: ["كوميدي", "أكشن"],
         description: "  قصة الانمي : في مجتمع خارق يصعب الشعور بالتميز و يزداد الأمر صعوبةً عندما تُسلًط ألاضواء فقط على الأبطال المحترفين اولئك الموخلين قانونيًا باستخدام قواهم الخاصة المعروفة باسم المهارات علنًا لتحقيق الصالح العام نشأ كويتشي هايماواري طمحًا الأن يكون بطلاً لكن مع انزلاقه المتواضع الشبيه بمهارة المهارات الذي يُقيٌده بالأرض سرعان ما توصل إلى استنتاج كويتشي الرضا في استخدام المهارات للقيام بالأعمال الصالحة اليومية مثل إعادة الأشياء المفقودة ومساعدة كبار السن على عبور الشارع إلا أن حياة كويتشي الهادئة تتقلب إلى عاصفة عندما يُنقذه الحارس أو البطل غير الشرعي ناكلداستر من شجا في الزقاق خلفي بعد أن رأى نكلداستر إمكانات كويتشي البطل طلب مساعدته في تعقب مصدر عقار خطير يُعرف بأسم تريجر و الذي يعزز قدرة المستخدم على التحمل على حسب عقلانيته تدور أحداث فيجلانتي بوكو هيرو أكاجيميا إلجيلز في زمن يسبق أحداث القصة الأصلية حيث يختار كويتشي انتحال شخصية الشرير ليصبخ خارسًا و يعمل في ظل القانون لمنع الجرائم من الظهور على السطح ",
+        image: "https://cdn.discordapp.com/attachments/1355948052149567639/1376587772571291809/43dff78316d292040a8c8e2c3e208281.png?ex=6841bc44&is=68406ac4&hm=41df882ceb61211c0d8b37d691d63c903c9b2740071fbb5f622e9be1890ab857&",
         episodes: [
           { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video/11703/1.mp4" },
           { number: 2, title: "حلقة 2", url: "https://server.sanime.net/Video/11703/2.mp4" },
@@ -1238,14 +1179,15 @@
           { number: 6, title: "6 حلقة", url: "https://server.sanime.net/Video/11703/6.mp4" },
           { number: 7, title: "7 حلقة", url: "https://server.sanime.net/Video/11703/7.mp4" },
           { number: 8, title: "8 حلقة", url: "https://server.sanime.net/Video/11703/8.mp4" },
-    ]
+          { number: 9, title: "9 حلقة", url: "https://server.sanime.net/Video/11703/9SD.mp4" },
+       ]
       },
      {
-       id: 13,
+       id: 15,
         title: "Sakamoto Days ",
-        image: "https://cdn.discordapp.com/attachments/1359824282611482794/1359824282800361562/bx177709-jBQ965JZG0l8.png?ex=6836d90d&is=6835878d&hm=bf08f54e8dd5d0e18050c6bd2c08a5309ee9c8d87c45cd9456ce3c0304f70ba2&",
-        rating: 8.2,
+        categories: ["كوميدي", "أكشن", "فنون قتال"],
         description: "قصة الانمي : القصة تتحدث عن مغتال أسطوري متقاعد أصبح رب أسرة بدينًا ليُجر ثانيةً إلى عالم الجريمة ولكن الآن لحماية عائلته من منظمة قاسية تسعى للانتقام",
+        image: "https://cdn.discordapp.com/attachments/1359824282611482794/1359824282800361562/bx177709-jBQ965JZG0l8.png?ex=68420dcd&is=6840bc4d&hm=19832237c1a95495a0104a307db970d269d83dd8f5ad8ecc10eeb8fa6f0914f4&",
         episodes: [
           { number: 1, title: "1 حلقة", url: "https://server.sanime.net/Video/11661/1.mp4" },
           { number: 2, title: "2 حلقة", url: "https://server.sanime.net/Video/11661/2.mp4" },
@@ -1258,31 +1200,32 @@
           { number: 9, title: "9 حلقة", url: "https://server.sanime.net/Video/11661/9.mp4" },
           { number: 10, title: "10 حلقة", url: "https://server.sanime.net/Video/11661/10.mp4" },
           { number: 11, title: "11 حلقة", url: "https://server.sanime.net/Video/11661/11.mp4" },
-    ]
+        ]
       },
      {
-       id: 14,
+       id: 16,
         title: " Summer Pockets",
-        image: "https://cdn.discordapp.com/attachments/1355948052149567639/1376587858269311074/Summer_Pockets.png?ex=68373059&is=6835ded9&hm=4aab03f22730291e3ec50679213917ce25d897a58f3b60d1c647e3daca9a048a&",
-        rating:7.2,
-        description: " قصة الانمي : معزولة وريفية هادئة على بحر سيتو الداخلي تُدعى تورشيروجيما والتي يبلغ عدد سكانها حوالي 2000 شخص بطل القصة هيري تاكاهارا نشأ في بيئة حضرية ولكن بعد حاجثة غير سارة يستخدم وفاة جدته الأخيرة كعذر ليأتي إلى الجزيرة بمجرد وصوله شيروها ناروسي التي نسيت عطلتها الصيفية آو سوراكادو التي تسعى وراء أساطير الجزيرة كامومي كوشيما فتاة من الطبقة الراقية تبحث عن سفينة قراصنة و تسوموجي ويندرس فتاة صغيرة تحاول اكتشاف نفسها ",
+        categories:  ["رومانسي"],
+       description: " قصة الانمي : معزولة وريفية هادئة على بحر سيتو الداخلي تُدعى تورشيروجيما والتي يبلغ عدد سكانها حوالي 2000 شخص بطل القصة هيري تاكاهارا نشأ في بيئة حضرية ولكن بعد حادثة غير سارة يستخدم وفاة جدته الأخيرة كعذر ليأتي إلى الجزيرة بمجرد وصوله شيروها ناروسي التي نسيت عطلتها الصيفية آو سوراكادو التي تسعى وراء أساطير الجزيرة كامومي كوشيما فتاة من الطبقة الراقية تبحث عن سفينة قراصنة و تسوموجي ويندرس فتاة صغيرة تحاول اكتشاف نفسها ",
+        image: "https://cdn.discordapp.com/attachments/1355948052149567639/1376587858269311074/Summer_Pockets.png?ex=6841bc59&is=68406ad9&hm=c7dcf6f4cc8c36bf7af78f115ba4644b03f7cbd25c67f32022d3dbde6339800e&",
         episodes: [
-          { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video/11677/1.mp4" },
-          { number: 2, title: "حلقة 2", url: "https://server.sanime.net/Video/11677/2.mp4" },
+          { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video/11702/1.mp4" },
+          { number: 2, title: "حلقة 2", url: "https://server.sanime.net/Video/11702/2.mp4" },
           { number: 3, title: "3 حلقة", url: "https://server.sanime.net/Video/11702/3.mp4" },
           { number: 4, title: "4 حلقة", url: "https://server.sanime.net/Video/11702/4.mp4" },
           { number: 5, title: "5 حلقة", url: "https://server.sanime.net/Video/11702/5.mp4" },
           { number: 6, title: "6 حلقة", url: "https://server.sanime.net/Video/11702/6.mp4" },
           { number: 7, title: "7 حلقة", url: "https://server.sanime.net/Video/11702/7.mp4" },
           { number: 8, title: "8 حلقة", url: "https://server.sanime.net/Video/11702/8.mp4" },
-    ]
+          { number: 9, title: "9 حلقة", url: "https://server.sanime.net/Video/11702/9.mp4" },
+       ]
       },
      {
-       id: 15,
+       id: 17,
         title: "Death Note",
-        image: "https://cdn.discordapp.com/attachments/1375584914803523587/1377068944313159772/IMG_4453.jpg?ex=68379ee5&is=68364d65&hm=c61e30cb91ef94493785378e8aeaf1e4397aa086b8c82543b63b0150de2a94b8&",
-        rating: 8.63,
+        categories: ["سحر", "رعب" ,"أكشن"],
         description: " قصة الانمي : تتحدث قصة الأنمي في بدايتها عن الطالب المجتهد ياجامي الذي صادف و ان التقط مذكرة الموت التي رميت من آله الموت ريكو كلاهما يشعر باظجر من العالم الذي يعيشه فقرر ريكو رمي مذكرة الموت إلى عالم البشر و معرفة مالذي سيحدث و يلتقط ياجامي المذكرة الذي سيعرف قدرتها  ألتقط ياجامي المذكرة و اتجه للبيت و قام بقرأتها و لم يصدق ما جاء فيها",
+        image: "https://cdn.discordapp.com/attachments/1375584914803523587/1377068944313159772/IMG_4453.jpg?ex=68422ae5&is=6840d965&hm=afb4f96c35d7835f4ec466ee3246d420ceeb7416b86def1f2894626113f1b253&",
         episodes: [
           { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video3/520/1.mp4" },
           { number: 2, title: "حلقة 2", url: "https://server.sanime.net/Video3/520/2.mp4" },
@@ -1321,27 +1264,27 @@
           { number: 35, title: "35 حلقة", url: "https://server.sanime.net/Video3/520/35.mp4" },
           { number: 36, title: "36 حلقة", url: "https://server.sanime.net/Video3/520/36.mp4" },
           { number: 37, title: "37 حلقة", url: "https://server.sanime.net/Video3/520/37.mp4" },
-    ]
+      ]
       },
      {
-       id: 16,
+       id: 18,
         title: " Death Note Rewite",
-        image: "https://cdn.discordapp.com/attachments/1375584914803523587/1377073035219173537/IMG_4455.jpg?ex=6837a2b4&is=68365134&hm=5b57c1d2ab716e9a483e64569303725237ab9f65edbe94b4f1b984fdd89723e7&",
-        rating: 7.74,
+        categories: ["رعب", "أكشن" ,"سحر"],
         description: "قصة الانمي : حلقتين خاصة للأنمي مذكرة الموت المشهور Death Note",
+        image: "https://cdn.discordapp.com/attachments/1375584914803523587/1377073035219173537/IMG_4455.jpg?ex=68422eb4&is=6840dd34&hm=65cd2b5de6393b9c42d163e1b4e6080afdcc530b75e7f72dbd79e7bfe5ae464b&",
         episodes: [
           { number: 1, title: "الحلقة الخاصة 1", url: "https://server.sanime.net/Video2/1364/1.mp4" },
           { number: 2, title: " الحلقة الخاصة 2", url: "https://server.sanime.net/Video2/1364/2.mp4" },
-    ]
+        ]
       },
      {
-       id: 17,
+       id: 19,
         title: "Uchi on Shishou wa Shippo ga Nai",
-        image: "https://cdn.discordapp.com/attachments/1375584914803523587/1377076641053937776/IMG_4457.jpg?ex=6837a610&is=68365490&hm=d5b0d307ed7abe19fc975f4712777ba853157f79b7428bed4e89352b27c88277&",
-        rating: 6.4,
-        description: " قصة الانمي : ماميدا هي فتاة تانوكي يمكنها التحول و تحلم بأن تصبح بشرية يومًا ما في يوم من الأيام تحولت إلى سيدة ذات شعر أسود و توجهت إلى اوساكا لكن سرعان ما تم اكتشافها امرأة جميلة تطلق على نفسها اسم راكوغو كا تقول بقسوة ل ماميدا الكتئبة عودي إلى حيث أتيت ليبدأ !خيال تايشو راكوغو الذي سيجعلك تبتسم من هنا",
+        categories: ["كوميدي", "سحر"],
+         description: " قصة الانمي : ماميدا هي فتاة تانوكي يمكنها التحول و تحلم بأن تصبح بشرية يومًا ما في يوم من الأيام تحولت إلى سيدة ذات شعر أسود و توجهت إلى اوساكا لكن سرعان ما تم اكتشافها امرأة جميلة تطلق على نفسها اسم راكوغو كا تقول بقسوة ل ماميدا الكتئبة عودي إلى حيث أتيت ليبدأ !خيال تايشو راكوغو الذي سيجعلك تبتسم من هنا",
+        image: "https://cdn.discordapp.com/attachments/1375584914803523587/1377076641053937776/IMG_4457.jpg?ex=68423210&is=6840e090&hm=52c5ad0a000a2d25280ed04beac14c30fb480c2116532b2366923095a5aab492&",
         episodes: [
-          { number: 1, title: "1 حلقة", url: "https://server.sanime.net/Video2/11157/1.mp4" },
+         { number: 1, title: "1 حلقة", url: "https://server.sanime.net/Video2/11157/1.mp4" },
           { number: 2, title: "2 حلقة", url: "https://server.sanime.net/Video2/11157/2.mp4" },
           { number: 3, title: "3 حلقة", url: "https://server.sanime.net/Video2/11157/3.mp4" },
           { number: 4, title: "4 حلقة", url: "https://server.sanime.net/Video2/11157/4.mp4" },
@@ -1354,14 +1297,14 @@
           { number: 11, title: "11 حلقة", url: "https://server.sanime.net/Video2/11157/11.mp4" },
           { number: 12, title: "12 حلقة", url: "https://server.sanime.net/Video2/11157/12.mp4" },
           { number: 13, title: "13 حلقة", url: "https://server.sanime.net/Video2/11157/13.mp4" },
-    ]
+        ]
       },
      {
-       id: 18,
+       id: 20,
         title: "Apocalypse Hotel ",
-        image: "https://cdn.discordapp.com/attachments/1375584914803523587/1377126594392359022/IMG_3063.png?ex=6837d495&is=68368315&hm=2262d27dc9d8156a86c735771f828b8980cb697642e3d60733f78b0a8a60d97c&",
-        rating: 7.28,
+        categories: ["كوميدي", "آلي"],
         description: "قصة الانمي : انقرض الجنس  apocalypse Hotel قصة الانمي البشري وانهارت الحضارة على الكوكب الأرض و مع ذلك لا يزال فندق تاريخي واحد في منطقة جينزا صامدًا وسط مدينة مدمرة و طبيعية عادت لتدهر من جديد تدور القصة في الفندق لم يعد للبشر وجود فيه",
+        image: "https://cdn.discordapp.com/attachments/1375584914803523587/1377126594392359022/IMG_3063.png?ex=6841b7d5&is=68406655&hm=cb1ce4dd0e9a333a8b987f84c6ff89904e69f1b030f3c2b72ef012be0cc69806&",
         episodes: [
           { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video/11707/1.mp4" },
           { number: 2, title: "حلقة 2", url: "https://server.sanime.net/Video/11707/2.mp4" },
@@ -1370,16 +1313,18 @@
           { number: 5, title: "5 حلقة", url: "https://server.sanime.net/Video/11707/5.mp4" },
           { number: 6, title: "6 حلقة", url: "https://server.sanime.net/Video/11707/6.mp4" },
           { number: 7, title: "7 حلقة", url: "https://server.sanime.net/Video/11707/7.mp4" },
-    ]
+          { number: 8, title: "8 حلقة", url: "https://server.sanime.net/Video/11707/8.mp4" },
+          { number: 9, title: "9 حلقة", url: "https://server.sanime.net/Video/11707/9.mp4" },
+        ]
       },
      {
-       id: 19,
+       id: 21,
         title: "HUNTER x HUNTER",
-        image: "https://cdn.discordapp.com/attachments/1375584914803523587/1377129845930070139/IMG_4469.jpg?ex=6837d79d&is=6836861d&hm=0da030759716b4fdfdd2e9bfa15a872335f25a7b882a88d93e1a11023fc7d221&",
-        rating: 9.21,
-        description: "قصة الانمي : تدور حول قصة صبي اسمه قون يطمح إلى أن يكون بهدف البحث عن والده المفقود منذ صغره صياداً لكي يحقق هدفه و من يقرر دخول اختبار الصيادين هنا يلتقي باصحابه و تبدا المغامرات معهم",
+        categories: ["كوميدي", "أكشن" ,"سحر"],
+         description: "قصة الانمي : تدور حول قصة صبي اسمه قون يطمح إلى أن يكون بهدف البحث عن والده المفقود منذ صغره صياداً لكي يحقق هدفه و من يقرر دخول اختبار الصيادين هنا يلتقي باصحابه و تبدا المغامرات معهم",
+        image: "https://cdn.discordapp.com/attachments/1375584914803523587/1377129845930070139/IMG_4469.jpg?ex=6841badd&is=6840695d&hm=2314c6533e6d1718c8f56bc1c4ea0f1b421d1f104e9bf74b9bcf48b29ea4547b&",
         episodes: [
-  { number: 1, title: "Episode 1", url: "https://server.sanime.net/Video3/669/1.mp4" },
+          { number: 1, title: "Episode 1", url: "https://server.sanime.net/Video3/669/1.mp4" },
   { number: 2, title: "Episode 2", url: "https://server.sanime.net/Video3/669/2.mp4" },
   { number: 3, title: "Episode 3", url: "https://server.sanime.net/Video3/669/3.mp4" },
   { number: 4, title: "Episode 4", url: "https://server.sanime.net/Video3/669/4.mp4" },
@@ -1527,17 +1472,16 @@
   { number: 146, title: "Episode 146", url: "https://server.sanime.net/Video3/669/146.mp4" },
   { number: 147, title: "Episode 147", url: "https://server.sanime.net/Video3/669/147.mp4" },
   { number: 148, title: "Episode 148", url: "https://server.sanime.net/Video3/669/148.mp4" },
-    ]
+        ]
       },
      {
-       id: 20,
+       id: 22,
         title: "HUNTER X HUNTER",
-        image: "https://cdn.discordapp.com/attachments/1375584914803523587/1377132259685175486/IMG_4471.jpg?ex=6837d9dc&is=6836885c&hm=5fc4bc4b828e203ccef20b8fc1effd12e5f766b12c1b910db5d9889b1bc2c3e5&",
-        rating: 8.44,
+        categories: ["كوميدي", "أكشن" ,"سحر"],
         description: "قصة الانمي : تدور حول قصة صبي اسمه قون يطمح إلى أن يكون بهدف البحث عن والده المفقود منذ صغره صياداً لكي يحقق هدفه و من يقرر دخول اختبار الصيادين هنا يلتقي باصحابه و تبدا المغامرات معهم",
+        image: "https://cdn.discordapp.com/attachments/1375584914803523587/1377132259685175486/IMG_4471.jpg?ex=6841bd1c&is=68406b9c&hm=30e1209cf415842f13085702ea9e3fcacd034339fb91f36ddba68cf9c1c0146c&",
         episodes: [
-
-  { number: 1, title: "Episode 1", url: "https://server.sanime.net/Video3/668/1.mp4" },
+          { number: 1, title: "Episode 1", url: "https://server.sanime.net/Video3/668/1.mp4" },
   { number: 2, title: "Episode 2", url: "https://server.sanime.net/Video3/668/2.mp4" },
   { number: 3, title: "Episode 3", url: "https://server.sanime.net/Video3/668/3.mp4" },
   { number: 4, title: "Episode 4", url: "https://server.sanime.net/Video3/668/4.mp4" },
@@ -1600,201 +1544,993 @@
   { number: 61, title: "Episode 61", url: "https://server.sanime.net/Video3/668/61.mp4" },
   { number: 62, title: "Episode 62", url: "https://server.sanime.net/Video3/668/62.mp4" },
         ]
+      },
+     {
+       id: 23,
+        title: "HUNTER X HUNTER",
+        categories: ["كوميدي", "أكشن" ,"سحر"],
+        description: "قصة الانمي : تدور حول قصة صبي اسمه قون يطمح إلى أن يكون بهدف البحث عن والده المفقود منذ صغره صياداً لكي يحقق هدفه و من يقرر دخول اختبار الصيادين هنا يلتقي باصحابه و تبدا المغامرات معهم",
+        image: "https://cdn.discordapp.com/attachments/1375584914803523587/1377327155318362254/IMG_4480.jpg?ex=6841c9df&is=6840785f&hm=cbc49faaa725410036c22e60b2eabe09d75cda390e45a7b9bf1571e151a7551f&",
+        episodes: [
+          { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video/686/1.mp4" },
+        ]
+      },
+     {
+       id: 24,
+        title: "One Punch Man",
+        categories: ["كوميدي", "أكشن", "فنون قتال"],
+        description: "قصة الانمي : القصة تدور حول سايتاما شاب عاطل كان يبحث عن عمل حين صادف في طريقه وحشًا على هئية سلطعون الوحش يبحث عن طفل عبث معه حينها يقرر سايتاما إنقاذ الطفل بعد أن تردد قليلاً لأن الطفل قبيح ثم يتخذ البطولية هواية له ويحاول أن يصبح أقوى",
+        image: "https://cdn.discordapp.com/attachments/1375584914803523587/1377325692294795284/IMG_4478.jpg?ex=6841c882&is=68407702&hm=7d30a5161a75ba9f8c4c6b9fdac7cf891fa2c68aa45dda3aeae2052ae86f5f71&",
+        episodes: [
+          { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video2/1775/1.mp4" },
+          { number: 2, title: "حلقة 2", url: "https://server.sanime.net/Video2/1775/2.mp4" },
+          { number: 3, title: "3 حلقة", url: "https://server.sanime.net/Video2/1775/3.mp4" },
+          { number: 4, title: "4 حلقة", url: "https://server.sanime.net/Video2/1775/4.mp4" },
+          { number: 5, title: "5 حلقة", url: "https://server.sanime.net/Video2/1775/5.mp4" },
+          { number: 6, title: "6 حلقة", url: "https://server.sanime.net/Video2/1775/6.mp4" },
+          { number: 7, title: "7 حلقة", url: "https://server.sanime.net/Video2/1775/7.mp4" },
+          { number: 8, title: "8 حلقة", url: "https://server.sanime.net/Video2/1775/8.mp4" },
+          { number: 9, title: "9 حلقة", url: "https://server.sanime.net/Video2/1775/9.mp4" },
+          { number: 10, title: "10 حلقة", url: "https://server.sanime.net/Video2/1775/10.mp4" },
+          { number: 11, title: "11 حلقة", url: "https://server.sanime.net/Video2/1775/11.mp4" },
+          { number: 12, title: "12 حلقة", url: "https://server.sanime.net/Video2/1775/12.mp4" },
+        ]
+      },
+     {
+       id: 25,
+        title: "One Punch Man 2nd Season",
+        categories: ["كوميدي", "أكشن", "فنون قتال"],
+        description: "قصة الانمي : تكملة لأحداث الموسم السابق",
+        image: "https://cdn.discordapp.com/attachments/1375584914803523587/1377329204630261851/IMG_4482.jpg?ex=6841cbc7&is=68407a47&hm=184322f899c17fa4f95053e660ff600048e5ffe52c2f0d84b075494fabae00a0&",
+        episodes: [
+          { number: 0, title: "حلقة 0", url: "https://server.sanime.net/Video3/3139/0.mp4" },
+          { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video3/3139/1.mp4" },
+          { number: 2, title: "2 حلقة", url: "https://server.sanime.net/Video3/3139/2.mp4" },
+          { number: 3, title: "3 حلقة", url: "https://server.sanime.net/Video3/3139/3.mp4" },
+          { number: 4, title: "4 حلقة", url: "https://server.sanime.net/Video3/3139/4.mp4" },
+          { number: 5, title: "5 حلقة", url: "https://server.sanime.net/Video3/3139/5.mp4" },
+          { number: 6, title: "6 حلقة", url: "https://server.sanime.net/Video3/3139/6.mp4" },
+          { number: 7, title: "7 حلقة", url: "https://server.sanime.net/Video3/3139/7.mp4" },
+          { number: 8, title: "8 حلقة", url: "https://server.sanime.net/Video3/3139/8.mp4" },
+          { number: 9, title: "9 حلقة", url: "https://server.sanime.net/Video3/3139/9.mp4" },
+          { number: 10, title: "10 حلقة", url: "https://server.sanime.net/Video3/3139/10.mp4" },
+          { number: 11, title: "11 حلقة", url: "https://server.sanime.net/Video3/3139/11.mp4" },
+          { number: 12, title: "12 حلقة", url: "https://server.sanime.net/Video3/3139/12.mp4" },
+        ]
+      },
+     {
+       id: 26,
+        title: "Maebashi Witches",
+        categories: ["كوميدي", "رومانسي"],
+        description: "قصة الانمي : في مدينة Maebashi Witches تدور أحداث انمي ماباشي بمحافظة غونما القصة تركز على خمس فتيات في مرحلة الثانوية يمرون بتجارب عمرية مليئة باتحديات يوينا أكاغي طالبة في السنة الأولى تعيش حياة عادية... لكنها غير مرضية في يومٍ غريب يظهر ضفدع غامض يدعى كيروبي يجمعها مع أربع فتيات أخريات ليصبحوا إلى بوابة نحو مكان سحري تأخذهم هذه البوابة إلى متجر زهور سحري حيث يغنون يرقصون ويحققون أمنيات الناس",
+        image: "https://cdn.discordapp.com/attachments/1375584914803523587/1377332499319099402/IMG_4483.png?ex=6841ced9&is=68407d59&hm=78fe43ee2569da2b5fc862a40b584ccf3eec1906676c770f71809afc9ab057cb&",
+        episodes: [
+          { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video/11699/1.mp4" },
+          { number: 2, title: "حلقة 2", url: "https://server.sanime.net/Video/11699/2.mp4" },
+          { number: 3, title: "3 حلقة", url: "https://server.sanime.net/Video/11699/3.mp4" },
+          { number: 4, title: "4 حلقة", url: "https://server.sanime.net/Video/11699/4.mp4" },
+          { number: 5, title: "5 حلقة", url: "https://server.sanime.net/Video/11699/5.mp4" },
+          { number: 6, title: "6 حلقة", url: "https://server.sanime.net/Video/11699/6.mp4" },
+          { number: 7, title: "7 حلقة", url: "https://server.sanime.net/Video/11699/7.mp4" },
+          { number: 8, title: "8 حلقة", url: "https://server.sanime.net/Video/11699/8.mp4" },
+          { number: 9, title: "9 حلقة", url: "https://server.sanime.net/Video/11699/9.mp4" },
+        ]
+      },
+     {
+       id: 27,
+        title: "Demon Slayer Movie",
+        categories: ["كوميدي", "شياطين", "أكشن"],
+        description: "قصة الانمي :  تانجيرو و زيتنسو و اينوسوكي يقومون بشراء تذاكر ل القطار الغير محدود للبحث عن رينغوكو كونجيرو عمود اللهب بأمل أن لديه يخبرهم بعض المعلومات عن رقصة إلاه النار رينغوكو أن أُرسل في القطارر لقتل شيطان بعتقد أنه يسكن بداخله وأنه لايعرف شيئًا عن رقصة إلاه النار سرعان ما أحس باشيطان وقتله لتطلب المجموعة التي أعجبت بمهاراته أن يجعلهم تسوغوكو و رينغوكو خاص به ",
+        image: "https://cdn.discordapp.com/attachments/1375584914803523587/1377356984663408700/IMG_4489.jpg?ex=6841e5a7&is=68409427&hm=ea356bcaad37ed2a55e4a5553787eb9e15948b8f9c04e6cc3a9dbd0eadcda1d2&",
+        episodes: [
+          { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video/3932/1.mp4" },
+       ]
+      },
+     {
+       id: 28,
+        title: "Demon Slayer: Hashira Gekio-hen",
+        categories: ["كوميدي", "شياطين", "أكشن"],
+         description: "قصة الانمي : الموسم الرابع من الأنمي ",
+        image: "https://cdn.discordapp.com/attachments/1375584914803523587/1377357294916075630/IMG_4490.jpg?ex=6841e5f1&is=68409471&hm=7598cb14126a0be99ac92a879be88879b1940a519e4f00304dd81c826cd51cdf&",
+        episodes: [
+          { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video/11503/1.mp4" },
+          { number: 2, title: "حلقة 2", url: "https://server.sanime.net/Video/11503/2.mp4" },
+          { number: 3, title: "3 حلقة", url: "https://server.sanime.net/Video/11503/3.mp4" },
+          { number: 4, title: "4 حلقة", url: "https://server.sanime.net/Video/11503/4.mp4" },
+          { number: 5, title: "5 حلقة", url: "https://server.sanime.net/Video/11503/5.mp4" },
+          { number: 6, title: "6 حلقة", url: "https://server.sanime.net/Video/11503/6.mp4" },
+          { number: 7, title: "7 حلقة", url: "https://server.sanime.net/Video/11503/7.mp4" },
+          { number: 8, title: "8 حلقة", url: "https://server.sanime.net/Video/11503/8.mp4" },
+        ]
+      },
+     {
+       id: 29,
+        title: " Slayer: YaiDemonba Katanakaji on Sato-hen",
+        categories: ["كوميدي", "شياطين", "أكشن"],
+        description: "قصة الانمي : الموسم الثالث من الأنمي ",
+        image: "https://cdn.discordapp.com/attachments/1375584914803523587/1377360282556301403/IMG_4492.jpg?ex=6841e8b9&is=68409739&hm=77bf470a8cfd37326f2e8b02dc47b5ddc5aa70dc26c7f61a62b5b07d9fa7e559&",
+        episodes: [
+          { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video/11277/1.mp4" },
+          { number: 2, title: "حلقة 2", url: "https://server.sanime.net/Video/11277/2.mp4" },
+          { number: 3, title: "3 حلقة", url: "https://server.sanime.net/Video/11277/3.mp4" },
+          { number: 4, title: "4 حلقة", url: "https://server.sanime.net/Video/11277/4.mp4" },
+          { number: 5, title: "5 حلقة", url: "https://server.sanime.net/Video/11277/5.mp4" },
+          { number: 6, title: "6 حلقة", url: "https://server.sanime.net/Video/11277/6.mp4" },
+          { number: 7, title: "7 حلقة", url: "https://server.sanime.net/Video/11277/7.mp4" },
+          { number: 8, title: "8 حلقة", url: "https://server.sanime.net/Video/11277/8.mp4" },
+          { number: 9, title: "9 حلقة", url: "https://server.sanime.net/Video/11277/9.mp4" },
+          { number: 10, title: "10 حلقة", url: "https://server.sanime.net/Video/11277/10.mp4" },
+          { number: 11, title: "11 حلقة", url: "https://server.sanime.net/Video/11277/11.mp4" },
+       ]
+      },
+     {
+       id: 30,
+        title: "Demon Slayer: Yuukaku-hen",
+        categories: ["كوميدي", "شياطين", "أكشن"],
+        description: "قصة الانمي : تكملة لأحداث الفلم و الأنمي ",
+        image: "https://cdn.discordapp.com/attachments/1375584914803523587/1377362005777842267/IMG_4494.jpg?ex=6841ea54&is=684098d4&hm=ee37ddbe811a0f572c4252184113ea317ac3ed04da03ccdb7ff5ed3df9274fe9&",
+        episodes: [
+          { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video2/11113/1.mp4" },
+          { number: 2, title: "حلقة 2", url: "https://server.sanime.net/Video2/11113/2.mp4" },
+          { number: 3, title: "3 حلقة", url: "https://server.sanime.net/Video2/11113/3.mp4" },
+          { number: 4, title: "4 حلقة", url: "https://server.sanime.net/Video2/11113/4.mp4" },
+          { number: 5, title: "5 حلقة", url: "https://server.sanime.net/Video2/11113/5.mp4" },
+          { number: 6, title: "6 حلقة", url: "https://server.sanime.net/Video2/11113/6.mp4" },
+          { number: 7, title: "7 حلقة", url: "https://server.sanime.net/Video2/11113/7.mp4" },
+          { number: 8, title: "8 حلقة", url: "https://server.sanime.net/Video2/11113/8.mp4" },
+          { number: 9, title: "9 حلقة", url: "https://server.sanime.net/Video2/11113/9.mp4" },
+          { number: 10, title: "10 حلقة", url: "https://server.sanime.net/Video2/11113/10.mp4" },
+          { number: 11, title: "11 حلقة", url: "https://server.sanime.net/Video2/11113/11.mp4" },
+        ]
+      },
+     {
+       id: 31,
+        title: "Demon Slayer: Mugen Ressha-hen TV",
+        categories: ["كوميدي", "شياطين", "أكشن"],
+        description: "قصة الانمي : النسخة التلفازية من الفلم مكونة من سبع حلقات مع مشاهد جديدة لم يتطرق إليها الفلم كما أن الحلقة الأولى ستكون أصلية",
+         image: "https://cdn.discordapp.com/attachments/1375584914803523587/1377371448263311390/IMG_4496.jpg?ex=6841f31f&is=6840a19f&hm=9cc71dd1ee9264583c70058d44f0dc92d5f16a8547a2d3606d72c1a7de95c856&",
+        episodes: [
+          { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video2/4421/1.mp4" },
+          { number: 2, title: "حلقة 2", url: "https://server.sanime.net/Video2/4421/2.mp4" },
+          { number: 3, title: "3 حلقة", url: "https://server.sanime.net/Video2/4421/3.mp4" },
+          { number: 4, title: "4 حلقة", url: "https://server.sanime.net/Video2/4421/4.mp4" },
+          { number: 5, title: "5 حلقة", url: "https://server.sanime.net/Video2/4421/5.mp4" },
+          { number: 6, title: "6 حلقة", url: "https://server.sanime.net/Video2/4421/6.mp4" },
+          { number: 7, title: "7 حلقة", url: "https://server.sanime.net/Video2/4421/7.mp4" },
+       ]
+      },
+     {
+       id: 32,
+        title: "Shokei Shoujo on Virgin Road",
+        categories: ["أكشن"],
+       description: "قصة الانمي : الضائعون هم متجولون يأتون إلى هنا من عالم بعيد يُعرف باسم اليابان لا أحد يعرف كيف أو لماذا يغادرون منازلهم الشيء الوحيد المؤكد هو أنهم يجلبون الكوارث والمصائب كيمز قاتلة شابة واجب عليها إبادتهم دون أي ندم عندما تقابل اكاري تعتقد في البداية أنها مجرد مهمة أخرى حتى تكتشف أنه .!من المستحيل قتل هذه الفتاة",
+        image: "https://cdn.discordapp.com/attachments/1375584914803523587/1377374805090631710/IMG_4498.jpg?ex=6841f63f&is=6840a4bf&hm=f47019d96f5a14622162013c12a8b3544e0d61e3bf6b4974220732b368e2be0a&",
+        episodes: [
+           { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video3/111138/1.mp4" },
+          { number: 2, title: "حلقة 2", url: "https://server.sanime.net/Video3/111138/2.mp4" },
+          { number: 3, title: "3 حلقة", url: "https://server.sanime.net/Video3/111138/3.mp4" },
+          { number: 4, title: "4 حلقة", url: "https://server.sanime.net/Video3/111138/4.mp4" },
+          { number: 5, title: "5 حلقة", url: "https://server.sanime.net/Video3/111138/5.mp4" },
+          { number: 6, title: "6 حلقة", url: "https://server.sanime.net/Video3/111138/6.mp4" },
+          { number: 7, title: "7 حلقة", url: "https://server.sanime.net/Video3/111138/7.mp4" },
+          { number: 8, title: "8 حلقة", url: "https://server.sanime.net/Video3/111138/8.mp4" },
+          { number: 9, title: "9 حلقة", url: "https://server.sanime.net/Video3/111138/9.mp4" },
+          { number: 10, title: "10 حلقة", url: "https://server.sanime.net/Video3/111138/10.mp4" },
+          { number: 11, title: "11 حلقة", url: "https://server.sanime.net/Video3/111138/11.mp4" },
+          { number: 12, title: "12 حلقة", url: "https://server.sanime.net/Video3/111138/12.mp4" },
+        ]
+      },
+     {
+       id: 33,
+        title: "kingdom",
+        categories: ["أكشن"],
+        description: "في فترة الدول المتحاربة في الصين القديمة هي من أيتام الحرب Hyou 221 قبل الميلاد وشين في مملكة تشين يحلمون في يوم من الأيام تثبت نفسها على أرض المعركة يوم واخد ومه ذلك يتم إلى القصر من قبل الوزراء يختتم في Hyou الجانب  الخاسر من على بعد   صراع على السلطة تمكن من العودة إلى القرية بالكاد على قيد الحياة المنظمة Hyou شيت ثم يلتقي الصبي الذي يشبه الدولية للتعليم سلي لأنه الآن هو ملك تشين وقت huangdi لاحق انه سيصبح الإمبراطور شي",
+         image: "https://cdn.discordapp.com/attachments/1375584914803523587/1377471459844165694/IMG_4506.jpg?ex=6841a784&is=68405604&hm=38f1cfbe15899c53fee4101e9d07bb004b5da3c407547851001bab08644032e3&",
+        episodes: [
+          { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video/681/1.mp4" },
+          { number: 2, title: "حلقة 2", url: "https://server.sanime.net/Video/681/2.mp4" },
+          { number: 3, title: "3 حلقة", url: "https://server.sanime.net/Video/681/3.mp4" },
+          { number: 4, title: "4 حلقة", url: "https://server.sanime.net/Video/681/4.mp4" },
+          { number: 5, title: "5 حلقة", url: "https://server.sanime.net/Video/681/5.mp4" },
+          { number: 6, title: "6 حلقة", url: "https://server.sanime.net/Video/681/6.mp4" },
+          { number: 7, title: "7 حلقة", url: "https://server.sanime.net/Video/681/7.mp4" },
+          { number: 8, title: "8 حلقة", url: "https://server.sanime.net/Video/681/8.mp4" },
+          { number: 9, title: "9 حلقة", url: "https://server.sanime.net/Video/681/9.mp4" },
+          { number: 10, title: "10 حلقة", url: "https://server.sanime.net/Video/681/10.mp4" },
+          { number: 11, title: "11 حلقة", url: "https://server.sanime.net/Video/681/11.mp4" },
+          { number: 12, title: "12 حلقة", url: "https://server.sanime.net/Video/681/12.mp4" },
+          { number: 13, title: "13 حلقة", url: "https://server.sanime.net/Video/681/13.mp4" },
+          { number: 14, title: "14 حلقة", url: "https://server.sanime.net/Video/681/14.mp4" },
+          { number: 15, title: "15 حلقة", url: "https://server.sanime.net/Video/681/15.mp4" },
+          { number: 16, title: "16 حلقة", url: "https://server.sanime.net/Video/681/16.mp4" },
+          { number: 17, title: "17 حلقة", url: "https://server.sanime.net/Video/681/17.mp4" },
+          { number: 18, title: "18 حلقة", url: "https://server.sanime.net/Video/681/18.mp4" },
+          { number: 19, title: "19 حلقة", url: "https://server.sanime.net/Video/681/19.mp4" },
+          { number: 20, title: "20 حلقة", url: "https://server.sanime.net/Video/681/20.mp4" },
+          { number: 21, title: "21 حلقة", url: "https://server.sanime.net/Video/681/21.mp4" },
+          { number: 22, title: "22 حلقة", url: "https://server.sanime.net/Video/681/22.mp4" },
+          { number: 23, title: "23 حلقة", url: "https://server.sanime.net/Video/681/23.mp4" },
+          { number: 24, title: "24 حلقة", url: "https://server.sanime.net/Video/681/24.mp4" },
+          { number: 25, title: "25 حلقة", url: "https://server.sanime.net/Video/681/25.mp4" },
+          { number: 26, title: "26 حلقة", url: "https://server.sanime.net/Video/681/26.mp4" },
+          { number: 27, title: "27 حلقة", url: "https://server.sanime.net/Video/681/27.mp4" },
+          { number: 28, title: "28 حلقة", url: "https://server.sanime.net/Video/681/28.mp4" },
+          { number: 29, title: "29 حلقة", url: "https://server.sanime.net/Video/681/29.mp4" },
+          { number: 30, title: "30 حلقة", url: "https://server.sanime.net/Video/681/30.mp4" },
+          { number: 31, title: "31 حلقة", url: "https://server.sanime.net/Video/681/31.mp4" },
+          { number: 32, title: "32 حلقة", url: "https://server.sanime.net/Video/681/32.mp4" },
+          { number: 33, title: "33 حلقة", url: "https://server.sanime.net/Video/681/33.mp4" },
+          { number: 34, title: "34 حلقة", url: "https://server.sanime.net/Video/681/34.mp4" },
+          { number: 35, title: "35 حلقة", url: "https://server.sanime.net/Video/681/35.mp4" },
+          { number: 36, title: "36 حلقة", url: "https://server.sanime.net/Video/681/36.mp4" },
+          { number: 37, title: "37 حلقة", url: "https://server.sanime.net/Video/681/37.mp4" },
+          { number: 38, title: "38 حلقة", url: "https://server.sanime.net/Video/681/38.mp4" },
+        ]
+      },
+     {
+       id: 34,
+        title: "kingdom 2nd Season ",
+        categories: ["أكشن"],
+        description: "قصة الانمي : الأنمي يتحدث باختصار عن الصين في الماضي حيث وهو امتداد لقصة الموسم كانت دويلات متناحرة الأول ",
+        image: "https://cdn.discordapp.com/attachments/1375584914803523587/1377474964684275733/IMG_4508.jpg?ex=6841aac7&is=68405947&hm=24703ff444bf90d5476b29a1f805cfd6362d79a6d5429f474107c593fdfa4114&",
+        episodes: [
+          { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video3/978/1.mp4" },
+          { number: 2, title: "حلقة 2", url: "https://server.sanime.net/Video3/978/2.mp4" },
+          { number: 3, title: "3 حلقة", url: "https://server.sanime.net/Video3/978/3.mp4" },
+          { number: 4, title: "حلقة 4", url: "https://server.sanime.net/Video3/978/4.mp4" },
+          { number: 5, title: "حلقة 5", url: "https://server.sanime.net/Video3/978/5.mp4" },
+          { number: 6, title: "حلقة 6", url: "https://server.sanime.net/Video3/978/6.mp4" },
+          { number: 7, title: "حلقة 7", url: "https://server.sanime.net/Video3/978/7.mp4" },
+          { number: 8, title: "حلقة 8", url: "https://server.sanime.net/Video3/978/8.mp4" },
+          { number: 9, title: "حلقة 9", url: "https://server.sanime.net/Video3/978/9.mp4" },
+          { number: 10, title: "حلقة 10", url: "https://server.sanime.net/Video3/978/10.mp4" },
+          { number: 11, title: "حلقة 11", url: "https://server.sanime.net/Video3/978/11.mp4" },
+          { number: 12, title: "1حلقة 2", url: "https://server.sanime.net/Video3/978/12.mp4" },
+          { number: 13, title: "حلقة 13", url: "https://server.sanime.net/Video3/978/13.mp4" },
+          { number: 14, title: "حلقة 14", url: "https://server.sanime.net/Video3/978/14.mp4" },
+          { number: 15, title: "حلقة 15", url: "https://server.sanime.net/Video3/978/15.mp4" },
+          { number: 16, title: "حلقة 16", url: "https://server.sanime.net/Video3/978/16.mp4" },
+          { number: 17, title: "حلقة 17", url: "https://server.sanime.net/Video3/978/17.mp4" },
+          { number: 18, title: "حلقة 18", url: "https://server.sanime.net/Video3/978/18.mp4" },
+          { number: 19, title: "حلقة 19", url: "https://server.sanime.net/Video3/978/19.mp4" },
+          { number: 20, title: "حلقة 20", url: "https://server.sanime.net/Video3/978/20.mp4" },
+          { number: 21, title: "حلقة 21", url: "https://server.sanime.net/Video3/978/21.mp4" },
+          { number: 22, title: "حلقة 22", url: "https://server.sanime.net/Video3/978/22.mp4" },
+          { number: 23, title: "حلقة 23", url: "https://server.sanime.net/Video3/978/23.mp4" },
+          { number: 24, title: "حلقة 24", url: "https://server.sanime.net/Video3/978/24.mp4" },
+          { number: 25, title: "حلقة 25", url: "https://server.sanime.net/Video3/978/25.mp4" },
+          { number: 26, title: "حلقة 26", url: "https://server.sanime.net/Video3/978/26.mp4" },
+          { number: 27, title: "حلقة 27", url: "https://server.sanime.net/Video3/978/27.mp4" },
+          { number: 28, title: "حلقة 28", url: "https://server.sanime.net/Video3/978/28.mp4" },
+          { number: 29, title: "حلقة 29", url: "https://server.sanime.net/Video3/978/29.mp4" },
+          { number: 30, title: "حلقة 30", url: "https://server.sanime.net/Video3/978/30.mp4" },
+          { number: 31, title: "حلقة 31", url: "https://server.sanime.net/Video3/978/31.mp4" },
+          { number: 32, title: "حلقة 32", url: "https://server.sanime.net/Video3/978/32.mp4" },
+          { number: 33, title: "حلقة 33", url: "https://server.sanime.net/Video3/978/33.mp4" },
+          { number: 34, title: "حلقة 34", url: "https://server.sanime.net/Video3/978/34.mp4" },
+          { number: 35, title: "حلقة 35", url: "https://server.sanime.net/Video3/978/35.mp4" },
+          { number: 36, title: "حلقة 36", url: "https://server.sanime.net/Video3/978/36.mp4" },
+          { number: 37, title: "حلقة 37", url: "https://server.sanime.net/Video3/978/37.mp4" },
+          { number: 38, title: "حلقة 38", url: "https://server.sanime.net/Video3/978/38.mp4" },
+          { number: 39, title: "حلقة 39", url: "https://server.sanime.net/Video3/978/39.mp4" },
+        ]
+      },
+     {
+       id: 35,
+        title: "Ore wa Seikan Kokka on Akutoku Ryoushu!",
+        categories: ["كوميدي", "رومانسي"],
+        description: " قصة الانمي : في حياته السابقة عاش ليام كشخص اخلاقي و مسوؤل لكنه مات غارقًا في الديون وخانته زوجته فولد ليام من جديد في العائلة الحاكمة الإمبراطورية شاسعة والآن أصبح يعلم أن الحياة مقسمةإلى المضطهدين وأولئك الذين يقومون بادوس عليهم لذا هذه المرة سيحصل على ما يريده هو ويعيش لنفسه لكن بطريقة ما ترفض الأمور أم نسير كما ينبغي على الرغم من بذل قصارى جهده ليصبح طاغية إلا أن قرارات ليام لا توؤدي إلا إلى السلام والازدهار للإمبراطورية المواقعة تحت حكمه وتزيد !شعبيته أكثر فأكثر",
+        image: "https://cdn.discordapp.com/attachments/1375584914803523587/1377516817228238932/IMG_4517.png?ex=6841d1c2&is=68408042&hm=9fbbd11ce367f5c5a1101610f867d5c12128f5940a61b4d0a5e731cd98facb85&",
+        episodes: [
+          { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video/11718/1.mp4" },
+          { number: 2, title: "حلقة 2", url: "https://server.sanime.net/Video/11677/2.mp4" },
+          { number: 3, title: "3 حلقة", url: "https://server.sanime.net/Video/11677/3.mp4" },
+          { number: 4, title: "حلقة 4", url: "https://server.sanime.net/Video/11718/4.mp4" },
+          { number: 5, title: "حلقة 5", url: "https://server.sanime.net/Video/11718/5.mp4" },
+          { number: 6, title: "حلقة 6", url: "https://server.sanime.net/Video/11718/6.mp4" },
+          { number: 7, title: "حلقة 7", url: "https://server.sanime.net/Video/11718/7.mp4" },
+          { number: 8, title: "حلقة 8", url: "https://server.sanime.net/Video/11718/8.mp4" },
+          { number: 9, title: "حلقة 9", url: "https://server.sanime.net/Video/11718/9.mp4" },
+       ]
+      },
+     {
+       id: 36,
+        title: "The Beginning After the End (Saikyou on Ousama Nidome no Jinsei wa Nani wo Suru)...",
+        categories: ["كوميدي", "رومانسي"],
+        description: "قصة الانمي : بعد وفاة غامضة يُعاد الملك غراي إلى الحياة ك آرثر لي وين في القارة السحرية ديكاثن رغم أنه يبدأ حياته الثانية كطفل إلا ان حكمته من حياته السابقة تظل معه مع مرور الوقت يبدأ في إتقان السحر وتشكيل مسار خاص به ساعيًا لتصحيح الأخطاء التي ارتكبها في حياته الماضية ",
+        image: "https://cdn.discordapp.com/attachments/1375584914803523587/1377678627096760372/The_Beginning_After_the_End_Saikyou_no_Ousama_Nidome_no_Jinsei_wa_Nani_wo_Suru.png?ex=6841bfb4&is=68406e34&hm=42e70ea043f0650a2ac4da598cf67d723326443943cf48073c9a86d6de441a94&",
+        episodes: [
+          { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video/11675/1.mp4" },
+          { number: 2, title: "حلقة 2", url: "https://server.sanime.net/Video/11675/2.mp4" },
+          { number: 3, title: "3 حلقة", url: "https://server.sanime.net/Video/11675/3.mp4" },
+          { number: 4, title: "4 حلقة", url: "https://server.sanime.net/Video/11675/4.mp4" },
+          { number: 5, title: "5 حلقة", url: "https://server.sanime.net/Video/11675/5.mp4" },
+          { number: 6, title: "6 حلقة", url: "https://server.sanime.net/Video/11675/6.mp4" },
+          { number: 7, title: "7 حلقة", url: "https://server.sanime.net/Video/11675/7.mp4" },
+          { number: 8, title: "8 حلقة", url: "https://server.sanime.net/Video/11675/8.mp4" },
+          { number: 9, title: "9 حلقة", url: "https://server.sanime.net/Video/11675/9.mp4" },
+          { number: 10, title: "10 حلقة", url: "https://server.sanime.net/Video/11675/10.mp4" },
+       ]
+      },
+     {
+       id: 37,
+        title: "Kanpekisugite Kawaige ga Nai to Konyaku Haki sareta Seijo wa Ringoku ni Urareru",
+        categories: ["رومانسي"],
+        description: "قصة الانمي : تنحدر فيليا من عائلة اشتهرت Urareru بتربية أجيال نت القديسين وهي ليست استثناءً في الواقع تُعرف بأنها أقوى قديسة على مر العصور موهوبة بشكل استثنائي لدرجة أن الكثيرين يجدونها لا تًطاق حتى عندكا يقرر خطيبها أنه لا يطيقها يفسخ خطوبتهما فجأة إنه متهلف بشدة لعدم رؤيتها مجددًا لدرجة أنه يبيعها لدولة مجاورة في امسّ الحاجبة إلى قديس من أمثالها الآن تُجهز فيليا نفسها لمواجهة المجهول متوقعةً تماماً معاملة أكثر بؤسًا في النهاية ستكون حمقاءً لو توقعت من احدٍ أن يرحب بها بحفاوة... أليس كذلك؟ ",
+        image: "https://cdn.discordapp.com/attachments/1375584914803523587/1377691373066780712/IMG_4520.png?ex=6841cb93&is=68407a13&hm=79e9be0856e472fe2b63e68a8b949bfd604ca01c1ed2b8be14608b29a7dc90d1&",
+        episodes: [
+          { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video/11674/1.mp4" },
+          { number: 2, title: "حلقة 2", url: "https://server.sanime.net/Video/11674/2.mp4" },
+          { number: 3, title: "3 حلقة", url: "https://server.sanime.net/Video/11674/3.mp4" },
+          { number: 4, title: "4 حلقة", url: "https://server.sanime.net/Video/11674/4.mp4" },
+          { number: 5, title: "5 حلقة", url: "https://server.sanime.net/Video/11674/5.mp4" },
+          { number: 6, title: "6 حلقة", url: "https://server.sanime.net/Video/11674/6.mp4" },
+          { number: 7, title: "7 حلقة", url: "https://server.sanime.net/Video/11674/7.mp4" },
+          { number: 8, title: "8 حلقة", url: "https://server.sanime.net/Video/11674/8.mp4" },
+          { number: 9, title: "9 حلقة", url: "https://server.sanime.net/Video/11674/9.mp4" },
+          { number: 10, title: "10 حلقة", url: "https://server.sanime.net/Video/11674/10.mp4" },
+        ]
+      },
+     {
+       id: 38,
+        title: "Inuyashiki",
+        categories: ["آلي", "أكشن"],
+        description: "قصة الانمي :  القصة تدور حول اينوياشيكا الذي لديه عائلة مكونة من زوجة وطفلين و لا يعتني به أحد عندما علم بأنه سيعيش لمدة 3 أشهر فقط أدرك بأن كلبه هو الوحيد الذي سيحزن على فراقه بعد فترة قصيرة قُتل السيد اينو من خلال هبوط فضائيين و تم إعادة بنأه من قبلهم ليكون عبارة عن آلة من الداخل و جسم بشري من الخارج كيف ستتغير حياة بطلنا بعن أن أصبح كائنًا آخر؟",
+        image: "https://cdn.discordapp.com/attachments/1375584914803523587/1377811941086461962/IMG_4535.jpg?ex=68423bdd&is=6840ea5d&hm=9124deb9419c8652717cf5d3d299b0b29cd8e2a70acd972d0345831418c4c3ac&",
+        episodes: [
+         { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video3/2557/1.mp4" },
+          { number: 2, title: "حلقة 2", url: "https://server.sanime.net/Video3/2557/2.mp4" },
+          { number: 3, title: "3 حلقة", url: "https://server.sanime.net/Video3/2557/3.mp4" },
+          { number: 4, title: "4 حلقة", url: "https://server.sanime.net/Video3/2557/4.mp4" },
+          { number: 5, title: "5 حلقة", url: "https://server.sanime.net/Video3/2557/5.mp4" },
+          { number: 6, title: "6 حلقة", url: "https://server.sanime.net/Video3/2557/6.mp4" },
+          { number: 7, title: "7 حلقة", url: "https://server.sanime.net/Video3/2557/7.mp4" },
+          { number: 8, title: "8 حلقة", url: "https://server.sanime.net/Video3/2557/8.mp4" },
+          { number: 9, title: "9 حلقة", url: "https://server.sanime.net/Video3/2557/9.mp4" },
+          { number: 10, title: "10 حلقة", url: "https://server.sanime.net/Video3/2557/10.mp4" },
+          { number: 11, title: "11 حلقة", url: "https://server.sanime.net/Video3/2557/11.mp4" },
+        ]
+      },
+     {
+       id: 39,
+        title: "Shin Samurai-den Yaida ",
+        categories: ["سحر", "أكشن"],
+         description: "قصة الانمي : البطل كوروجاني يايبا هو ساموراي بريء يتدرب في الأدغال مع والده كينجورو بصدفة القدر يعود الساموراي المصمم يايبا إلة اليابان ويواجه منافسه أونيمارو تاكشي يايبا الذي يعيش من أجل المعارك الجادة ينطلق في مغامرة مذهلة عندما يحصل !أونيمارو على سيف الشيطان الأسطوري ",
+        image: "https://cdn.discordapp.com/attachments/1375584914803523587/1377820866112520294/IMG_4537.jpg?ex=68419b6d&is=684049ed&hm=df5d22426908575cc7d741a6618c118feba6b1323ef0c85b97f83f244a444015&",
+        episodes: [
+          { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video/11694/1.mp4" },
+          { number: 2, title: "حلقة 2", url: "https://server.sanime.net/Video/11694/2.mp4" },
+          { number: 3, title: "3 حلقة", url: "https://server.sanime.net/Video/11694/3.mp4" },
+          { number: 4, title: "4 حلقة", url: "https://server.sanime.net/Video/11694/4.mp4" },
+          { number: 5, title: "5 حلقة", url: "https://server.sanime.net/Video/11694/5.mp4" },
+          { number: 6, title: "6 حلقة", url: "https://server.sanime.net/Video/11694/6.mp4" },
+          { number: 7, title: "7 حلقة", url: "https://server.sanime.net/Video/11694/7.mp4" },
+          { number: 8, title: "8 حلقة", url: "https://server.sanime.net/Video/11694/8.mp4" },
+          { number: 9, title: "9 حلقة", url: "https://server.sanime.net/Video/11694/9.mp4" },
+        ]
+      },
+     {
+       id: 40,
+        title: "Jujutsu Kaisen 2nd season",
+        categories: ["سحر", "أكشن"],
+        description: "قصة الانمي : الموسم الثاني من الأنمي",
+        image: "https://cdn.discordapp.com/attachments/1375584914803523587/1377833906539069521/IMG_4543.jpg?ex=6841a792&is=68405612&hm=53c4cc59bd082b86597aab8e4a2230afcd6625c6ab975a573b4f6eea952c17bd&",
+        episodes: [
+          { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video/11318/1.mp4" },
+          { number: 2, title: "حلقة 2", url: "https://server.sanime.net/Video/11318/2.mp4" },
+          { number: 3, title: "3 حلقة", url: "https://server.sanime.net/Video/11318/3.mp4" },
+          { number: 4, title: "4 حلقة", url: "https://server.sanime.net/Video/11318/4.mp4" },
+          { number: 5, title: "5 حلقة", url: "https://server.sanime.net/Video/11318/5.mp4" },
+          { number: 6, title: "6 حلقة", url: "https://server.sanime.net/Video/11318/6.mp4" },
+          { number: 7, title: "7 حلقة", url: "https://server.sanime.net/Video/11318/7.mp4" },
+          { number: 8, title: "8 حلقة", url: "https://server.sanime.net/Video/11318/8.mp4" },
+          { number: 9, title: "9 حلقة", url: "https://server.sanime.net/Video/11318/9.mp4" },
+          { number: 10, title: "10 حلقة", url: "https://server.sanime.net/Video/11318/10.mp4" },
+          { number: 11, title: "11 حلقة", url: "https://server.sanime.net/Video/11318/11.mp4" },
+          { number: 12, title: "12 حلقة", url: "https://server.sanime.net/Video/11318/12.mp4" },
+          { number: 13, title: "13 حلقة", url: "https://server.sanime.net/Video/11318/13.mp4" },
+          { number: 14, title: "14 حلقة", url: "https://server.sanime.net/Video/11318/14.mp4" },
+          { number: 15, title: "15 حلقة", url: "https://server.sanime.net/Video/11318/15.mp4" },
+          { number: 16, title: "16 حلقة", url: "https://server.sanime.net/Video/11318/16.mp4" },
+          { number: 17, title: "17 حلقة", url: "https://server.sanime.net/Video/11318/17.mp4" },
+          { number: 18, title: "18 حلقة", url: "https://server.sanime.net/Video/11318/18.mp4" },
+          { number: 19, title: "19 حلقة", url: "https://server.sanime.net/Video/11318/19.mp4" },
+          { number: 20, title: "20 حلقة", url: "https://server.sanime.net/Video/11318/20.mp4" },
+          { number: 21, title: "21 حلقة", url: "https://server.sanime.net/Video/11318/21.mp4" },
+          { number: 22, title: "22 حلقة", url: "https://server.sanime.net/Video/11318/22.mp4" },
+          { number: 23, title: "23 حلقة", url: "https://server.sanime.net/Video/11318/23.mp4" },
+        ]
+      },
+     {
+       id: 41,
+        title: "Solo Leveling (Ore dake Level Up na Ken)",
+        categories: ["أكشن", "سحر"],
+        description: "قصة الانمي : منذ 10 سنوات بدأت بوابات غامضة تطهر ضمن أنحاء العالم وهذه البوابات تحوي بداخلها وحوش لذلك يجب على الصيادين الذين حصلو على قوى غامضة الدخول للبوابات والقضاء على الوحوش قبل أن تخرج إلى العالم وتنشر الفساد والرعب في الأرض ويأتي بطل القصة سونغ جين وو وهو معروف بأنه أضعف إلى إحدى البوابات e صياد في العالم من المرتبة الغامضة حيث قبل لسونغ ومن معه بأن الوحوش التي في داخل البوابة مستواها ضعيف و يستطيعون القضاء عليهم لكن سونغ والصيادين دخلو إلى غرفة غامضة",
+        image: "https://cdn.discordapp.com/attachments/1375584914803523587/1378401190966198443/IMG_4560.jpg?ex=6841bda5&is=68406c25&hm=46d6dd40c457258cb40279743c3bd0cc960e8f1e480395e8f24f733abac665a7&",
+        episodes: [
+          { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video/11419/1.mp4" },
+          { number: 2, title: "حلقة 2", url: "https://server.sanime.net/Video/11419/2.mp4" },
+          { number: 3, title: "حلقة 3", url: "https://server.sanime.net/Video/11419/3.mp4" },
+          { number: 4, title: "حلقة 4", url: "https://server.sanime.net/Video/11419/4.mp4" },
+          { number: 5, title: "حلقة 5", url: "https://server.sanime.net/Video/11419/5.mp4" },
+          { number: 6, title: "حلقة 6", url: "https://server.sanime.net/Video/11419/6.mp4" },
+          { number: 7, title: "حلقة 7", url: "https://server.sanime.net/Video/11419/7.mp4" },
+          { number: 8, title: "حلقة 8", url: "https://server.sanime.net/Video/11419/8.mp4" },
+          { number: 9, title: "حلقة 9", url: "https://server.sanime.net/Video/11419/9.mp4" },
+          { number: 10, title: "حلقة 10", url: "https://server.sanime.net/Video/11419/10.mp4" },
+          { number: 11, title: "حلقة 11", url: "https://server.sanime.net/Video/11419/11.mp4" },
+          { number: 12, title: "حلقة 12", url: "https://server.sanime.net/Video/11419/12.mp4" },
+        ]
+      },
+     {
+       id: 42,
+        title: "Solo Leveling Season 2: Arise from the Shadow (Ore dake Level Up na Ken Season 2...)",
+        categories: ["أكشن", "سحر"],
+         description: "قصة الانمي : الموسم الثاني من الأنمي ",
+        image: "https://cdn.discordapp.com/attachments/1375584914803523587/1378404844548919357/IMG_4562.jpg?ex=6841c10c&is=68406f8c&hm=dfedeeb269536eb42f420428c40f049413e7fe0b0b44ca22151f598cf4f56849&",
+        episodes: [
+          { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video/11633/1.mp4" },
+          { number: 2, title: "حلقة 2", url: "https://server.sanime.net/Video/11633/2.mp4" },
+          { number: 3, title: "حلقة 3", url: "https://server.sanime.net/Video/11633/3.mp4" },
+          { number: 4, title: "حلقة 4", url: "https://server.sanime.net/Video/11633/4.mp4" },
+          { number: 5, title: "حلقة 5", url: "https://server.sanime.net/Video/11633/5SD.mp4" },
+          { number: 6, title: "حلقة 6", url: "https://server.sanime.net/Video/11633/6.mp4" },
+          { number: 7, title: "حلقة 7", url: "https://server.sanime.net/Video/11633/7.mp4" },
+          { number: 8, title: "حلقة 8", url: "https://server.sanime.net/Video/11633/8.mp4" },
+          { number: 9, title: "حلقة 9", url: "https://server.sanime.net/Video/11633/9.mp4" },
+          { number: 10, title: "حلقة 10", url: "https://server.sanime.net/Video/11633/10.mp4" },
+          { number: 11, title: "حلقة 11", url: "https://server.sanime.net/Video/11633/11SD.mp4" },
+          { number: 12, title: "حلقة 12", url: "https://server.sanime.net/Video/11633/12.mp4" },
+          { number: 13, title: "حلقة 13", url: "https://server.sanime.net/Video/11633/13.mp4" },
+       ]
+      },
+     {
+       id: 43,
+        title: "Witch Watch",
+        categories: ["كوميدي", "رومانسي"],
+        description: "قصة الانمي : موريهتو الفتى ذو ثوة الغول على وشك أن يبدأ العيش مع صديقة طفولته نيكو التي تتدرب لتصبح ساحرة لكن يؤدي سحر نيكو إلى جميع أنواع المشاكل غير المتوقعة ومع كونهما مراهقان تحت !سقف واحد ستحدث الكثير من الأمور المجنونة",
+        image: "https://cdn.discordapp.com/attachments/1375584914803523587/1378408327586775040/e1fcb708-746a-4c05-b564-eebba170a084.jpg?ex=6841c44a&is=684072ca&hm=aea240ef7687019cfce2c94863ce01dbef209b4b56a613350d56a5a8d79043b3&",
+        episodes: [
+          { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video/11697/1.mp4" },
+          { number: 2, title: "حلقة 2", url: "https://server.sanime.net/Video/11697/2SD.mp4" },
+          { number: 3, title: "حلقة 3", url: "https://server.sanime.net/Video/11697/3.mp4" },
+          { number: 4, title: "حلقة 4", url: "https://server.sanime.net/Video/11697/4SD.mp4" },
+          { number: 5, title: "حلقة 5", url: "https://server.sanime.net/Video/11697/5.mp4" },
+          { number: 6, title: "حلقة 6", url: "https://server.sanime.net/Video/11697/6.mp4" },
+          { number: 7, title: "حلقة 7", url: "https://server.sanime.net/Video/11697/7.mp4" },
+          { number: 8, title: "حلقة 8", url: "https://server.sanime.net/Video/11697/8.mp4" },
+          { number: 9, title: "حلقة 9", url: "https://server.sanime.net/Video/11697/9.mp4" },
+       ]
+      },
+     {
+       id: 44,
+        title: "The All-devouring Whale Homecoming (Kun Tun Tuanxia Zhi Zhang Men Guilai...)",
+        categories: ["أكشن", "خيال"],
+        description: "قصة الانمي : فان لينغشياو سيد الحيوانات الأليفة الروحية ذو المواهب الاستثنائية دُبِّرت ضده مؤامرات خلال مسابقة ترقية الطائفة من المتسوى أ فاتبلعه كون حيوانه الأليف الروحي وعندما فتح عينيه وجد نفسه متسجدًا في صورة شاب يُدعى ليو فينجمانغ وسُجن في زنزانة القصر الأبيض في هذه الأثناء كانت طائفته جناح لينغشياو في وضع حرج لكشف حقيقة ابتلاعه من قبل كون والإنعاش طائفته انطلق فان لينغشياو برفقة حيواناته الأليفة الروحية في رحلة مغامرة جديدة كليًا مع غو لينغ وتنغ شي ويوي تونغ",
+        image: "https://cdn.discordapp.com/attachments/1375584914803523587/1378931364363239535/IMG_4574.png?ex=6841b128&is=68405fa8&hm=6868181bba13fc3ac26cc80649ea274cdcaa9985140105f1f0f3d538489b33c2&",
+        episodes: [
+          { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video/11721/1.mp4" },
+          { number: 2, title: "حلقة 2", url: "https://server.sanime.net/Video/11721/2.mp4" },
+          { number: 3, title: "حلقة 3", url: "https://server.sanime.net/Video/11721/3.mp4" },
+          { number: 4, title: "حلقة 4", url: "https://server.sanime.net/Video/11721/4.mp4" },
+          { number: 5, title: "حلقة 5", url: "https://server.sanime.net/Video/11721/5.mp4" },
+          { number: 6, title: "حلقة 6", url: "https://server.sanime.net/Video/11721/6.mp4" },
+        ]
+      },
+     {
+       id: 45,
+        title: "Katainaka no Ossan Kensei ni Naru",
+        categories: ["الساموراي", "أكشن"],
+        description: "قصة الانمي :  بيريل غاردينانت رجلُ متواضع يخبر نفسه أنه شيخُ عجوز يعمل كمدرب للسيف في دوجو يقع في قرية نائية ومنسية في شبابه كان حلم بامجد كسيّدٍ في فن المبازرة لكن تلك الأيام  أصبحت من الماضي فجأةً يظهر تلميذه السابق المشهور يحمل له أخبارًا تُزلزل عالمه فقد تم تعيينه كمدرب خاص لفرسان رتبة ليبريون تتغير حياته رأسًا  على عقب ويسافر بيريل إلى العاصمة حيث يلتقي مجددًا ببعض تلاميذه السابقين فرسان كم المحبة ساحر بارع وحتى مغامر وصل إلى أعلى مرتبة في النقابة لكن... لماذا يريدون كلهم تعاليمه مرة اخرى؟! فمن وجهة نظره يبدو أنهم لايحتاجون إليه بعد الآن  هل سيتمكن بيريل من الارتقاء إلى توقعات منصبه الجديد وأيضا هل سيجد لحظه من السلام بعيدًا عن طلابه المعجبين به حقا؟ ",
+        image: "https://cdn.discordapp.com/attachments/1375584914803523587/1379305306604965919/IMG_4599.jpg?ex=6841bbeb&is=68406a6b&hm=97e941976ed2c8d3e97274dce7e1740f5ab337a9440b627e01276c8fd67775d3&",
+        episodes: [
+          { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video/11689/1.mp4" },
+          { number: 2, title: "حلقة 2", url: "https://server.sanime.net/Video/11689/2.mp4" },
+          { number: 3, title: "حلقة 3", url: "https://server.sanime.net/Video/11689/3.mp4" },
+          { number: 4, title: "حلقة 4", url: "https://server.sanime.net/Video/11689/4.mp4" },
+          { number: 5, title: "حلقة 5", url: "https://server.sanime.net/Video/11689/5.mp4" },
+          { number: 6, title: "حلقة 6", url: "https://server.sanime.net/Video/11689/6.mp4" },
+          { number: 7, title: "حلقة 7", url: "https://server.sanime.net/Video/11689/7.mp4" },
+          { number: 8, title: "حلقة 8", url: "https://server.sanime.net/Video/11689/8SD.mp4" },
+          { number: 9, title: "حلقة 9", url: "https://server.sanime.net/Video/11689/9.mp4" },
+       ]
+      },
+     {
+       id: 46,
+        title: "يوغي اوه ",
+        categories: [""],
+        description: "قصة الانمي :  ",
+       image: "https://cdn.discordapp.com/attachments/1375584914803523587/1379309721877741640/IMG_4603.jpg?ex=6841c008&is=68406e88&hm=a853715da8cbb6b901e3fb3fd0673d568217400ec9981949eedb3360717bf5ae&",
+        episodes: [
+          { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video3/627/1.mp4" },
+          { number: 2, title: "حلقة 2", url: "https://server.sanime.net/Video3/627/2.mp4" },
+          { number: 3, title: "حلقة 3", url: "https://server.sanime.net/Video3/627/3.mp4" },
+          { number: 4, title: "حلقة 4", url: "https://server.sanime.net/Video3/627/4.mp4" },
+          { number: 5, title: "حلقة 5", url: "https://server.sanime.net/Video3/627/5.mp4" },
+          { number: 6, title: "حلقة 6", url: "https://server.sanime.net/Video3/627/6.mp4" },
+          { number: 7, title: "حلقة 7", url: "https://server.sanime.net/Video3/627/7.mp4" },
+          { number: 8, title: "حلقة 8", url: "https://server.sanime.net/Video3/627/8.mp4" },
+          { number: 8, title: "حلقة 9", url: "https://server.sanime.net/Video3/627/9.mp4" },
+          { number: 10, title: "حلقة 10", url: "https://server.sanime.net/Video3/627/10.mp4" },
+          { number: 11, title: "حلقة 11", url: "https://server.sanime.net/Video3/627/11.mp4" },
+          { number: 12, title: "حلقة 12", url: "https://server.sanime.net/Video3/627/12.mp4" },
+          { number: 13, title: "حلقة 13", url: "https://server.sanime.net/Video3/627/13.mp4" },
+          { number: 14, title: "حلقة 14", url: "https://server.sanime.net/Video3/627/14.mp4" },
+          { number: 15, title: "حلقة 15", url: "https://server.sanime.net/Video3/627/15.mp4" },
+          { number: 16, title: "حلقة 16", url: "https://server.sanime.net/Video3/627/16.mp4" },
+          { number: 17, title: "حلقة 17", url: "https://server.sanime.net/Video3/627/17.mp4" },
+          { number: 18, title: "حلقة 18", url: "https://server.sanime.net/Video3/627/18.mp4" },
+          { number: 19, title: "حلقة 19", url: "https://server.sanime.net/Video3/627/19.mp4" },
+          { number: 20, title: "حلقة 20", url: "https://server.sanime.net/Video3/627/20.mp4" },
+          { number: 21, title: "حلقة 21", url: "https://server.sanime.net/Video3/627/21.mp4" },
+          { number: 22, title: "حلقة 22", url: "https://server.sanime.net/Video3/627/22.mp4" },
+          { number: 23, title: "حلقة 23", url: "https://server.sanime.net/Video3/627/23.mp4" },
+          { number: 24, title: "حلقة 24", url: "https://server.sanime.net/Video3/627/24.mp4" },
+          { number: 25, title: "حلقة 25", url: "https://server.sanime.net/Video3/627/25.mp4" },
+          { number: 26, title: "حلقة 26", url: "https://server.sanime.net/Video3/627/26.mp4" },
+          { number: 27, title: "حلقة 27", url: "https://server.sanime.net/Video3/627/27.mp4" },
+        ]
+      },
+     {
+       id: 47,
+        title: "Blood Lad",
+        categories: ["مصاص دماء", "رعب"],
+        description: "قصة الانمي :  ستاز هو مصاص دماء وهو من اقوى الزعماء في عالم الشياطيت و لكن ستاز في الحقيقه مهووس في عالم البشر و خصوصاً اليابان عندما تدخل عالم الشياطين فتاة يابانية تدعى فويومي يصبح ستاز متحمساً لمقابلة الفتاة ومحاورتها عن كل شيء يخص عالمها.. ولكن, قبل أن يسأل ستاز الفتاة شيئاً بإنه سيساعدها بإن تستعيد جسدها لتعود إلى حياتها السابقة",
+        image: "https://cdn.discordapp.com/attachments/1375584914803523587/1379667607170322492/IMG_4613.jpg?ex=6841bbd6&is=68406a56&hm=38bc50064f76b08d1d495571cbc2771be0ca76be54df189a40946b7b01e183b0&",
+        episodes: [
+          { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video3/2222/1.mp4" },
+          { number: 2, title: "حلقة 2", url: "https://server.sanime.net/Video3/2222/2.mp4" },
+          { number: 3, title: "حلقة 3", url: "https://server.sanime.net/Video3/2222/3.mp4" },
+          { number: 4, title: "حلقة 4", url: "https://server.sanime.net/Video3/2222/4.mp4" },
+          { number: 5, title: "حلقة 5", url: "https://server.sanime.net/Video3/2222/5.mp4" },
+          { number: 6, title: "حلقة 6", url: "https://server.sanime.net/Video3/2222/6.mp4" },
+          { number: 7, title: "حلقة 7", url: "https://server.sanime.net/Video3/2222/7.mp4" },
+          { number: 8, title: "حلقة 8", url: "https://server.sanime.net/Video3/2222/8.mp4" },
+          { number: 9, title: "حلقة 9", url: "https://server.sanime.net/Video3/2222/9.mp4" },
+          { number: 10, title: "حلقة 10", url: "https://server.sanime.net/Video3/2222/10.mp4" },
+       ]
+      },
+     {
+       id: 48,
+        title: "Hellsing",
+        categories: ["شياطين", "مصاص دماء"],
+        description: "قصة الانمي : قصة المسلسل بشكل عام تتحدث عن مصاصي في بريطانيا وباتحديد الدماء حيث تدور أحداث القصة فيلندن  حيث توجد منظمة تدعى هيلسلينج وهي متخصصة في القضاء على مصاصي (hellsing) ويعمل مع هذه المنظمة مصاص دماء عمره الدماء وهو يعتبر من ((Arucard)) يدعى اروكارد 500 سنة أقوى مصاصي الدماء في العالم وقد ينهي  غلى أن اضطر جميع المهام الموكلة إليه بسهولة (Seras) إلى امتصاص دم شرطية تدعى فكتوريا من أجل انقاذ حياتها فتحولت إلى مصاص (Victoria)ولكن قبل.. دماء وانظمت إلى المنظمة بعد ذلك سنوات كان هجوم مصاصي الدماء قليل.. لكن كثر الهجمات بسبب جهاز ينتجه شخص غير معروف وطبعاً يبدأ .والمنظمه تحاول إيجاد هذا الشخص الرعب في مواجهة مصاصي الدماء بالإضافة .للمنظمات الأخرى",
+        image: "https://cdn.discordapp.com/attachments/1375584914803523587/1379675720481112084/IMG_4615.jpg?ex=6841c364&is=684071e4&hm=f799074d9268a3bf0cd7f0d7a3e41cd2fb67412f6a2c9a88e6c9fe22fa0c6a50&",
+        episodes: [
+          { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video2/1157/1.mp4" },
+          { number: 2, title: "حلقة 2", url: "https://server.sanime.net/Video2/1157/2.mp4" },
+          { number: 3, title: "حلقة 3", url: "https://server.sanime.net/Video2/1157/3.mp4" },
+          { number: 4, title: "حلقة 4", url: "https://server.sanime.net/Video2/1157/4.mp4" },
+          { number: 5, title: "حلقة 5", url: "https://server.sanime.net/Video2/1157/5.mp4" },
+          { number: 6, title: "حلقة 6", url: "https://server.sanime.net/Video2/1157/6.mp4" },
+          { number: 7, title: "حلقة 7", url: "https://server.sanime.net/Video2/1157/7.mp4" },
+          { number: 8, title: "حلقة 8", url: "https://server.sanime.net/Video2/1157/8.mp4" },
+          { number: 9, title: "حلقة 9", url: "https://server.sanime.net/Video2/1157/9.mp4" },
+          { number: 10, title: "حلقة 10", url: "https://server.sanime.net/Video2/1157/10.mp4" },
+          { number: 11, title: "حلقة 11", url: "https://server.sanime.net/Video2/1157/11.mp4" },
+          { number: 12, title: "حلقة 12", url: "https://server.sanime.net/Video2/1157/12.mp4" },
+          { number: 13, title: "حلقة 13", url: "https://server.sanime.net/Video2/1157/13.mp4" },
+       ]
+      },
+     {
+       id: 49,
+        title: "Devil May Cry",
+        categories: ["مصاص دماء"],
+        description: "قصة الانمي : عندما يهدد شرير غامض بفتح بوابات الجحيم يأتي صياد الشياطين دانتي ليعيد الأمل بخلاص العالم ",
+        image: "https://cdn.discordapp.com/attachments/1375584914803523587/1379680759152902186/IMG_4617.jpg?ex=6841c816&is=68407696&hm=bf4b87fc7ecd4d3b8349615a5558e89a610f460491e7930937d828d78fa1245f&",
+        episodes: [
+          { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video/11676/1.mp4" },
+          { number: 2, title: "حلقة 2", url: "https://server.sanime.net/Video/11676/2.mp4" },
+          { number: 3, title: "حلقة 3", url: "https://server.sanime.net/Video/11676/3.mp4" },
+          { number: 4, title: "حلقة 4", url: "https://server.sanime.net/Video/11676/4.mp4" },
+          { number: 5, title: "حلقة 5", url: "https://server.sanime.net/Video/11676/5.mp4" },
+          { number: 6, title: "حلقة 6", url: "https://server.sanime.net/Video/11676/6.mp4" },
+          { number: 7, title: "حلقة 7", url: "https://server.sanime.net/Video/11676/7.mp4" },
+          { number: 8, title: "حلقة 8", url: "https://server.sanime.net/Video/11676/8.mp4" },
+       ]
+      },
+     {
+       id: 50,
+        title: "Another",
+        categories: ["مدرسي", "رعب"],
+        description: "قصة الانمي : قبل 26 سنة فتاة اسمها ميساكي كانت لها شعبيّة بالمدرسة والطّلاب كانو يحبّونها جداً فجاة تموت فيقرّر زملاءها في الصّف أن يتصرّفوا كأنّها لم تمت بعد! وفي ربيع عام 1998 فتى يدعى كويتشي ينتقل لهذه المدرسة وإلى هذا الصّف الذي كانت تدرس فيه ميساكي حيث يلاحظ فتاة جميلةً تجلس وحيدةً وتضع ضمادة على عينها اليسرى",
+        image: "https://cdn.discordapp.com/attachments/1380004558222131200/1380015706065731664/IMG_4699.jpg?ex=68425747&is=684105c7&hm=65e4c5bcc6899e067216a755c8f04943575c2b379c4a32d32edbbe3b02639f08&",
+        episodes: [
+          { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video3/514/1.mp4" },
+          { number: 2, title: "حلقة 2", url: "https://server.sanime.net/Video3/514/2.mp4" },
+          { number: 3, title: "حلقة 3", url: "https://server.sanime.net/Video3/514/3.mp4" },
+          { number: 4, title: "حلقة 4", url: "https://server.sanime.net/Video3/514/4.mp4" },
+          { number: 5, title: "حلقة 5", url: "https://server.sanime.net/Video3/514/5.mp4" },
+          { number: 6, title: "حلقة 6", url: "https://server.sanime.net/Video3/514/6.mp4" },
+          { number: 7, title: "حلقة 7", url: "https://server.sanime.net/Video3/514/7.mp4" },
+          { number: 8, title: "حلقة 8", url: "https://server.sanime.net/Video3/514/8.mp4" },
+          { number: 9, title: "حلقة 9", url: "https://server.sanime.net/Video3/514/9.mp4" },
+          { number: 10, title: "حلقة 10", url: "https://server.sanime.net/Video3/514/10.mp4" },
+          { number: 11, title: "حلقة 11", url: "https://server.sanime.net/Video3/514/11.mp4" },
+          { number: 12, title: "حلقة 12", url: "https://server.sanime.net/Video3/514/12.mp4" },
+        ]
+      },
+     {
+       id: 51,
+        title: "Tokyo Ghoul",
+        categories: ["مصاص دماء", "أكشن", "رعب", "رومانسي"],
+        description: "  قصة الانمي : القصة تقع أحداثها في طوكيو عندما يتم الإستيلاء عليها من قِبل غيلان غامضين يلتهون البشر يُسيطر على الناس الخوف من تلك الغيلان الغامضين ذوي الهويات المبهمة كينيكي وهو طالب جامعي عادي يٌقابل ريزي في مقهى يتردد إليه دأئمًا و هي فتاة قارئة متعطشة مثله كينيكي لا يُدرك أن مصيره سيتغير في ليلة وضاحاها",
+        image: "https://cdn.discordapp.com/attachments/1380004558222131200/1380023672596856972/IMG_4708.jpg?ex=68425eb3&is=68410d33&hm=6275cf763571eb8677779b4e700f92e8d1c6e313144102dba255c53c5147942c&",
+        episodes: [
+          { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video2/1250/1.mp4" },
+          { number: 2, title: "حلقة 2", url: "https://server.sanime.net/Video2/1250/3.mp4" },
+          { number: 3, title: "حلقة 3", url: "https://server.sanime.net/Video2/1250/3.mp4" },
+          { number: 4, title: "حلقة 4", url: "https://server.sanime.net/Video2/1250/4.mp4" },
+          { number: 5, title: "حلقة 5", url: "https://server.sanime.net/Video2/1250/5.mp4" },
+          { number: 6, title: "حلقة 6", url: "https://server.sanime.net/Video2/1250/6.mp4" },
+          { number: 7, title: "حلقة 7", url: "https://server.sanime.net/Video2/1250/7.mp4" },
+          { number: 8, title: "حلقة 8", url: "https://server.sanime.net/Video2/1250/8.mp4" },
+          { number: 9, title: "حلقة 9", url: "https://server.sanime.net/Video2/1250/9.mp4" },
+          { number: 10, title: "حلقة 10", url: "https://server.sanime.net/Video2/1250/10.mp4" },
+          { number: 11, title: "حلقة 11", url: "https://server.sanime.net/Video2/1250/11.mp4" },
+          { number: 12, title: "حلقة 12", url: "https://server.sanime.net/Video2/1250/12.mp4" },
+        ]
+      },
+     {
+       id: 52,
+        title: "JOJO no Kimyou na Bouken (TV)",
+        categories: ["أكشن", "انميات جديده"],
+        description: "قصة الانمي : في عام 1868 أنقذ داريو براندو النبيل الإنجليزي جورج جويستار ليقوم جورج يتبني ديو ابن داريو بعد وفاته وذالك لتسديد الدين لمنقذه لكن غير راض عن وضعه ويطمح عن طريق للاستيلاء على منزل جويستار لنفسه استخدم قناعًا حجريًا من ذو خصائص خارقة للطبيعية يبدأ بتدمير جورج وابنه جوناثان جويستار (جوجو) ليبجأ سلسة من الأحداث والتي ستستمر حلال بعد نصف قرن في مدينة السنوات القادمة نيويورك جوزيف جويستار حفيد جوناثان يكتشف الإرث الذي تركه جده من أجله ليعرف الحقيقة وراء القناع الحجري ويدرك أنه الوحيد الذي يستطيع هزيمة كائنات غامضة ذات قوة غير لتبدأ الرحلات المثيرة ل جوجو وأحفاده..محدودة سواء أكان مواجهة الشرير ديو او محاربة الكائنات المشؤومة فهناك دائمًا الكثير من المغامرات العجيبة ",
+        image: "https://cdn.discordapp.com/attachments/1380004558222131200/1380323739534889022/IMG_4743.jpg?ex=68437628&is=684224a8&hm=55486a8a3c88f2f8f786d1825195a1a6424d8ed3ab7e28065308343f0ce91348&",
+        episodes: [
+          { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video/3791/1.mp4" },
+          { number: 2, title: "حلقة 2", url: "https://server.sanime.net/Video/3791/2.mp4" },
+          { number: 3, title: "حلقة 3", url: "https://server.sanime.net/Video/3791/3.mp4" },
+          { number: 4, title: "حلقة 4", url: "https://server.sanime.net/Video/3791/4.mp4" },
+          { number: 5, title: "حلقة 5", url: "https://server.sanime.net/Video/3791/5.mp4" },
+          { number: 7, title: "حلقة 6", url: "https://server.sanime.net/Video/3791/6.mp4" },
+          { number: 8, title: "حلقة 7", url: "https://server.sanime.net/Video/3791/7.mp4" },
+          { number: 8, title: "حلقة 8", url: "https://server.sanime.net/Video/3791/8.mp4" },
+          { number: 9, title: "حلقة 9", url: "https://server.sanime.net/Video/3791/9.mp4" },
+          { number: 10, title: "حلقة 10", url: "https://server.sanime.net/Video/3791/10.mp4" },
+          { number: 11, title: "حلقة 11", url: "https://server.sanime.net/Video/3791/11.mp4" },
+          { number: 12, title: "حلقة 12", url: "https://server.sanime.net/Video/3791/12.mp4" },
+          { number: 13, title: "حلقة 13", url: "https://server.sanime.net/Video/3791/13.mp4" },
+          { number: 14, title: "حلقة 14", url: "https://server.sanime.net/Video/3791/14.mp4" },
+          { number: 15, title: "حلقة 15", url: "https://server.sanime.net/Video/3791/15.mp4" },
+          { number: 16, title: "حلقة 16", url: "https://server.sanime.net/Video/3791/16.mp4" },
+          { number: 17, title: "حلقة 17", url: "https://server.sanime.net/Video/3791/17.mp4" },
+          { number: 18, title: "حلقة 18", url: "https://server.sanime.net/Video/3791/18.mp4" },
+          { number: 19, title: "حلقة 19", url: "https://server.sanime.net/Video/3791/19.mp4" },
+          { number: 20, title: "حلقة 20", url: "https://server.sanime.net/Video/3791/20.mp4" },
+          { number: 21, title: "2حلقة 1", url: "https://server.sanime.net/Video/3791/21.mp4" },
+          { number: 22, title: "حلقة 22", url: "https://server.sanime.net/Video/3791/22.mp4" },
+          { number: 23, title: "حلقة 23", url: "https://server.sanime.net/Video/3791/23.mp4" },
+          { number: 24, title: "حلقة 24", url: "https://server.sanime.net/Video/3791/24.mp4" },
+          { number: 25, title: "حلقة 25", url: "https://server.sanime.net/Video/3791/25.mp4" },
+          { number: 26, title: "حلقة 26", url: "https://server.sanime.net/Video/3791/26.mp4" },
+      ]
+      },
+     {
+       id: 53,
+        title: "JOJO no Kimyou na Bouken Part 5: Ougon no Kaze",
+        categories: ["أكشن", "انميات جديده"],
+        description: "قصة الأنمي : تكملة لأحداث أنمي JOJO mo Kimyou na Bouken Part 4: Diamond wa Kudakenai.",
+        image: "https://cdn.discordapp.com/attachments/1380004558222131200/1380338394231738398/IMG_4768.jpg?ex=684383ce&is=6842324e&hm=56a289462fd84e0e8324e7b2f5fb8ddcb4b7b33768266ae175460a9c021684e0&",
+        episodes: [
+          { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video2/00011/1.mp4" },
+          { number: 2, title: "حلقة 2", url: "https://server.sanime.net/Video2/00011/2.mp4" },
+          { number: 3, title: "حلقة 3", url: "https://server.sanime.net/Video2/00011/3.mp4" },
+          { number: 4, title: "حلقة 4", url: "https://server.sanime.net/Video2/00011/4.mp4" },
+          { number: 5, title: "حلقة 5", url: "https://server.sanime.net/Video2/00011/5.mp4" },
+          { number: 6, title: "حلقة 6", url: "https://server.sanime.net/Video2/00011/6.mp4" },
+          { number: 7, title: "حلقة 7", url: "https://server.sanime.net/Video2/00011/7.mp4" },
+          { number: 8, title: "حلقة 8", url: "https://server.sanime.net/Video2/00011/8.mp4" },
+          { number: 9, title: "حلقة 9", url: "https://server.sanime.net/Video2/00011/9.mp4" },
+          { number: 10, title: "حلقة 10", url: "https://server.sanime.net/Video2/00011/10.mp4" },
+          { number: 11, title: "حلقة 11", url: "https://server.sanime.net/Video2/00011/11.mp4" },
+          { number: 12, title: "حلقة 12", url: "https://server.sanime.net/Video2/00011/12.mp4" },
+          { number: 13, title: "حلقة 13", url: "https://server.sanime.net/Video2/00011/13.mp4" },
+          { number: 14, title: "حلقة 14", url: "https://server.sanime.net/Video2/00011/14.mp4" },
+          { number: 15, title: "حلقة 15", url: "https://server.sanime.net/Video2/00011/15.mp4" },
+          { number: 16, title: "حلقة 16", url: "https://server.sanime.net/Video2/00011/16.mp4" },
+          { number: 17, title: "حلقة 17", url: "https://server.sanime.net/Video2/00011/17.mp4" },
+          { number: 18, title: "حلقة 18", url: "https://server.sanime.net/Video2/00011/18.mp4" },
+          { number: 19, title: "حلقة 19", url: "https://server.sanime.net/Video2/00011/19.mp4" },
+          { number: 20, title: "حلقة 20", url: "https://server.sanime.net/Video2/00011/20.mp4" },
+          { number: 21, title: "حلقة 21", url: "https://server.sanime.net/Video2/00011/21.mp4" },
+          { number: 22, title: "حلقة 22", url: "https://server.sanime.net/Video2/00011/22.mp4" },
+          { number: 23, title: "حلقة 23", url: "https://server.sanime.net/Video2/00011/23.mp4" },
+          { number: 24, title: "حلقة 24", url: "https://server.sanime.net/Video2/00011/24.mp4" },
+          { number: 25, title: "حلقة 25", url: "https://server.sanime.net/Video2/00011/25.mp4" },
+          { number: 26, title: "حلقة 26", url: "https://server.sanime.net/Video2/00011/26.mp4" },
+          { number: 27, title: "حلقة 27", url: "https://server.sanime.net/Video2/00011/27.mp4" },
+          { number: 28, title: "حلقة 28", url: "https://server.sanime.net/Video2/00011/28.mp4" },
+          { number: 29, title: "حلقة 29", url: "https://server.sanime.net/Video2/00011/29.mp4" },
+          { number: 30, title: "حلقة 30", url: "https://server.sanime.net/Video2/00011/30.mp4" },
+          { number: 31, title: "حلقة 31", url: "https://server.sanime.net/Video2/00011/31.mp4" },
+          { number: 32, title: "حلقة 32", url: "https://server.sanime.net/Video2/00011/32.mp4" },
+          { number: 33, title: "حلقة 33", url: "https://server.sanime.net/Video2/00011/33.mp4" },
+          { number: 34, title: "حلقة 34", url: "https://server.sanime.net/Video2/00011/34.mp4" },
+          { number: 35, title: "حلقة 35", url: "https://server.sanime.net/Video2/00011/35.mp4" },
+          { number: 36, title: "حلقة 36", url: "https://server.sanime.net/Video2/00011/36.mp4" },
+          { number: 37, title: "حلقة 37", url: "https://server.sanime.net/Video2/00011/37.mp4" },
+          { number: 38, title: "حلقة 38", url: "https://server.sanime.net/Video2/00011/38.mp4" },
+          { number: 39, title: "حلقة 39", url: "https://server.sanime.net/Video2/00011/39.mp4" },
+        ]
+      },
+     {
+       id: 54,
+        title: "JOJO's Bizarre Adventure: Stardust Crusaders",
+        categories: ["أكشن", "انميات جديده"],
+        description: "قصة الانمي : الموسم الثاني الانمي JOJO's Bizarre Adventure: Stardust Crusaders في الفصل الثالث من حكايات مغامرات (2012) جوجو العجيبة يقبع المثير للمتاعب جوتارو كوجو المعدو ب جوجو إختصارا حفيد المغامِر جوزيف جوستر في إحدى السجون اليابانية هناك قوة خفية تتلبسه ولا يستطيع التحكم بها وتدعى هي عبارة عن أرواح شريرة Stands وال Stand بال تعطي حامليها قوى مندهشة يجب على جوتارو التحكم بقواه والترحال حول العالم والتوجه لمصر حيث ينتظره مصاص دمااء متعطش لدماء عائلة الجوستر الكثير من الصعاب والمشاق ستنتظر !جوتارو وأصدقائه في رحلتهم العجيبة  ",
+        image: "https://cdn.discordapp.com/attachments/1380004558222131200/1380323740289863851/image_picker_DCBE8ECF-5164-4226-A583-D07E0EB19566-3525-000000686864699B-1749164415640_transformed.jpg?ex=68437628&is=684224a8&hm=06d02c4773b7c4b61aec9f211034e6b819ca072d6c70a2911ea4e52303bd8648&",
+        episodes: [
+           { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video3/1100/1.mp4" },
+          { number: 2, title: "حلقة 2", url: "https://server.sanime.net/Video3/1100/2.mp4" },
+          { number: 3, title: "3 حلقة", url: "https://server.sanime.net/Video3/1100/3.mp4" },
+          { number: 4, title: "4 حلقة", url: "https://server.sanime.net/Video3/1100/4.mp4" },
+          { number: 5, title: "5 حلقة", url: "https://server.sanime.net/Video3/1100/5.mp4" },
+          { number: 6, title: "6 حلقة", url: "https://server.sanime.net/Video3/1100/6.mp4" },
+          { number: 7, title: "7 حلقة", url: "https://server.sanime.net/Video3/1100/7.mp4" },
+          { number: 8, title: "8 حلقة", url: "https://server.sanime.net/Video3/1100/8.mp4" },
+          { number: 9, title: "9 حلقة", url: "https://server.sanime.net/Video3/1100/9.mp4" },
+          { number: 10, title: "10 حلقة", url: "https://server.sanime.net/Video3/1100/10.mp4" },
+          { number: 11, title: "11 حلقة", url: "https://server.sanime.net/Video3/1100/11.mp4" },
+          { number: 12, title: "12 حلقة", url: "https://server.sanime.net/Video3/1100/12.mp4" },
+          { number: 13, title: "13 حلقة", url: "https://server.sanime.net/Video3/1100/13.mp4" },
+          { number: 14, title: "14 حلقة", url: "https://server.sanime.net/Video3/1100/14.mp4" },
+          { number: 15, title: "15 حلقة", url: "https://server.sanime.net/Video3/1100/15.mp4" },
+          { number: 16, title: "16 حلقة", url: "https://server.sanime.net/Video3/1100/16.mp4" },
+          { number: 17, title: "17 حلقة", url: "https://server.sanime.net/Video3/1100/17.mp4" },
+          { number: 18, title: "18 حلقة", url: "https://server.sanime.net/Video3/1100/18.mp4" },
+          { number: 19, title: "19 حلقة", url: "https://server.sanime.net/Video3/1100/19.mp4" },
+          { number: 20, title: "20 حلقة", url: "https://server.sanime.net/Video3/1100/20.mp4" },
+          { number: 21, title: "21 حلقة", url: "https://server.sanime.net/Video3/1100/21.mp4" },
+          { number: 22, title: "22 حلقة", url: "https://server.sanime.net/Video3/1100/22.mp4" },
+          { number: 23, title: "23 حلقة", url: "https://server.sanime.net/Video3/1100/23.mp4" },
+          { number: 24, title: "24 حلقة", url: "https://server.sanime.net/Video3/1100/24.mp4" },
+       ]
+      },
+     {
+       id: 55,
+        title: "JOJO no Kimyou na Bouken: Ougon no Kaze",
+        categories: ["أكشن", "انميات جديده"],
+        description: "قصة الانمي : تدور أحداثه حول جورنو جوفانا الذي يسعى بالإطاحة بزعيم عصابة باشون وتحويلها من عصابة شريرة إلى منظمة لمساعدة الآخرين في إيطاليا",
+        image: "https://cdn.discordapp.com/attachments/1380004558222131200/1380323740021162085/IMG_4762.jpg?ex=68437628&is=684224a8&hm=c3e911eac9a38861c68676873d41325082e4cd2ec8f57e70cf69258491297e3d&",
+        episodes: [
+          { number: 1, title: "الحلقة 1", url: "https://server.sanime.net/Video3/3026/1.mp4" },
+         { number: 2, title: "الحلقة 2", url: "https://server.sanime.net/Video3/3026/2.mp4" },
+         { number: 3, title: "الحلقة 3", url: "https://server.sanime.net/Video3/3026/3.mp4" },
+         { number: 4, title: "الحلقة 4", url: "https://server.sanime.net/Video3/3026/4.mp4" },
+         { number: 5, title: "الحلقة 5", url: "https://server.sanime.net/Video3/3026/5.mp4" },
+         { number: 6, title: "الحلقة 6", url: "https://server.sanime.net/Video3/3026/6.mp4" },
+         { number: 7, title: "الحلقة 7", url: "https://server.sanime.net/Video3/3026/7.mp4" },
+         { number: 8, title: "الحلقة 8", url: "https://server.sanime.net/Video3/3026/8.mp4" },
+         { number: 9, title: "الحلقة 9", url: "https://server.sanime.net/Video3/3026/9.mp4" },
+         { number: 10, title: "الحلقة 10", url: "https://server.sanime.net/Video3/3026/10.mp4" },
+         { number: 11, title: "الحلقة 11", url: "https://server.sanime.net/Video3/3026/11.mp4" },
+         { number: 12, title: "الحلقة 12", url: "https://server.sanime.net/Video3/3026/12.mp4" },
+         { number: 13, title: "الحلقة 13", url: "https://server.sanime.net/Video3/3026/13.mp4" },
+         { number: 14, title: "الحلقة 14", url: "https://server.sanime.net/Video3/3026/14.mp4" },
+         { number: 15, title: "الحلقة 15", url: "https://server.sanime.net/Video3/3026/15.mp4" },
+         { number: 16, title: "الحلقة 16", url: "https://server.sanime.net/Video3/3026/16.mp4" },
+         { number: 17, title: "الحلقة 17", url: "https://server.sanime.net/Video3/3026/17.mp4" },
+         { number: 18, title: "الحلقة 18", url: "https://server.sanime.net/Video3/3026/18.mp4" },
+         { number: 19, title: "الحلقة 19", url: "https://server.sanime.net/Video3/3026/19.mp4" },
+         { number: 20, title: "الحلقة 20", url: "https://server.sanime.net/Video3/3026/20.mp4" },
+         { number: 21, title: "الحلقة 21", url: "https://server.sanime.net/Video3/3026/21.mp4" },
+         { number: 22, title: "الحلقة 22", url: "https://server.sanime.net/Video3/3026/22.mp4" },
+         { number: 23, title: "الحلقة 23", url: "https://server.sanime.net/Video3/3026/23.mp4" },
+         { number: 24, title: "الحلقة 24", url: "https://server.sanime.net/Video3/3026/24.mp4" },
+         { number: 25, title: "الحلقة 25", url: "https://server.sanime.net/Video3/3026/25.mp4" },
+         { number: 26, title: "الحلقة 26", url: "https://server.sanime.net/Video3/3026/26.mp4" },
+         { number: 27, title: "الحلقة 27", url: "https://server.sanime.net/Video3/3026/27.mp4" },
+         { number: 28, title: "الحلقة 28", url: "https://server.sanime.net/Video3/3026/28.mp4" },
+         { number: 29, title: "الحلقة 29", url: "https://server.sanime.net/Video3/3026/29.mp4" },
+         { number: 30, title: "الحلقة 30", url: "https://server.sanime.net/Video3/3026/30.mp4" },
+         { number: 31, title: "الحلقة 31", url: "https://server.sanime.net/Video3/3026/31.mp4" },
+         { number: 32, title: "الحلقة 32", url: "https://server.sanime.net/Video3/3026/32.mp4" },
+         { number: 33, title: "الحلقة 33", url: "https://server.sanime.net/Video3/3026/33.mp4" },
+         { number: 34, title: "الحلقة 34", url: "https://server.sanime.net/Video3/3026/34.mp4" },
+         { number: 35, title: "الحلقة 35", url: "https://server.sanime.net/Video3/3026/35.mp4" },
+         { number: 36, title: "الحلقة 36", url: "https://server.sanime.net/Video3/3026/36.mp4" },
+         { number: 37, title: "الحلقة 37", url: "https://server.sanime.net/Video3/3026/37.mp4" },
+         { number: 38, title: "الحلقة 38", url: "https://server.sanime.net/Video3/3026/38.mp4" },
+         { number: 39, title: "الحلقة 39", url: "https://server.sanime.net/Video3/3026/39.mp4" },
+        ]
+      },
+     {
+       id: 56,
+        title: "JOJO no Kimyou na Bouken:...",
+        categories: ["أكشن", "انميات جديده"],
+        description: "قصة الانمي : الموسم الرابع لسلسلة Jojo no Limyou na Bouken ",
+        image: "https://cdn.discordapp.com/attachments/1380004558222131200/1380323740520546354/IMG_4765.jpg?ex=68437628&is=684224a8&hm=8ed47ee78a87d4ae02afd84cdba6ae462063f033439ef92ae25f868da9a32b54&",
+        episodes: [
+          { number: 1, title: "الحلقة 1", url: "https://server.sanime.net/Video3/1940/1.mp4" },
+         { number: 2, title: "الحلقة 2", url: "https://server.sanime.net/Video3/1940/2.mp4" },
+         { number: 3, title: "الحلقة 3", url: "https://server.sanime.net/Video3/1940/3.mp4" },
+         { number: 4, title: "الحلقة 4", url: "https://server.sanime.net/Video3/1940/4.mp4" },
+         { number: 5, title: "الحلقة 5", url: "https://server.sanime.net/Video3/1940/5.mp4" },
+         { number: 6, title: "الحلقة 6", url: "https://server.sanime.net/Video3/1940/6.mp4" },
+         { number: 7, title: "الحلقة 7", url: "https://server.sanime.net/Video3/1940/7.mp4" },
+         { number: 8, title: "الحلقة 8", url: "https://server.sanime.net/Video3/1940/8.mp4" },
+         { number: 9, title: "الحلقة 9", url: "https://server.sanime.net/Video3/1940/9.mp4" },
+         { number: 10, title: "الحلقة 10", url: "https://server.sanime.net/Video3/1940/10.mp4" },
+         { number: 11, title: "الحلقة 11", url: "https://server.sanime.net/Video3/1940/11.mp4" },
+         { number: 12, title: "الحلقة 12", url: "https://server.sanime.net/Video3/1940/12.mp4" },
+         { number: 13, title: "الحلقة 13", url: "https://server.sanime.net/Video3/1940/13.mp4" },
+         { number: 14, title: "الحلقة 14", url: "https://server.sanime.net/Video3/1940/14.mp4" },
+         { number: 15, title: "الحلقة 15", url: "https://server.sanime.net/Video3/1940/15.mp4" },
+         { number: 16, title: "الحلقة 16", url: "https://server.sanime.net/Video3/1940/16.mp4" },
+         { number: 17, title: "الحلقة 17", url: "https://server.sanime.net/Video3/1940/17.mp4" },
+         { number: 18, title: "الحلقة 18", url: "https://server.sanime.net/Video3/1940/18.mp4" },
+         { number: 19, title: "الحلقة 19", url: "https://server.sanime.net/Video3/1940/19.mp4" },
+         { number: 20, title: "الحلقة 20", url: "https://server.sanime.net/Video3/1940/20.mp4" },
+         { number: 21, title: "الحلقة 21", url: "https://server.sanime.net/Video3/1940/21.mp4" },
+         { number: 22, title: "الحلقة 22", url: "https://server.sanime.net/Video3/1940/22.mp4" },
+         { number: 23, title: "الحلقة 23", url: "https://server.sanime.net/Video3/1940/23.mp4" },
+         { number: 24, title: "الحلقة 24", url: "https://server.sanime.net/Video3/1940/24.mp4" },
+         { number: 25, title: "الحلقة 25", url: "https://server.sanime.net/Video3/1940/25.mp4" },
+         { number: 26, title: "الحلقة 26", url: "https://server.sanime.net/Video3/1940/26.mp4" },
+         { number: 27, title: "الحلقة 27", url: "https://server.sanime.net/Video3/1940/27.mp4" },
+         { number: 28, title: "الحلقة 28", url: "https://server.sanime.net/Video3/1940/28.mp4" },
+         { number: 29, title: "الحلقة 29", url: "https://server.sanime.net/Video3/1940/29.mp4" },
+         { number: 30, title: "الحلقة 30", url: "https://server.sanime.net/Video3/1940/30.mp4" },
+         { number: 31, title: "الحلقة 31", url: "https://server.sanime.net/Video3/1940/31.mp4" },
+         { number: 32, title: "الحلقة 32", url: "https://server.sanime.net/Video3/1940/32.mp4" },
+         { number: 33, title: "الحلقة 33", url: "https://server.sanime.net/Video3/1940/33.mp4" },
+         { number: 34, title: "الحلقة 34", url: "https://server.sanime.net/Video3/1940/34.mp4" },
+         { number: 35, title: "الحلقة 35", url: "https://server.sanime.net/Video3/1940/35.mp4" },
+         { number: 36, title: "الحلقة 36", url: "https://server.sanime.net/Video3/1940/36.mp4" },
+         { number: 37, title: "الحلقة 37", url: "https://server.sanime.net/Video3/1940/37.mp4" },
+         { number: 38, title: "الحلقة 38", url: "https://server.sanime.net/Video3/1940/38.mp4" },
+         { number: 39, title: "الحلقة 39", url: "https://server.sanime.net/Video3/1940/39.mp4" },
+        ]
+      },
+     {
+       id: 57,
+        title: "JoJo's Bizarre Adventure: Stardust Crusaders 2nd Season",
+        categories: ["أكشن", "انميات جديده"],
+        description: "قصة الانمي : الموسم الثاني ل انمي JoJo's Bizarre Adventure: Stardust Crusaders ",
+        image: "https://cdn.discordapp.com/attachments/1380004558222131200/1380323740746911754/IMG_4766.jpg?ex=68437628&is=684224a8&hm=9d6c4845590f20bf0a2dd3829ca596de9823ba9740e53da1fea098ec514edda4&",
+        episodes: [
+          { number: 1, title: "الحلقة 1", url: "https://server.sanime.net/Video3/1539/1.mp4" },
+         { number: 2, title: "الحلقة 2", url: "https://server.sanime.net/Video3/1539/2.mp4" },
+         { number: 3, title: "الحلقة 3", url: "https://server.sanime.net/Video3/1539/3.mp4" },
+         { number: 4, title: "الحلقة 4", url: "https://server.sanime.net/Video3/1539/4.mp4" },
+         { number: 5, title: "الحلقة 5", url: "https://server.sanime.net/Video3/1539/5.mp4" },
+         { number: 6, title: "الحلقة 6", url: "https://server.sanime.net/Video3/1539/6.mp4" },
+         { number: 7, title: "الحلقة 7", url: "https://server.sanime.net/Video3/1539/7.mp4" },
+         { number: 8, title: "الحلقة 8", url: "https://server.sanime.net/Video3/1539/8.mp4" },
+         { number: 9, title: "الحلقة 9", url: "https://server.sanime.net/Video3/1539/9.mp4" },
+         { number: 10, title: "الحلقة 10", url: "https://server.sanime.net/Video3/1539/10.mp4" },
+         { number: 11, title: "الحلقة 11", url: "https://server.sanime.net/Video3/1539/11.mp4" },
+         { number: 12, title: "الحلقة 12", url: "https://server.sanime.net/Video3/1539/12.mp4" },
+         { number: 13, title: "الحلقة 13", url: "https://server.sanime.net/Video3/1539/13.mp4" },
+         { number: 14, title: "الحلقة 14", url: "https://server.sanime.net/Video3/1539/14.mp4" },
+         { number: 15, title: "الحلقة 15", url: "https://server.sanime.net/Video3/1539/15.mp4" },
+         { number: 16, title: "الحلقة 16", url: "https://server.sanime.net/Video3/1539/16.mp4" },
+         { number: 17, title: "الحلقة 17", url: "https://server.sanime.net/Video3/1539/17.mp4" },
+         { number: 18, title: "الحلقة 18", url: "https://server.sanime.net/Video3/1539/18.mp4" },
+         { number: 19, title: "الحلقة 19", url: "https://server.sanime.net/Video3/1539/19.mp4" },
+         { number: 20, title: "الحلقة 20", url: "https://server.sanime.net/Video3/1539/20.mp4" },
+         { number: 21, title: "الحلقة 21", url: "https://server.sanime.net/Video3/1539/21.mp4" },
+         { number: 22, title: "الحلقة 22", url: "https://server.sanime.net/Video3/1539/22.mp4" },
+         { number: 23, title: "الحلقة 23", url: "https://server.sanime.net/Video3/1539/23.mp4" },
+         { number: 24, title: "الحلقة 24", url: "https://server.sanime.net/Video3/1539/24.mp4" },
+        ]
+      },
+     {
+       id: 58,
+        title: "sadasdasdN",
+        categories: ["أكشن", "انميات جديده"],
+        description: "قصة الانمي : ",
+        image: "https://cdn.discordapp.com/attachments/1380004558222131200/1380023672311513158/IMG_4706.jpg?ex=684458f3&is=68430773&hm=a2c11efe45169404c01ab495b4e632a91b8cd2dd8811b862dc65b22f1d46152f&",
+        episodes: [
+          { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video/11677/1.mp4" },
+          { number: 2, title: "حلقة 2", url: "https://server.sanime.net/Video/11677/2.mp4" },
+          { number: 3, title: "3 حلقة", url: "https://server.sanime.net/Video/11677/3.mp4" },
+        ]
       }
     ];
+  const animeList = document.getElementById("anime-list");
+  const details = document.getElementById("anime-details");
 
+  function renderAnimeList() {
+    animeList.innerHTML = "";
+    animeData.forEach(anime => {
+      const card = document.createElement("div");
+      card.className = "anime-card";
+      card.setAttribute("data-categories", anime.categories.join(","));
+      card.setAttribute("data-title", anime.title);
+      card.onclick = () => showDetails(anime.id);
+      card.innerHTML = `
+        <img src="${anime.image}" alt="${anime.title}" />
+        <div class="title">${anime.title}</div>
+        <div class="ep">الحلقات ${anime.episodes.length}</div>
+      `;
+      animeList.appendChild(card);
+    });
+  }
 
-    
-        let filteredAnime = [...animeData];
+  function filterCategory(category) {
+    document.querySelectorAll(".categories button").forEach(btn => {
+      btn.classList.toggle("active", btn.textContent === category);
+    });
 
-        function displayAnime(animes) {
-            const grid = document.getElementById('animeGrid');
-            grid.innerHTML = '';
+    document.querySelectorAll(".anime-card").forEach(card => {
+      const cats = card.getAttribute("data-categories");
+      card.style.display = category === "الكل" || cats.includes(category) ? "" : "none";
+    });
+  }
 
-            animes.forEach(anime => {
-                const card = document.createElement('div');
-                card.className = 'anime-card';
-                card.onclick = () => showAnimeDetail(anime);
+  function searchAnime() {
+    const term = document.getElementById("search").value.toLowerCase();
+    document.querySelectorAll(".anime-card").forEach(card => {
+      const title = card.getAttribute("data-title").toLowerCase();
+      card.style.display = title.includes(term) ? "" : "none";
+    });
+  }
 
-                const stars = '★'.repeat(Math.floor(anime.rating / 2)) + '☆'.repeat(5 - Math.floor(anime.rating / 2));
+  function showDetails(id) {
+    const anime = animeData.find(a => a.id === id);
+    if (!anime) return;
 
-                card.innerHTML = `
-                    <img class="anime-image" src="${anime.image}" alt="${anime.title}" onerror="this.src='https://via.placeholder.com/300x400/333/fff?text=Image+Not+Available'" loading="lazy">
-                    <div class="anime-info">
-                        <div class="anime-title">${anime.title}</div>
-                        <div class="anime-rating">
-                            <span class="stars">${stars}</span>
-                            <span class="rating-number">${anime.rating}</span>
-                        </div>
-                    </div>
-                `;
+    document.getElementById("anime-img").src = anime.image;
+    document.getElementById("anime-title").textContent = anime.title;
+    document.getElementById("anime-description").textContent = anime.description;
 
-                grid.appendChild(card);
-            });
-        }
+    const episodesList = document.getElementById("episodes-list");
+    episodesList.innerHTML = "";
 
-        function showAnimeDetail(anime) {
-            document.getElementById('detailImage').src = anime.image;
-            document.getElementById('detailTitle').textContent = anime.title;
-            document.getElementById('detailDescription').textContent = anime.description;
-            
-            const stars = '★'.repeat(Math.floor(anime.rating / 2)) + '☆'.repeat(5 - Math.floor(anime.rating / 2));
-            document.getElementById('detailRating').innerHTML = `
-                <span class="stars">${stars}</span>
-                <span class="rating-number">${anime.rating}</span>
-            `;
+    anime.episodes.forEach((ep, index) => {
+      const epBtn = document.createElement("button");
+      epBtn.textContent = ep.title || `الحلقة ${ep.number}`;
+      epBtn.onclick = () => {
+        const oldVid = episodesList.querySelector("video");
+        if (oldVid) oldVid.remove();
+        episodesList.querySelectorAll("button").forEach(b => b.classList.remove("active"));
+        epBtn.classList.add("active");
+        const video = document.createElement("video");
+        video.controls = true;
+        video.autoplay = true;
+        video.src = ep.url;
+        episodesList.appendChild(video);
+      };
 
-            const episodesGrid = document.getElementById('episodesGrid');
-            episodesGrid.innerHTML = '';
+      if (index === 0) {
+        epBtn.classList.add("active");
+        const video = document.createElement("video");
+        video.controls = true;
+        video.autoplay = true;
+        video.src = ep.url;
+        episodesList.appendChild(epBtn);
+        episodesList.appendChild(video);
+      } else {
+        episodesList.appendChild(epBtn);
+      }
+    });
 
-            anime.episodes.forEach(episode => {
-                const episodeContainer = document.createElement('div');
-                
-                const episodeCard = document.createElement('div');
-                episodeCard.className = 'episode-card';
-                episodeCard.id = `episode-${episode.number}`;
-                episodeCard.onclick = () => toggleEpisode(episode, episodeCard);
+    animeList.style.display = "none";
+    details.style.display = "block";
+  }
 
-                episodeCard.innerHTML = `
-                    <div class="episode-title">${episode.title}</div>
-                    <div>Episode ${episode.number}</div>
-                `;
+  function showMain() {
+    details.style.display = "none";
+    animeList.style.display = "grid";
+  }
 
-                const videoContainer = document.createElement('div');
-                videoContainer.className = 'video-container';
-                videoContainer.id = `video-${episode.number}`;
+  function shareSite() {
+    const shareData = {
+      title: "Ghost Anime",
+      text: "شاهد الأنمي على Ghost Anime",
+      url: window.location.href
+    };
+    if (navigator.share) {
+      navigator.share(shareData);
+    } else {
+      prompt("انسخ رابط الموقع وشاركه:", window.location.href);
+    }
+  }
 
-                episodeContainer.appendChild(episodeCard);
-                episodeContainer.appendChild(videoContainer);
-                episodesGrid.appendChild(episodeContainer);
-            });
+  renderAnimeList();
+</script>
 
-            document.getElementById('animeDetail').style.display = 'block';
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeDetail() {
-            document.getElementById('animeDetail').style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
-
-        function toggleEpisode(episode, episodeCard) {
-            const videoContainer = document.getElementById(`video-${episode.number}`);
-            const allVideoContainers = document.querySelectorAll('.video-container');
-            const allEpisodeCards = document.querySelectorAll('.episode-card');
-            
-            // إخفاء جميع الفيديوهات الأخرى وإزالة التفعيل
-            allVideoContainers.forEach(container => {
-                if (container.id !== `video-${episode.number}`) {
-                    container.style.display = 'none';
-                    container.innerHTML = '';
-                }
-            });
-            
-            allEpisodeCards.forEach(card => {
-                if (card.id !== `episode-${episode.number}`) {
-                    card.classList.remove('active');
-                }
-            });
-            
-            // تبديل حالة الفيديو الحالي
-            if (videoContainer.style.display === 'block') {
-                videoContainer.style.display = 'none';
-                videoContainer.innerHTML = '';
-                episodeCard.classList.remove('active');
-            } else {
-                videoContainer.style.display = 'block';
-                episodeCard.classList.add('active');
-                
-                // إضافة مؤشر تحميل
-                videoContainer.innerHTML = '<div class="video-loading">Loading video...</div>';
-                
-                setTimeout(() => {
-                    if (episode.url.includes('drive.google.com')) {
-                        const fileId = episode.url.match(/\/d\/(.+?)\//)[1];
-                        const embedUrl = `https://drive.google.com/file/d/${fileId}/preview`;
-                        videoContainer.innerHTML = `
-                            <iframe 
-                                src="${embedUrl}" 
-                                allowfullscreen
-                                allow="autoplay; encrypted-media"
-                                frameborder="0"
-                                scrolling="no">
-                            </iframe>`;
-                    } else if (!episode.url.includes('example.com')) {
-                        videoContainer.innerHTML = `
-                            <iframe 
-                                src="${episode.url}" 
-                                allowfullscreen
-                                allow="autoplay; encrypted-media"
-                                frameborder="0"
-                                scrolling="no">
-                            </iframe>`;
-                    } else {
-                        videoContainer.innerHTML = `
-                            <div style="padding: 2rem; text-align: center; color: #ff6b6b; background: #2a2a3e; border-radius: 10px;">
-                                <h3>Demo Episode</h3>
-                                <p>This is a demo link. In the real website, the episode will play here.</p>
-                                <div style="margin-top: 1rem; padding: 1rem; background: #1a1a2e; border-radius: 5px;">
-                                    <strong>Episode ${episode.number}: ${episode.title}</strong>
-                                </div>
-                            </div>`;
-                    }
-                }, 500);
-            }
-        }
-
-        function watchEpisode(url) {
-            if (url.includes('example.com')) {
-                alert('هذا رابط تجريبي. في الموقع الحقيقي سيتم تشغيل الحلقة.');
-            } else if (url.includes('drive.google.com')) {
-                // تحويل رابط Google Drive للمشاهدة المباشرة
-                const fileId = url.match(/\/d\/(.+?)\//)[1];
-                const directUrl = `https://drive.google.com/file/d/${fileId}/preview`;
-                window.open(directUrl, '_blank');
-            } else {
-                window.open(url, '_blank');
-            }
-        }
-
-        function searchAnime() {
-            const searchTerm = document.getElementById('searchBox').value.toLowerCase();
-            filteredAnime = animeData.filter(anime => 
-                anime.title.toLowerCase().includes(searchTerm)
-            );
-            displayAnime(filteredAnime);
-        }
-
-        document.getElementById('searchBox').addEventListener('input', searchAnime);
-
-        // إغلاق النافذة التفصيلية عند الضغط خارجها
-        document.getElementById('animeDetail').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeDetail();
-            }
-        });
-
-        // عرض الانمي عند تحميل الصفحة
-        displayAnime(animeData);
-
-        // إضافة تأثيرات تفاعلية
-        document.addEventListener('DOMContentLoaded', function() {
-            // تأثير التحميل
-            setTimeout(() => {
-                document.querySelectorAll('.anime-card').forEach((card, index) => {
-                    card.style.opacity = '0';
-                    card.style.transform = 'translateY(50px)';
-                    setTimeout(() => {
-                        card.style.transition = 'all 0.5s ease';
-                        card.style.opacity = '1';
-                        card.style.transform = 'translateY(0)';
-                    }, index * 100);
-                });
-            }, 100);
-        });
-
-        // رابط الحلقة الأولى من Wistoria
-        console.log('https://drive.google.com/file/d/1v4KJdOF-7IAwuBwPNmWYN8WCCpHi7O7g/view?usp=drivesdk');
-    </script>
 </body>
 </html>

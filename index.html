@@ -2,9 +2,13 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>Ghost Anime</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       font-family: sans-serif;
@@ -18,7 +22,6 @@
       text-align: center;
       font-size: 24px;
       font-weight: bold;
-      position: relative;
     }
 
     .search-share {
@@ -26,10 +29,12 @@
       gap: 10px;
       padding: 10px;
       justify-content: center;
+      flex-wrap: wrap;
     }
 
     .search-share input {
       flex: 1;
+      min-width: 200px;
       padding: 10px;
       border-radius: 20px;
       border: none;
@@ -78,7 +83,7 @@
 
     .anime-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
       gap: 10px;
       padding: 0 10px 60px;
     }
@@ -192,6 +197,12 @@
       cursor: pointer;
       margin: 20px;
     }
+
+    @media (orientation: landscape) {
+      .anime-details img {
+        width: 250px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -249,8 +260,8 @@
 
 <script>
   const animeData = [
-  {
-    id: 1,
+    {
+      id: 1,
     title: "Wistoria: Wand and Sword",
     categories: [" أكشن", "مغامرات", "كوميدي"],
    description: "قصة الانمي : سعيًا للوفاء بوعده الذي قطعه لصديقة الطفولة، يلتحق ويل سيرفورت بأكاديمية ريغاردن السحرية بهدف الوصول إلى قمة العالم السحري هناك مشكلة واحدة فقط لا يمكنه استخدام السحر! هل ستكون مهارات سيفه هي المفتاح لفتح إمكاناته الحقيقية؟ ",
@@ -2418,17 +2429,69 @@
       },
      {
        id: 58,
-        title: "sadasdasdN",
+        title: "Tokyo Ghoul:re",
         categories: ["أكشن", "انميات جديده"],
-        description: "قصة الانمي : ",
+        description: "قصة الانمي : على أنتيو و على CCG مرت عامين على حرب ال الرغم من أن الجو في طوكيو قد تغيرا جذريا إلا أن الغول لا تزال ccG بسبب التأثير المتزايد ل تشكل مشكلة لأنها بدأت في اتخاذ الحذر ولا سيما تم أنشاء فرقة خاصة المنظمة اإلارهابية أةجيري والمعروفة باسم فرقة كوينكس هم البشر الذين خضعوا لعملية جراحية من أجل الاستفادة من القدرات الخاصة نت الغول فإنها تشارك في عمليات للقضاء على المخلوقات الخظرة زعيم هذه المجموعة هايس ساساكي تم تدريبه من قبل المحقق الشهير الطبقة الخاصة كيشو أريما ومع ذلك ذكريات غير معروفة مخلبة في ذهنه تذكره ببطء من الشخص الذي كان عليه أن يكون ",
+        image: "https://cdn.discordapp.com/attachments/1380004558222131200/1380023672936333445/IMG_4709.jpg?ex=684501b3&is=6843b033&hm=f802c99c905ec901ad7f614f5f542882ec325df0dc500645c15faf71fe4d166b&",
+        episodes: [
+          { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video3/2721/1.mp4" },
+          { number: 2, title: "حلقة 2", url: "https://server.sanime.net/Video3/2721/2.mp4" },
+          { number: 3, title: "حلقة 3", url: "https://server.sanime.net/Video3/2721/3.mp4" },
+          { number: 4, title: "حلقة 4", url: "https://server.sanime.net/Video3/2721/4.mp4" },
+          { number: 5, title: "حلقة 5", url: "https://server.sanime.net/Video3/2721/5.mp4" },
+          { number: 6, title: "حلقة 6", url: "https://server.sanime.net/Video3/2721/6.mp4" },
+          { number: 7, title: "حلقة 7", url: "https://server.sanime.net/Video3/2721/7.mp4" },
+          { number: 8, title: "حلقة 8", url: "https://server.sanime.net/Video3/2721/8.mp4" },
+          { number: 9, title: "حلقة 9", url: "https://server.sanime.net/Video3/2721/9.mp4" },
+          { number: 10, title: "حلقة 10", url: "https://server.sanime.net/Video3/2721/10.mp4" },
+          { number: 11, title: "حلقة 11", url: "https://server.sanime.net/Video3/2721/11.mp4" },
+          { number: 12, title: "حلقة 12", url: "https://server.sanime.net/Video3/2721/12.mp4" },
+       ]
+      },
+     {
+       id: 59,
+        title: "Tokyo Ghoul √A",
+        categories: ["أكشن", "انميات جديده"],
+        description: "قصة الانمي : الموسم الثاني لأنمي Tokyo Ghoul ",
         image: "https://cdn.discordapp.com/attachments/1380004558222131200/1380023672311513158/IMG_4706.jpg?ex=684458f3&is=68430773&hm=a2c11efe45169404c01ab495b4e632a91b8cd2dd8811b862dc65b22f1d46152f&",
         episodes: [
-          { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video/11677/1.mp4" },
-          { number: 2, title: "حلقة 2", url: "https://server.sanime.net/Video/11677/2.mp4" },
-          { number: 3, title: "3 حلقة", url: "https://server.sanime.net/Video/11677/3.mp4" },
+          { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video2/1533/1.mp4" },
+          { number: 2, title: "حلقة 2", url: "https://server.sanime.net/Video2/1533/2.mp4" },
+          { number: 3, title: "حلقة 3", url: "https://server.sanime.net/Video2/1533/3.mp4" },
+          { number: 4, title: "حلقة 4", url: "https://server.sanime.net/Video2/1533/4.mp4" },
+          { number: 5, title: "حلقة 5", url: "https://server.sanime.net/Video2/1533/5.mp4" },
+          { number: 6, title: "حلقة 6", url: "https://server.sanime.net/Video2/1533/6.mp4" },
+          { number: 7, title: "حلقة 7", url: "https://server.sanime.net/Video2/1533/7.mp4" },
+          { number: 8, title: "حلقة 8", url: "https://server.sanime.net/Video2/1533/8.mp4" },
+          { number: 9, title: "حلقة 9", url: "https://server.sanime.net/Video2/1533/9.mp4" },
+          { number: 10, title: "حلقة 10", url: "https://server.sanime.net/Video2/1533/10SD.mp4" },
+          { number: 11, title: "حلقة 11", url: "https://server.sanime.net/Video2/1533/11.mp4" },
+          { number: 12, title: "حلقة 12", url: "https://server.sanime.net/Video2/1533/12.mp4" },
+      ]
+      },
+     {
+       id: 60,
+        title: "Tokyo Ghoul:re 2nd Season",
+        categories: ["أكشن", "انميات جديده", "رعب"],
+        description: "قصة الانمي : الموسم الثاني من انمي Tokyo Ghoul:re ",
+        image: "https://cdn.discordapp.com/attachments/1380004558222131200/1380023673238454282/IMG_4710.jpg?ex=684501b3&is=6843b033&hm=deb9a9ac5833498bf94772dc9852ef2fcf93cff9d8f0e868fbe2e996adb7a9de&",
+        episodes: [
+          { number: 1, title: "حلقة 1", url: "https://server.sanime.net/Video3/2936/1.mp4" },
+          { number: 2, title: "حلقة 2", url: "https://server.sanime.net/Video3/2936/2.mp4" },
+          { number: 3, title: "حلقة 3", url: "https://server.sanime.net/Video3/2936/3.mp4" },
+          { number: 4, title: "حلقة 4", url: "https://server.sanime.net/Video3/2936/4.mp4" },
+          { number: 5, title: "حلقة 5", url: "https://server.sanime.net/Video3/2936/5.mp4" },
+          { number: 6, title: "حلقة 6", url: "https://server.sanime.net/Video3/2936/6.mp4" },
+          { number: 7, title: "حلقة 7", url: "https://server.sanime.net/Video3/2936/7.mp4" },
+          { number: 8, title: "حلقة 8", url: "https://server.sanime.net/Video3/2936/8.mp4" },
+          { number: 9, title: "حلقة 9", url: "https://server.sanime.net/Video3/2936/9.mp4" },
+          { number: 10, title: "حلقة 10", url: "https://server.sanime.net/Video3/2936/10.mp4" },
+          { number: 11, title: "حلقة 11", url: "https://server.sanime.net/Video3/2936/11.mp4" },
+          { number: 12, title: "حلقة 12", url: "https://server.sanime.net/Video3/2936/12.mp4" },
         ]
       }
     ];
+
   const animeList = document.getElementById("anime-list");
   const details = document.getElementById("anime-details");
 

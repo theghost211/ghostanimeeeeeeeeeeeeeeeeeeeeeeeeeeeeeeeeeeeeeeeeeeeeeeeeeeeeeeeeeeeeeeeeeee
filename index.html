@@ -2564,20 +2564,24 @@
         video.controls = true;
         video.autoplay = true;
         video.src = ep.url;
+        video.style.width = "100%";
+        video.style.borderRadius = "10px";
+        video.style.backgroundColor = "black";
+        video.addEventListener("loadedmetadata", () => {
+          if (video.requestFullscreen) {
+            video.requestFullscreen();
+          } else if (video.webkitEnterFullscreen) {
+            video.webkitEnterFullscreen();
+          } else if (video.msRequestFullscreen) {
+            video.msRequestFullscreen();
+          }
+        });
         episodesList.appendChild(video);
       };
 
-      if (index === 0) {
-        epBtn.classList.add("active");
-        const video = document.createElement("video");
-        video.controls = true;
-        video.autoplay = true;
-        video.src = ep.url;
-        episodesList.appendChild(epBtn);
-        episodesList.appendChild(video);
-      } else {
-        episodesList.appendChild(epBtn);
-      }
+      episodesList.appendChild(epBtn);
+
+      if (index === 0) epBtn.click();
     });
 
     animeList.style.display = "none";

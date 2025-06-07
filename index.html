@@ -2505,9 +2505,26 @@
   const animeList = document.getElementById("anime-list");
   const details = document.getElementById("anime-details");
 
-  function renderAnimeList() {
-    animeList.innerHTML = "";
-    animeData.forEach(anime => {
+  const batchSize = 10;  // عدد الأنميات للتحميل دفعة وحدة
+  let loadedCount = 0;
+  let currentCategory = "الكل";
+  let currentSearch = "";
+
+  function renderAnimeList(loadMore = false) {
+    if (!loadMore) {
+      loadedCount = 0;
+      animeList.innerHTML = "";
+    }
+
+    // فلترة الأنميات حسب التصنيف والبحث
+    const filteredData = animeData.filter(anime => {
+      const inCategory = currentCategory === "الكل" || anime.categories.includes(currentCategory);
+      const inSearch = anime.title.toLowerCase().includes(currentSearch.toLowerCase());
+      return inCategory && inSearch;
+    });
+
+    const toLoad = filteredData.slice(loadedCount, loadedCount + batchSize);
+    toLoad.forEach(anime => {
       const card = document.createElement("div");
       card.className = "anime-card";
       card.setAttribute("data-categories", anime.categories.join(","));
@@ -2520,25 +2537,38 @@
       `;
       animeList.appendChild(card);
     });
+    loadedCount += toLoad.length;
+
+    // زر تحميل المزيد
+    const loadMoreBtn = document.getElementById("load-more-btn");
+    if (loadedCount < filteredData.length) {
+      if (!loadMoreBtn) {
+        const btn = document.createElement("button");
+        btn.id = "load-more-btn";
+        btn.textContent = "تحميل المزيد";
+        btn.style = "width: 100%; padding: 10px; margin-top: 10px; cursor: pointer; border-radius: 10px; background-color: #1e90ff; color: white; border: none;";
+        btn.onclick = () => {
+          renderAnimeList(true);
+          btn.remove();
+        };
+        animeList.appendChild(btn);
+      }
+    } else {
+      if (loadMoreBtn) loadMoreBtn.remove();
+    }
   }
 
   function filterCategory(category) {
+    currentCategory = category;
     document.querySelectorAll(".categories button").forEach(btn => {
       btn.classList.toggle("active", btn.textContent === category);
     });
-
-    document.querySelectorAll(".anime-card").forEach(card => {
-      const cats = card.getAttribute("data-categories");
-      card.style.display = category === "الكل" || cats.includes(category) ? "" : "none";
-    });
+    renderAnimeList();
   }
 
   function searchAnime() {
-    const term = document.getElementById("search").value.toLowerCase();
-    document.querySelectorAll(".anime-card").forEach(card => {
-      const title = card.getAttribute("data-title").toLowerCase();
-      card.style.display = title.includes(term) ? "" : "none";
-    });
+    currentSearch = document.getElementById("search").value.trim();
+    renderAnimeList();
   }
 
   function showDetails(id) {
@@ -2554,34 +2584,17 @@
 
     anime.episodes.forEach((ep, index) => {
       const epBtn = document.createElement("button");
-      epBtn.textContent = ep.title || `الحلقة ${ep.number}`;
+      epBtn.textContent = ep.title;
       epBtn.onclick = () => {
-        const oldVid = episodesList.querySelector("video");
-        if (oldVid) oldVid.remove();
-        episodesList.querySelectorAll("button").forEach(b => b.classList.remove("active"));
+        document.querySelectorAll(".episodes button").forEach(b => b.classList.remove("active"));
         epBtn.classList.add("active");
-        const video = document.createElement("video");
-        video.controls = true;
-        video.autoplay = true;
-        video.src = ep.url;
-        video.style.width = "100%";
-        video.style.borderRadius = "10px";
-        video.style.backgroundColor = "black";
-        video.addEventListener("loadedmetadata", () => {
-          if (video.requestFullscreen) {
-            video.requestFullscreen();
-          } else if (video.webkitEnterFullscreen) {
-            video.webkitEnterFullscreen();
-          } else if (video.msRequestFullscreen) {
-            video.msRequestFullscreen();
-          }
-        });
-        episodesList.appendChild(video);
+        showVideo(ep.url);
       };
-
       episodesList.appendChild(epBtn);
-
-      if (index === 0) epBtn.click();
+      if (index === 0) {
+        epBtn.classList.add("active");
+        showVideo(ep.url);
+      }
     });
 
     animeList.style.display = "none";
@@ -2593,16 +2606,30 @@
     animeList.style.display = "grid";
   }
 
+  function showVideo(url) {
+    let video = document.querySelector(".episodes video");
+    if (!video) {
+      video = document.createElement("video");
+      video.controls = true;
+      video.autoplay = true;
+      video.style.width = "100%";
+      document.getElementById("episodes-list").appendChild(video);
+    }
+    if (video.src !== url) {
+      video.src = url;
+      video.load();
+      video.play();
+    }
+  }
+
   function shareSite() {
-    const shareData = {
-      title: "Ghost Anime",
-      text: "شاهد الأنمي على Ghost Anime",
-      url: window.location.href
-    };
     if (navigator.share) {
-      navigator.share(shareData);
+      navigator.share({
+        title: "Ghost Anime",
+        url: location.href
+      }).catch(console.error);
     } else {
-      prompt("انسخ رابط الموقع وشاركه:", window.location.href);
+      alert("ميزة المشاركة غير مدعومة في متصفحك.");
     }
   }
 

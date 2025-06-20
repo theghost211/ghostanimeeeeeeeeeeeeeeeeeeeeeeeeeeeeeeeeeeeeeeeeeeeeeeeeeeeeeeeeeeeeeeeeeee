@@ -1047,9 +1047,9 @@
         <header class="header">
             <div class="header-content">
                 <div class="logo">
-                    <img src="https://cdn.discordapp.com/attachments/1384413417200160819/1385535350222360677/IMG_4836.png?ex=68566bd9&is=68551a59&hm=c5a20be5f00423cf4d11937add2ec2082e4bb081973199e1fd9f4d8021016c0a&" alt="Logo" class="logo-img">
+                    <img src="https://via.placeholder.com/40x40/4A90E2/ffffff?text=A" alt="Logo" class="logo-img">
                     <div>
-                        <div class="logo-text">موقع ghost anime</div>
+                        <div class="logo-text">موقع الأنمي</div>
                         <div class="logo-subtitle">أفضل موقع لمشاهدة الأنمي</div>
                     </div>
                 </div>
@@ -1068,11 +1068,15 @@
         <main class="main-content">
             <!-- Featured Section -->
             <section class="featured-section">
-                <h2 class="section-title">الأنميات الجديدة</h2>
+                <h2 class="section-title">الأنمي المميز</h2>
                 <div class="featured-slider">
                     <div class="featured-card" id="featured-card">
-                        <img src="ررررررر" alt="Featured Anime" class="featured-image">
+                        <img src="https://cdn.discordapp.com/attachments/1380004558222131200/1380023672311513158/IMG_4706.jpg" alt="Featured Anime" class="featured-image">
                         <div class="featured-info">
+                            <h3 class="featured-title">Attack on Titan</h3>
+                            <div class="featured-genres">أكشن، دراما، خيال</div>
+                            <div class="featured-story">قصة الأنمي:</div>
+                            <p class="featured-description">في عالم تحاصره العمالقة المرعبة، يقاتل البشر من أجل البقاء خلف أسوار عالية. إيرين ييغر وأصدقاؤه ينضمون لفيلق الاستطلاع لمحاربة هذه المخلوقات الغامضة واكتشاف الحقيقة وراء وجودها.</p>
                         </div>
                     </div>
                     <div class="slider-dots">
@@ -1095,6 +1099,18 @@
                 </div>
             </section>
 
+            <!-- App Info -->
+            <section class="app-info">
+                <h2 class="section-title">معلومات التطبيق</h2>
+                <div class="app-card">
+                    <img src="https://via.placeholder.com/80x80/4A90E2/ffffff?text=App" alt="App Icon" class="app-icon">
+                    <div class="app-details">
+                        <h3 class="app-name">موقع الأنمي</h3>
+                        <p class="app-description">أفضل موقع لمشاهدة الأنمي المترجم بجودة عالية. نوفر لك أحدث الحلقات والأفلام مع ترجمة احترافية وتجربة مشاهدة مميزة.</p>
+                    </div>
+                </div>
+            </section>
+
             <!-- Classification Section -->
             <section class="categories">
                 <h2 class="section-title">الأقسام الأساسية</h2>
@@ -1111,29 +1127,13 @@
                 <h2 class="section-title">التصنيفات</h2>
                 <div class="category-grid">
                     <button class="category-btn" onclick="filterByCategory('أكشن')">أكشن</button>
-                    <button class="category-btn" onclick="filterByCategory('مغامرات')">مغامرات</button>
-                    <button class="category-btn" onclick="filterByCategory('سيارات')">سيارات</button>
                     <button class="category-btn" onclick="filterByCategory('كوميدي')">كوميدي</button>
-                    <button class="category-btn" onclick="filterByCategory('عته')">عته</button>
-                    <button class="category-btn" onclick="filterByCategory('شياطين')">شياطين</button>
                     <button class="category-btn" onclick="filterByCategory('دراما')">دراما</button>
                     <button class="category-btn" onclick="filterByCategory('خيال')">خيال</button>
-                    <button class="category-btn" onclick="filterByCategory('لعبة')">لعبة</button>
-                    <button class="category-btn" onclick="filterByCategory('تاريخي')">تاريخي</button>
-                    <button class="category-btn" onclick="filterByCategory('رعب')">رعب</button>
-                    <button class="category-btn" onclick="filterByCategory('سحر')">سحر</button>
-                    <button class="category-btn" onclick="filterByCategory('فنون قتال')">فنون قتال</button>
-                    <button class="category-btn" onclick="filterByCategory('آلي')">آلي</button>
-                    <button class="category-btn" onclick="filterByCategory('عسكري')">عسكري</button>
-                    <button class="category-btn" onclick="filterByCategory('موسيقى')">موسيقى</button>
-                    <button class="category-btn" onclick="filterByCategory('الغموض')">الغموض</button>
-                    <button class="category-btn" onclick="filterByCategory('شرطة')">شرطة</button>
-                    <button class="category-btn" onclick="filterByCategory('نفسي')">نفسي</button>
-                    <button class="category-btn" onclick="filterByCategory('رومانسي')">رومانسي</button>
-                    <button class="category-btn" onclick="filterByCategory('الساموراي')">الساموراي</button>
+                    <button class="category-btn" onclick="filterByCategory('انميات جديده')">انميات جديده</button>
+                    <button class="category-btn" onclick="filterByCategory('خارق للطبيعة')">خارق للطبيعة</button>
+                    <button class="category-btn" onclick="filterByCategory('غموض')">غموض</button>
                     <button class="category-btn" onclick="filterByCategory('مدرسي')">مدرسي</button>
-                    <button class="category-btn" onclick="filterByCategory('مصاص دماء')">مصاص دماء</button>
-
                 </div>
             </section>
         </main>
@@ -1227,16 +1227,16 @@
                         <h3 class="day-title">الأحد</h3>
                         <div class="day-anime">
                             <div class="schedule-anime-item" onclick="showAnimeDetails(1)">
-                                <img src="" alt="Attack on Titan" class="schedule-anime-image">
+                                <img src="https://cdn.discordapp.com/attachments/1380004558222131200/1380023672311513158/IMG_4706.jpg" alt="Attack on Titan" class="schedule-anime-image">
                                 <div class="schedule-anime-info">
-                                    <div class="schedule-anime-title"> </div>
+                                    <div class="schedule-anime-title">Attack on Titan</div>
                                     <div class="schedule-anime-time">9:00 مساءً</div>
                                 </div>
                             </div>
                             <div class="schedule-anime-item" onclick="showAnimeDetails(2)">
-                                <img src="" alt="One Piece" class="schedule-anime-image">
+                                <img src="https://cdn.discordapp.com/attachments/1380004558222131200/1380023672311513158/IMG_4706.jpg" alt="One Piece" class="schedule-anime-image">
                                 <div class="schedule-anime-info">
-                                    <div class="schedule-anime-title"> </div>
+                                    <div class="schedule-anime-title">One Piece</div>
                                     <div class="schedule-anime-time">10:30 مساءً</div>
                                 </div>
                             </div>
@@ -1247,9 +1247,9 @@
                         <h3 class="day-title">الاثنين</h3>
                         <div class="day-anime">
                             <div class="schedule-anime-item" onclick="showAnimeDetails(3)">
-                                <img src="" alt="Naruto" class="schedule-anime-image">
+                                <img src="https://cdn.discordapp.com/attachments/1380004558222131200/1380023672311513158/IMG_4706.jpg" alt="Naruto" class="schedule-anime-image">
                                 <div class="schedule-anime-info">
-                                    <div class="schedule-anime-title"> </div>
+                                    <div class="schedule-anime-title">Naruto</div>
                                     <div class="schedule-anime-time">8:30 مساءً</div>
                                 </div>
                             </div>
@@ -1260,16 +1260,16 @@
                         <h3 class="day-title">الثلاثاء</h3>
                         <div class="day-anime">
                             <div class="schedule-anime-item" onclick="showAnimeDetails(4)">
-                                <img src="" alt="Dragon Ball Z" class="schedule-anime-image">
+                                <img src="https://cdn.discordapp.com/attachments/1380004558222131200/1380023672311513158/IMG_4706.jpg" alt="Dragon Ball Z" class="schedule-anime-image">
                                 <div class="schedule-anime-info">
-                                    <div class="schedule-anime-title"> </div>
+                                    <div class="schedule-anime-title">Dragon Ball Z</div>
                                     <div class="schedule-anime-time">9:15 مساءً</div>
                                 </div>
                             </div>
                             <div class="schedule-anime-item" onclick="showAnimeDetails(5)">
-                                <img src="" alt="Death Note" class="schedule-anime-image">
+                                <img src="https://cdn.discordapp.com/attachments/1380004558222131200/1380023672311513158/IMG_4706.jpg" alt="Death Note" class="schedule-anime-image">
                                 <div class="schedule-anime-info">
-                                    <div class="schedule-anime-title"> </div>
+                                    <div class="schedule-anime-title">Death Note</div>
                                     <div class="schedule-anime-time">10:45 مساءً</div>
                                 </div>
                             </div>
@@ -1280,9 +1280,9 @@
                         <h3 class="day-title">الأربعاء</h3>
                         <div class="day-anime">
                             <div class="schedule-anime-item" onclick="showAnimeDetails(6)">
-                                <img src="" alt="My Hero Academia" class="schedule-anime-image">
+                                <img src="https://cdn.discordapp.com/attachments/1380004558222131200/1380023672311513158/IMG_4706.jpg" alt="My Hero Academia" class="schedule-anime-image">
                                 <div class="schedule-anime-info">
-                                    <div class="schedule-anime-title"> </div>
+                                    <div class="schedule-anime-title">My Hero Academia</div>
                                     <div class="schedule-anime-time">8:00 مساءً</div>
                                 </div>
                             </div>
@@ -1293,9 +1293,9 @@
                         <h3 class="day-title">الخميس</h3>
                         <div class="day-anime">
                             <div class="schedule-anime-item" onclick="showAnimeDetails(1)">
-                                <img src="" alt="Attack on Titan" class="schedule-anime-image">
+                                <img src="https://cdn.discordapp.com/attachments/1380004558222131200/1380023672311513158/IMG_4706.jpg" alt="Attack on Titan" class="schedule-anime-image">
                                 <div class="schedule-anime-info">
-                                    <div class="schedule-anime-title"> </div>
+                                    <div class="schedule-anime-title">Attack on Titan</div>
                                     <div class="schedule-anime-time">9:30 مساءً</div>
                                 </div>
                             </div>
@@ -1306,14 +1306,14 @@
                         <h3 class="day-title">الجمعة</h3>
                         <div class="day-anime">
                             <div class="schedule-anime-item" onclick="showAnimeDetails(2)">
-                                <img src="" alt="One Piece" class="schedule-anime-image">
+                                <img src="https://cdn.discordapp.com/attachments/1380004558222131200/1380023672311513158/IMG_4706.jpg" alt="One Piece" class="schedule-anime-image">
                                 <div class="schedule-anime-info">
-                                    <div class="schedule-anime-title"> </div>
+                                    <div class="schedule-anime-title">One Piece</div>
                                     <div class="schedule-anime-time">8:45 مساءً</div>
                                 </div>
                             </div>
                             <div class="schedule-anime-item" onclick="showAnimeDetails(3)">
-                                <img src="" alt="Naruto" class="schedule-anime-image">
+                                <img src="https://cdn.discordapp.com/attachments/1380004558222131200/1380023672311513158/IMG_4706.jpg" alt="Naruto" class="schedule-anime-image">
                                 <div class="schedule-anime-info">
                                     <div class="schedule-anime-title">Naruto</div>
                                     <div class="schedule-anime-time">10:15 مساءً</div>
@@ -1326,9 +1326,9 @@
                         <h3 class="day-title">السبت</h3>
                         <div class="day-anime">
                             <div class="schedule-anime-item" onclick="showAnimeDetails(4)">
-                                <img src="" alt="Dragon Ball Z" class="schedule-anime-image">
+                                <img src="https://cdn.discordapp.com/attachments/1380004558222131200/1380023672311513158/IMG_4706.jpg" alt="Dragon Ball Z" class="schedule-anime-image">
                                 <div class="schedule-anime-info">
-                                    <div class="schedule-anime-title"> </div>
+                                    <div class="schedule-anime-title">Dragon Ball Z</div>
                                     <div class="schedule-anime-time">7:30 مساءً</div>
                                 </div>
                             </div>
@@ -1358,7 +1358,7 @@
     <script>
         // Anime data with real episodes structure
         const animeData = [
-            {
+             {
     id: 1,
     title: "Wistoria: Wand and Sword",
     categories: [" أكشن", "مغامرات", "كوميدي" , "الكل"],
@@ -3599,27 +3599,6 @@
         ]
       }
     ];
-        // Featured anime data
-        const featuredAnime = [
-            {
-                title: "JoJo's Bizarre Adventure: Stardust Crusaders 2nd Season",
-                genres: "أكشن",
-                description: " الموسم الثاني ل انمي JoJo's Bizarre Adventure: Stardust Crusaders ",
-                image: "https://app.sanime.net/api/anime/1539/image.jpg"
-            },
-            {
-                title: "Tokyo Ghoul √A",
-                genres: "أكشن",
-                description: "  الموسم الثاني لأنمي Tokyo Ghoul",
-                image: "https://app.sanime.net/api/anime/1533/image.jpg"
-            },
-            {
-                title: "Tokyo Ghoul:re 2nd Season",
-                genres: " رعب,  أكشن",
-                description: " الموسم الثاني من انمي Tokyo Ghoul:re",
-                image: "https://app.sanime.net/api/anime/2936/image.jpg"
-            }
-        ];
 
         let currentSlide = 0;
         let currentFilter = 'all';

@@ -1192,7 +1192,6 @@
                         <div class="dot active"></div>
                         <div class="dot"></div>
                         <div class="dot"></div>
-                        <div class="dot"></div>
                     </div>
                     <div class="slider-nav">
                         <button class="nav-btn" onclick="previousSlide()">السابق</button>
@@ -1331,18 +1330,10 @@
                 </div>
             </div>
         </header>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>مواعيد الأنمي</title>
 
-  <!-- ✅ هنا تحط كود الأيقونة -->
-  <link rel="icon" href="logo.png" type="image/png">
-  <link rel="apple-touch-icon" href="logo.png">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="theme-color" content="#0f3460">
-  <link rel="manifest" href="manifest.json">
+        <main class="main-content">
+            <section class="anime-schedule">
+                <h2 class="section-title">مواعيد الأنمي </h2>
                 <div class="schedule-container">
                     <div class="schedule-day">
                         <h3 class="day-title">الأحد</h3>
@@ -1429,10 +1420,10 @@
         const animeData = [
            {
     id: 1,
-    title: "Wistoria: Wand and Sword",
-    categories: [" أكشن", "مغامرات", "كوميدي" , "الكل"],
+    title: "Tsue to Tsurugi no Wistoria",
+    categories: [" أكشن", "مغامرات", "مدرسي", "خيال"],
    description: "قصة الانمي : سعيًا للوفاء بوعده الذي قطعه لصديقة الطفولة، يلتحق ويل سيرفورت بأكاديمية ريغاردن السحرية بهدف الوصول إلى قمة العالم السحري هناك مشكلة واحدة فقط لا يمكنه استخدام السحر! هل ستكون مهارات سيفه هي المفتاح لفتح إمكاناته الحقيقية؟ ",
-    image: "https://cdn.discordapp.com/attachments/1380004558222131200/1380010948437479424/Screenshot_------_com.png?ex=68561959&is=6854c7d9&hm=2bffc6b20b48ecf28b9581ead8a82cf25119ebf12589ef8f0dddc15c275c4f21&",
+    image: "https://app.sanime.net/api/anime/11537/image.jpg",
     episodes: [
       { number: 1, title: " 1 حلقة", url: "https://server.sanime.net/Video/11537/1.mp4" },
       { number: 2, title: " 2 حلقة", url: "https://server.sanime.net/Video/11537/2.mp4" },    
@@ -1448,7 +1439,7 @@
     ]
   },
   {
-              id: 2,
+    id: 2,
     title: "Attack on Titan",
     categories: [" أكشن", "مغامرات", "كوميدي" , "الكل"],
     description: "  قصة الانمي : منذ مائة عام تقريباً ظهر عدو جديد للبشرية العمالقة وكان عدوه الخارق الذي استطاع جر الجتس البشري إلى حافة الإنقؤاض ومن أجل الهرب منهم تمكن البشر من الإحتماء زراء ثلاثة جدران جدار ماريا جدار روز جدار سينا ولكن بعد مرور مائة سنة يتعرض البشر للهجوم من عملاقين خاصين عملاق ضخم و عملاق مدرّع ويدمران الجدار ويدخلان إلى مدينة حدودية بجانب عدد ضخم من العمالقة إيرين ميكاسا ارمين أبطال هذه القصة كانو يعيشون في هذه المدينة ويتمكنون من الهرب منها ويهرب من تبقى من البشر ويتركون جدار ماريا وكل مايحميه وراؤهم متخلين بذلك عن ثلث أراضيهم وما يقارب خمس تعدادهم السكاني ومن هنا تبدأ معركتنا ضد هؤلاء العمالقة",
@@ -3672,28 +3663,22 @@
         // Featured anime data for slider
         const featuredAnime = [
             {
-                title: "Wistoria: Wand and Sword",
-                genres: "أكشن، مغامرات، كوميدي",
-                description: "سعيًا للوفاء بوعده الذي قطعه لصديقة الطفولة، يلتحق ويل سيرفورت بأكاديمية ريغاردن السحرية بهدف الوصول إلى قمة العالم السحري هناك مشكلة واحدة فقط لا يمكنه استخدام السحر!",
-                image: "https://cdn.discordapp.com/attachments/1380004558222131200/1380010948437479424/Screenshot_------_com.png"
+                title: "JoJo's Bizarre Adventure: Stardust Crusaders 2nd Season",
+                genres: "أكشن",
+                description: " الموسم الثاني ل انمي JoJo's Bizarre Adventure: Stardust Crusaders ",
+                image: "https://app.sanime.net/api/anime/1539/image.jpg"
             },
             {
-                title: "Wistoria: Wand and Sword",
-                genres: "أكشن، مغامرات، كوميدي",
-                description: "سعيًا للوفاء بوعده الذي قطعه لصديقة الطفولة، يلتحق ويل سيرفورت بأكاديمية ريغاردن السحرية بهدف الوصول إلى قمة العالم السحري هناك مشكلة واحدة فقط لا يمكنه استخدام السحر!",
-                image: "https://cdn.discordapp.com/attachments/1380004558222131200/1380010948437479424/Screenshot_------_com.png"
+                title: "Tokyo Ghoul √A",
+                genres: "أكشن",
+                description: "  الموسم الثاني لأنمي Tokyo Ghoul",
+                image: "https://app.sanime.net/api/anime/1533/image.jpg"
             },
             {
-                title: "Demon Slayer",
-                genres: "أكشن، مغامرات، كوميدي، رومانسي، شياطين",
-                description: "تتحدث القصة عن تانجيرو و هو الابنُ الأكبرُ لعائلته التي فقدت مُعيلها. وفي أحد الأيام يُخاصرُ تانجيرو بالذهاب إلى قريةٍ أخرى لبيع الفحم.",
-                image: "https://app.sanime.net/api/anime/3144/image.jpg"
-            },
-            {
-                title: "Demon Slayer",
-                genres: "أكشن، مغامرات، كوميدي، رومانسي، شياطين",
-                description: "تتحدث القصة عن تانجيرو و هو الابنُ الأكبرُ لعائلته التي فقدت مُعيلها. وفي أحد الأيام يُخاصرُ تانجيرو بالذهاب إلى قريةٍ أخرى لبيع الفحم.",
-                image: "https://app.sanime.net/api/anime/3144/image.jpg"
+                title: "Tokyo Ghoul:re 2nd Season",
+                genres: " رعب,  أكشن",
+                description: " الموسم الثاني من انمي Tokyo Ghoul:re",
+                image: "https://app.sanime.net/api/anime/2936/image.jpg"
             }
         ];
 
@@ -3784,7 +3769,7 @@
                         `).join('')}
                     </div>
                     <div class="video-player-container" id="video-player-container" style="display: none;">
-                        <h3 class="section-title">مشغل الحلقة</h3>
+                        <h3 class="section-title"> الحلقة</h3>
                         <video id="episode-player" controls autoplay style="width: 100%; height: auto;"></video>
                     </div>
                 </div>

